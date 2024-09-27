@@ -1,7 +1,7 @@
 # Change baseurl before deploy
 baseurl = "https://ifindv.github.io"
 languageCode = "zh-CN"
-title = "Ifindv"
+title = "ifindv"
 
 # Theme i18n support
 # Available values: en, fr, id, ja, ko, pt-br, zh-cn, zh-tw, es, de, nl, it, th, el, uk, ar
@@ -12,7 +12,7 @@ defaultContentLanguage = "zh-cn"
 hasCJKLanguage = false
 
 # Change it to your Disqus shortname before using
-disqusShortname = "Ifindv"
+disqusShortname = "ifindv"
 
 [pagination]
 pagerSize = 5

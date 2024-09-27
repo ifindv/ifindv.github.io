@@ -10,6 +10,12 @@ weight: 1       # You can add weight to some posts to override the default sorti
 
 # 主题配置
 
+## 站点名称
+
+> 修改config.toml中的`title`与`disqusShortname`为新的站点名称
+
+
 ## 语言
 
 > 修改config.toml中的`languageCode`的值为`zh-CN`，修改`defaultContentLanguage`的值为`zh-cn`
+
