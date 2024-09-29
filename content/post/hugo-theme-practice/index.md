@@ -1,6 +1,6 @@
 ---
 title: Hugo-Theme-Stack主题实践
-date: 2024-09-27 00:00:00+000
+date: 2024-09-27 00:00:00+0000
 categories:
     - Hugo
 tags:

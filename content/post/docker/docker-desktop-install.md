@@ -1,6 +1,6 @@
 ---
 title: docker desktop安装指南
-date: 2024-09-27 17:45:00+000
+date: 2024-09-27 17:45:00+0000
 categories:
     - Docker
 tags:
