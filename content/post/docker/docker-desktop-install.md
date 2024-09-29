@@ -8,9 +8,9 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-# 系统要求
+## 系统要求
 
-## 操作系统
+### 操作系统
 
 ```
 windows 11 64-bit: 家庭版/专业版都要求21H2及以上
@@ -18,7 +18,7 @@ windows 11 64-bit: 家庭版/专业版都要求21H2及以上
 windows 10也可以，不在此讨论
 ```
 
-## 硬件/BIOS
+### 硬件/BIOS
 
 ```
 WSL 2要求硬件支持一下特性：
@@ -29,9 +29,9 @@ WSL 2要求硬件支持一下特性：
 检查办法： cmd下运行命令systeminfo，查看最底部Hyper-V要求部分
 ```
 
-# 安装步骤
+## 安装步骤
 
-## 开启Hyper-V
+### 开启Hyper-V
 ```
 搜索启用或关闭Windows功能，勾选Hyper-V相关选项
 以管理员身份运行powershell，执行命令：
@@ -40,7 +40,7 @@ bcdedit /set hypervisorlaunchtype auto
 设置完成后重启计算机
 ```
 
-## 安装WSL
+### 安装WSL
 ```
 以管理员身份运行powershell，执行命令：
 wsl --install
