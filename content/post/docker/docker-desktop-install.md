@@ -29,11 +29,31 @@ WSL 2要求硬件支持一下特性：
 检查办法： cmd下运行命令systeminfo，查看最底部Hyper-V要求部分
 ```
 
-## WSL安装
+# 安装步骤
+
+## 开启Hyper-V
+```
+搜索启用或关闭Windows功能，勾选Hyper-V相关选项
+以管理员身份运行powershell，执行命令：
+bcdedit /set hypervisorlaunchtype auto
+
+设置完成后重启计算机
+```
+
+## 安装WSL
 ```
 以管理员身份运行powershell，执行命令：
 wsl --install
 
-执行命令安装linux分发版：
-wsl --install -d Ubuntu
+更新wsl:
+wsl --update
+
+执行命令安装linux分发版(可根据自己需求选择)：
+wsl --install -d Debian
+
+查看已经安装的linux分发版：
+wsl --list
+
+如果要卸载已安装的linux分发版，可执行：
+wsl --unregister Debian
 ```
