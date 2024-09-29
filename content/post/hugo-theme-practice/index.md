@@ -1,5 +1,5 @@
 ---
-title: Hugo-Theme-Stack主题实践
+title: hugo theme stack主题实践
 date: 2024-09-27 00:00:00+0000
 categories:
     - Hugo
@@ -8,15 +8,20 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
-# 主题配置
+## 主题配置
 
-## 站点名称
+### 站点名称
 
 ```
 修改config.toml中的`title`与`disqusShortname`为新的站点名称
 ```
 
-## 语言
+### 副标题
+```
+修改params.toml中的subtitle为新的副标题
+```
+
+### 语言
 
 ```
 修改config.toml中的`languageCode`的值为`zh-CN`，修改`defaultContentLanguage`的值为`zh-cn`
