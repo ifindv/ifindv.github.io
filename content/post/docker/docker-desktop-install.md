@@ -57,3 +57,9 @@ wsl --list
 如果要卸载已安装的linux分发版，可执行：
 wsl --unregister Debian
 ```
+
+### 安装docker desktop
+```
+官网下载最新版本安装即可
+链接：https://www.docker.com
+```
