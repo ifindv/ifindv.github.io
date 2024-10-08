@@ -21,7 +21,7 @@ windows 10也可以，不在此讨论
 ### 硬件/BIOS
 
 ```
-WSL 2要求硬件支持一下特性：
+WSL 2要求硬件支持以下特性：
 - 64-bit处理器，支持SLAT（Second Level Address Translation）
 - 至少4GB内存
 - 在BIOS中启用硬件虚拟化特性
