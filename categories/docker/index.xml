@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on ifindv</title><link>https://ifindv.github.io/categories/docker/</link><description>Recent content in Docker on ifindv</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 27 Sep 2024 17:45:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>docker desktop安装指南</title><link>https://ifindv.github.io/p/docker-desktop%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/</link><pubDate>Fri, 27 Sep 2024 17:45:00 +0000</pubDate><guid>https://ifindv.github.io/p/docker-desktop%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/</guid><description>&lt;h2 id="系统要求">系统要求
+&lt;/h2>&lt;h3 id="操作系统">操作系统
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">windows 11 64-bit: 家庭版/专业版都要求21H2及以上
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">启用WSL 2特性
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">windows 10也可以，不在此讨论
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="硬件bios">硬件/BIOS
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">WSL 2要求硬件支持以下特性：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- 64-bit处理器，支持SLAT（Second Level Address Translation）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- 至少4GB内存
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- 在BIOS中启用硬件虚拟化特性
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">检查办法： cmd下运行命令systeminfo，查看最底部Hyper-V要求部分
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="安装步骤">安装步骤
+&lt;/h2>&lt;h3 id="开启hyper-v">开启Hyper-V
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">搜索启用或关闭Windows功能，勾选Hyper-V相关选项
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">以管理员身份运行powershell，执行命令：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bcdedit /set hypervisorlaunchtype auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">设置完成后重启计算机
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="安装wsl">安装WSL
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">以管理员身份运行powershell，执行命令：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">更新wsl:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">执行命令安装linux分发版(可根据自己需求选择)：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --install -d Debian
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">查看已经安装的linux分发版：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">如果要卸载已安装的linux分发版，可执行：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --unregister Debian
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="安装docker-desktop">安装docker desktop
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">官网下载最新版本安装即可
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">链接：https://www.docker.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
