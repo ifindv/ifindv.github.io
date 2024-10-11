@@ -1,10 +1,10 @@
 ---
-title: 我的观影与读书清单
+title: 观影与读书清单
 date: 2024-10-08 14:27:00+0000
 categories:
-    - Favor
+    - Life
 tags:
-    - Favor
+    - Life
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
@@ -13,8 +13,21 @@ weight: 1       # You can add weight to some posts to override the default sorti
 ### 肖申克的救赎
 
 ```
-时间：2024-10-13
-感受：
+TODO
+```
+
+### 迷失东京
+```
+时间： 2024-10-10
+类型： 纪录片
+导演： 食贫道
+总结： 该片以极其细腻的镜头语言，记录了迷失在东京这座繁华大都市中的形形色色的人们。
+育有3子的年轻母亲，每天带娃到筋疲力尽，夜晚还要在风俗店工作养家，每天睡眠不足6小时。
+年近7旬的白领老人，即使工作已使他神情麻木，却依旧不忘为孙女辈的少女偶像应援打call。
+80年代混迹于日本黑帮的华人混混，诈骗银行数十亿日元而入牢14载，却热衷于无偿义工、希望工程。
+为钱投身于AV行业的新人女优，面对镜头，显得如此平静从容。
+他们平凡但不普通，鲜活而真实，有矛盾的一面，却又能与这座城市和解。
+或许，这才是真实的世界吧！
 ```
 
 ## 读书清单
@@ -22,6 +35,5 @@ weight: 1       # You can add weight to some posts to override the default sorti
 ### 约翰·克利斯朵夫
 
 ```
-时间：2024-12-31
-感受：
+TODO
 ```
