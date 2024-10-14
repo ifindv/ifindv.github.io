@@ -1,5 +1,5 @@
 ---
-title: 第一部分：简介
+title: PG教程第一部分：简介
 date: 2024-10-09 13:45:00+0000
 categories:
     - Postgresql
