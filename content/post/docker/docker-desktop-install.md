@@ -1,5 +1,5 @@
 ---
-title: docker desktop安装指南
+title: docker desktop
 date: 2024-09-27 17:45:00+0000
 categories:
     - Docker
