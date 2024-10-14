@@ -1,5 +1,5 @@
 ---
-title: hugo快速建站指南
+title: 个人博客快速建站指南
 date: 2024-09-27 00:00:00+0000
 categories:
     - hugo
@@ -16,7 +16,7 @@ weight: 1       # You can add weight to some posts to override the default sorti
 
 ## 快速开始
 
-### Theme Stack Template
+### 主题模板
 
 ```
 hugo官网提供了大量的主题模板，因为本次是搭建个人博客，在加上简约至上的理念，最终选择了stack这
