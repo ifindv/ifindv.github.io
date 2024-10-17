@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PG on ifindv</title><link>https://ifindv.github.io/categories/pg/</link><description>Recent content in PG on ifindv</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 15 Oct 2024 09:50:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/categories/pg/index.xml" rel="self" type="application/rss+xml"/><item><title>PG教程第二部分：快速开始</title><link>https://ifindv.github.io/p/pg%E6%95%99%E7%A8%8B%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</link><pubDate>Tue, 15 Oct 2024 09:50:00 +0000</pubDate><guid>https://ifindv.github.io/p/pg%E6%95%99%E7%A8%8B%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/</guid><description>&lt;h2 id="安装">安装
+&lt;/h2>&lt;h3 id="软件包推荐">软件包（推荐）
+&lt;/h3>&lt;p>&lt;img src="https://ifindv.github.io/support-os.jpg"
+loading="lazy"
+alt="support os"
+>&lt;/p>
+&lt;p>下载地址：https://www.postgresql.org/download/&lt;/p>
+&lt;h3 id="源码">源码
+&lt;/h3></description></item><item><title>PG教程第一部分：简介</title><link>https://ifindv.github.io/p/pg%E6%95%99%E7%A8%8B%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%E7%AE%80%E4%BB%8B/</link><pubDate>Wed, 09 Oct 2024 13:45:00 +0000</pubDate><guid>https://ifindv.github.io/p/pg%E6%95%99%E7%A8%8B%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%E7%AE%80%E4%BB%8B/</guid><description>&lt;h2 id="简介">简介
+&lt;/h2>&lt;p>PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的
+modern features：&lt;/p>
+&lt;ul>
+&lt;li>complex queries&lt;/li>
+&lt;li>foreign keys&lt;/li>
+&lt;li>triggers&lt;/li>
+&lt;li>updatable views&lt;/li>
+&lt;li>transactional integrity&lt;/li>
+&lt;li>multiversion concurrency control&lt;/li>
+&lt;/ul>
+&lt;p>用户可以扩展PG的功能，通过添加新的：&lt;/p>
+&lt;ul>
+&lt;li>data types&lt;/li>
+&lt;li>functions&lt;/li>
+&lt;li>operators&lt;/li>
+&lt;li>aggregate functions&lt;/li>
+&lt;li>index methods&lt;/li>
+&lt;li>procedural languages&lt;/li>
+&lt;/ul>
+&lt;p>PG可以免费使用、修改和分发，并且可以用于商业用途。&lt;/p>
+&lt;h2 id="简史">简史
+&lt;/h2>&lt;p>PG起源于Berkeley POSTGRES项目，由Defense Advanced Research Projects Agency
+(DARPA)和University of California at Berkeley共同开发。POSTGRES项目于1986年
+开始，旨在开发一个具有高性能、可扩展性和可靠性的数据库系统。该项目于1994年完成，
+并发布了第一个版本。&lt;/p>
+&lt;p>1996年，Andrew Yu和Jolly Chen在POSTGRES的基础上开发了第一个开源版本，称为
+PostgreSQL。PostgreSQL的第一个版本于1996年发布，并迅速获得了广泛的关注和采用。&lt;/p>
+&lt;p>自那时以来，PostgreSQL社区一直致力于开发和维护这个数据库系统。PostgreSQL
+的版本发布周期为每年一次，每个版本都会引入新的功能和改进。此外，PostgreSQL
+还提供了大量的扩展和插件，以支持各种不同的应用场景和需求。&lt;/p>
+&lt;p>PostgreSQL是一个功能强大、可扩展性和可靠性都很高的数据库系统，它已经成为了
+许多企业和组织的首选数据库解决方案。&lt;/p>
+&lt;h2 id="关于">关于
+&lt;/h2>&lt;h3 id="darpa">DARPA
+&lt;/h3>&lt;p>国防高级研究计划局（Defense Advanced Research Projects Agency，简称DARPA），
+负责开发供军方使用的新兴技术。DARPA成立于1958年，是美国国防部下属的一个机构，
+通过资助和推动创新研究，为美国国防和国家安全提供技术支持。包括：&lt;/p>
+&lt;ul>
+&lt;li>人工智能&lt;/li>
+&lt;li>机器人技术&lt;/li>
+&lt;li>生物技术&lt;/li>
+&lt;li>网络安全&lt;/li>
+&lt;li>空间技术&lt;/li>
+&lt;/ul>
+&lt;p>DARPA在许多创新领域都发挥了重要作用，这些创新对军事和民用领域产生了深远的影响。
+比如互联网（最初为ARPANET）、全球定位系统（GPS）。&lt;/p>
+&lt;h3 id="berkeley">Berkeley
+&lt;/h3>&lt;p>加州大学伯克利分校（University of California, Berkeley，简称UC Berkeley），
+是美国最古老、最著名的公立研究型大学之一。UC Berkeley成立于1868年，
+位于美国加利福尼亚州的伯克利市。UC Berkeley以其在科学、工程、艺术和人文
+领域的卓越研究而闻名，拥有许多诺贝尔奖得主和著名学者。&lt;/p>
+&lt;p>UC Berkeley的计算机科学系（Department of Electrical Engineering and Computer
+Science，简称EECS）是世界上最顶尖的计算机科学系之一，被誉为“计算机科学的摇篮”。&lt;/p></description></item></channel></rss>

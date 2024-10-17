@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on ifindv</title><link>https://ifindv.github.io/categories/hugo/</link><description>Recent content in Hugo on ifindv</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 27 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>个人博客快速建站指南</title><link>https://ifindv.github.io/p/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97/</link><pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97/</guid><description>&lt;h2 id="背景介绍">背景介绍
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">近期心血来潮，想要搭建一个属于自己的博客，毕竟是从事计算机工作的专业人员，没有自己的博客岂不是
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">太逊了！调研了一段时间，本着‘0成本，0投入’的原则，最终选择了github pages + hugo的方案。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">尽管还有不尽人意之处，作为一个小白，先试试水吧。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="快速开始">快速开始
+&lt;/h2>&lt;h3 id="主题模板">主题模板
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo官网提供了大量的主题模板，因为本次是搭建个人博客，在加上简约至上的理念，最终选择了stack这
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">个主题。主题地址 https://github.com/CaiJimmy/hugo-theme-stack-starter，按照README操作即可。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
