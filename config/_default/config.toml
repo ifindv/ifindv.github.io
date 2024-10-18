@@ -15,4 +15,4 @@ hasCJKLanguage = false
 # disqusShortname = "ifindv"
 
 [pagination]
-pagerSize = 5
+pagerSize = 8
