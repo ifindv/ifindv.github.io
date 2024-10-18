@@ -71,7 +71,7 @@ and visually appealing content.
 
 代码块显示为灰色背景，使用三个反引号来表示代码块。
 
-### 指定代码语言
+### 指定编程语言
 
 ```html
 <!doctype html>
