@@ -1,5 +1,5 @@
 ---
-title: markdown syntax guide
+title: 语法介绍
 date: 2024-10-17
 categories:
     - HUGO
@@ -8,7 +8,7 @@ weight: 2
 
 ## 标题
 
-支持6级标题，使用`#`来表示：
+支持H1-H6共六级标题，使用`#`来表示：
 
 # H1
 ## H2
@@ -32,8 +32,6 @@ and visually appealing content.
 
 引用的内容会显示为灰色背景，使用`>`来表示引用。
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
-
 ### 在引用中使用markdown语法
 
 与普通段落一样，引用中也可以使用markdown语法：
@@ -48,7 +46,7 @@ The blockquote element represents content that is quoted from another source, op
 > Don't communicate by sharing memory, share memory by communicating.<br>
 > — <cite>Rob Pike[^1]</cite>
 
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+[^1]: Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
 
 ## 表格
 
@@ -106,7 +104,7 @@ rev = "11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13"
 2. Second item
 3. Third item
 
-### 无需列表
+### 无序列表
 
 * List item
 * Another item
@@ -137,4 +135,4 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
 
 ### 高亮显示
-This is very <mark>important</mark> !.
+This is very <mark>important</mark> !
