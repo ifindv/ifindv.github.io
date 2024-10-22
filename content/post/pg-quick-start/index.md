@@ -7,7 +7,7 @@ tags:
     - PG
     - 数据库
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
-imgage: pg.jpg
+image: pg.jpg
 ---
 
 ## 简介
