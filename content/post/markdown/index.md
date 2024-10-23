@@ -6,6 +6,7 @@ categories:
 tags: 
     - markdown
 weight: 1
+image: markdown.jpg
 ---
 
 ## 标题
