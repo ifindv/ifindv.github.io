@@ -40,3 +40,12 @@
   .tagCloud .tagCloud-tags a:hover {
     transform: scale(1.1, 1.1);
   }
+
+  /* -------- achives animation -------- */
+  .article-list--tile article {
+    transition: .6s ease;
+  }
+  
+  .article-list--tile article:hover {
+    transform: scale(1.03, 1.03);
+  }
