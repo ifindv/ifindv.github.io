@@ -1,4 +1,16 @@
-:root {
+  /* --------- container width -------- */
+  .main-container {
+    gap: 60px;
+    
+    @include respond(md) {
+        padding: 0 20px;
+        gap: 50px;
+    }
+  }
+
+
+  /* -------- background color -------- */
+  :root {
     --body-background: #EBEBEB;
     --accent-color: #1B365D;
     --accent-color-darker: #202A44;
