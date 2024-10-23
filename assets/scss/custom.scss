@@ -23,11 +23,11 @@
     transform: scale(1.1, 1.1);
   }
 
-  .article-list--tile article {
+  .widget.archives {
     transition: .6s ease;
   }
   
-  .article-list--tile article:hover {
+  .widget.archives:hover {
     transform: scale(1.03, 1.03);
   }
 
