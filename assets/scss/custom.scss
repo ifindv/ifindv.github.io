@@ -84,3 +84,18 @@
       }
     }
   }
+
+  /* -------- article image height -------- */
+  .article-list article .article-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  
+    @include respond(md) {
+      height: 200px;
+    }
+  
+    @include respond(xl) {
+      height: 305px;
+    }
+  }
