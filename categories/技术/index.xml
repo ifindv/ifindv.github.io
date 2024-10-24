@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>技术 on ifindv</title><link>https://ifindv.github.io/categories/%E6%8A%80%E6%9C%AF/</link><description>Recent content in 技术 on ifindv</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 21 Oct 2024 10:22:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>postgresql快速入门指南</title><link>https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</link><pubDate>Mon, 21 Oct 2024 10:22:00 +0000</pubDate><guid>https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;img src="https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql.jpg" alt="Featured image of post postgresql快速入门指南" />&lt;h2 id="简介">简介
+&lt;/h2>&lt;p>PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:&lt;/p>
+&lt;ul>
+&lt;li>complex queries&lt;/li>
+&lt;li>foreign keys&lt;/li>
+&lt;li>triggers&lt;/li>
+&lt;li>updatable views&lt;/li>
+&lt;li>transactional integrity&lt;/li>
+&lt;li>multiversion concurrency control&lt;/li>
+&lt;/ul>
+&lt;p>用户可以灵活的的扩展PG的功能，支持自定义：&lt;/p>
+&lt;ul>
+&lt;li>data types&lt;/li>
+&lt;li>functions&lt;/li>
+&lt;li>operators&lt;/li>
+&lt;li>aggregate functions&lt;/li>
+&lt;li>index methods&lt;/li>
+&lt;li>procedural languages&lt;/li>
+&lt;/ul>
+&lt;p>PG可以免费使用、修改和分发，并且可以用于商业用途。&lt;/p></description></item><item><title>使用hugo搭建个人专属博客</title><link>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</link><pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/hugo.jpg" alt="Featured image of post 使用hugo搭建个人专属博客" />&lt;h2 id="背景介绍">背景介绍
+&lt;/h2>&lt;p>近期心血来潮，想要搭建一个属于自己的博客，毕竟是从事计算机工作的专业人员，没有自己的博客岂不是
+太逊了！调研了一段时间，本着‘0成本，0投入’的原则，最终选择了github pages托管的方式。至于静态
+网站生成器，最终选择了HUGO，毕竟天下武功，唯&lt;code>快&lt;/code>不破。
+尽管还有不尽人意之处，作为一个小白，先试试水吧。&lt;/p>
+&lt;h2 id="快速开始">快速开始
+&lt;/h2>&lt;h3 id="主题模板">主题模板
+&lt;/h3>&lt;p>HUGO官网提供了大量的主题模板，因为本次是搭建个人博客，在加上简约至上的理念，最终选择了stack这
+个主题。主题地址 &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>https://github.com/CaiJimmy/hugo-theme-stack-starter&lt;/a>，按照README进行设置，
+就可以得到一个毛胚版的博客了，剩下的就是根据自己的需求进行个性化定制了。&lt;/p></description></item></channel></rss>

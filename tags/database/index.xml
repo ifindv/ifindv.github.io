@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on ifindv</title><link>https://ifindv.github.io/tags/database/</link><description>Recent content in Database on ifindv</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 21 Oct 2024 10:22:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>postgresql快速入门指南</title><link>https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</link><pubDate>Mon, 21 Oct 2024 10:22:00 +0000</pubDate><guid>https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;img src="https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql.jpg" alt="Featured image of post postgresql快速入门指南" />&lt;h2 id="简介">简介
+&lt;/h2>&lt;p>PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:&lt;/p>
+&lt;ul>
+&lt;li>complex queries&lt;/li>
+&lt;li>foreign keys&lt;/li>
+&lt;li>triggers&lt;/li>
+&lt;li>updatable views&lt;/li>
+&lt;li>transactional integrity&lt;/li>
+&lt;li>multiversion concurrency control&lt;/li>
+&lt;/ul>
+&lt;p>用户可以灵活的的扩展PG的功能，支持自定义：&lt;/p>
+&lt;ul>
+&lt;li>data types&lt;/li>
+&lt;li>functions&lt;/li>
+&lt;li>operators&lt;/li>
+&lt;li>aggregate functions&lt;/li>
+&lt;li>index methods&lt;/li>
+&lt;li>procedural languages&lt;/li>
+&lt;/ul>
+&lt;p>PG可以免费使用、修改和分发，并且可以用于商业用途。&lt;/p></description></item></channel></rss>
