@@ -7,6 +7,7 @@ tags:
     - markdown
 weight: 1
 image: markdown.jpg
+math: true
 ---
 
 ## 标题
@@ -211,6 +212,8 @@ rev = "11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13"
 ![Image 1](1.jpg) ![Image 2](2.jpg)
 
 ## 数学公式
+
+hugo支持数学公式，在frontmatter中添加`math: true`即可。
 
 ### 内嵌公式
 
