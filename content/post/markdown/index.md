@@ -253,51 +253,21 @@ $$
 
 ## 多媒体
 
+使用`{{<` + tencent|bilibili|youtube|video + "URL" `>}}`来表示视频。
+
 ### 腾讯视频
-
-代码
-
-```
-{{< tencent "g0014r3khdw" >}}
-```
-
-效果
 
 {{< tencent "g0014r3khdw" >}}
 
 ### 哔哩哔哩
 
-代码
-
-```
-{{< bilibili "BV1d4411N7zD" >}}
-```
-
-效果
-
 {{< bilibili "BV1d4411N7zD" >}}
 
 ### Youtube
 
-代码
-
-```
-{{< youtube "0qwALOOvUik" >}}
-```
-
-效果
-
 {{< youtube "0qwALOOvUik" >}}
 
 ### mp4文件
-
-代码
-
-```
-{{< video "https://www.w3schools.com/tags/movie.mp4" >}}
-```
-
-效果
 
 {{< video "https://www.w3schools.com/tags/movie.mp4" >}}
 
