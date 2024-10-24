@@ -99,3 +99,16 @@
       height: 305px;
     }
   }
+
+  /* -------- rotate photo -------- */
+  .home .home-profile .home-avatar img {
+    width: 5rem;
+    -webkit-transition: -webkit-transform 1.0s ease-out;
+    -moz-transition: -moz-transform 1.0s ease-out;
+    transition: transform 1.0s ease-out;
+    &:hover {
+      -webkit-transform: rotateZ(360deg);
+      -moz-transform: rotateZ(360deg);
+      transform: rotateZ(360deg);
+    }
+  }
