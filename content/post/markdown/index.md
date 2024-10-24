@@ -197,6 +197,51 @@ rev = "11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13"
   * Milk
   * Cheese
 
+## 图片
+使用`![]()`来表示图片。
+
+代码
+
+```markdown
+![Image 1](1.jpg) ![Image 2](2.jpg)
+```
+
+效果
+
+![Image 1](1.jpg) ![Image 2](2.jpg)
+
+## 数学公式
+
+### 内嵌公式
+
+代码
+
+```markdown
+This is an inline mathematical expression: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$
+```
+
+效果
+
+This is an inline mathematical expression: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$
+
+### 公式块
+
+代码
+
+```markdown
+$$
+    \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+    f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+$$
+```
+
+效果
+
+$$
+    \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+    f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+$$
+
 ## 其它
 
 ### 缩写
