@@ -253,7 +253,7 @@ $$
 
 ## 多媒体
 
-使用`{{<` + tencent|bilibili|youtube|video + "URL" `>}}`来表示视频。
+使用\{\{\< + tencent|bilibili|youtube|video + "URL" \>\}\}`来表示视频。
 
 ### 腾讯视频
 
