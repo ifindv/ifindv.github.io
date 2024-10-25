@@ -2,7 +2,7 @@
 title: postgresql快速入门指南
 date: 2024-10-21 10:22:00+0000
 categories:
-    - 技术
+    - 知识
 tags:
     - database
 weight: 1 

@@ -2,10 +2,9 @@
 title: 使用hugo搭建个人专属博客
 date: 2024-09-27 00:00:00+0000
 categories:
-    - 技术
+    - 知识
 tags:
     - hugo
-    - blog
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 image: hugo.jpg
 ---
