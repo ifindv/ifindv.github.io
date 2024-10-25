@@ -2,10 +2,11 @@
 title: docker desktop
 date: 2024-09-27 17:45:00+0000
 categories:
-    - Docker
+    - 技术
 tags:
     - Docker
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+image: docker.jpg
 ---
 
 ## 系统要求
