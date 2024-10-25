@@ -5,5 +5,5 @@ menu:
     main:
         weight: 5
         params: 
-            icon: search
+            icon: user
 ---
