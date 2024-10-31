@@ -48,12 +48,12 @@ INSERT INTO MY_TABLE VALUES (3, 'hi there');
 ```
 
 ### Unicode
-使用‘U&’标记，\hhhh或\+hhhhhh表示一个Unicode字符，其中h代表一个十六进制字符。举例data可以表示为：
+使用‘U&’标记，\hhhh或\\+hhhhhh表示一个Unicode字符，其中h代表一个十六进制字符。举例data可以表示为：
 ```unicode
 U&"d\0061t\+000061"
 ```
 
-可以使用UESCAPE定义转义字符替代\,比如：
+可以使用UESCAPE定义转义字符替代\\,比如：
 ```unicode
 U&"d!00061t!+000061" UESCAPE '!'
 ```
