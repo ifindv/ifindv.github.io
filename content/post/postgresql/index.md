@@ -32,14 +32,29 @@ PG可以免费使用、修改和分发，并且可以用于商业用途。
 
 ### 语法结构
 
-每个SQL input由一系列SQL commands组成。
-每个SQL commands由一系列tokens组成，以;结束。
-tokens分为关键字，如SELECT, FROM, WHERE, ORDER BY等，标识符，如表名，列名，变量名等，常量，如数字，字符串等，操作符，如=, <, >, +, -, *等。
-SQL大小写不敏感，但通常关键字大写，标识符小写。
-双引号可以用于标识符，以避免关键字冲突，被双引号包围的标识符大小写敏感。
+一条SQL语句由多个tokens组成，以分号结束。tokens分为以下几种类型：
+1. 关键字：如SELECT, FROM, WHERE, ORDER BY等，用于描述SQL语句的操作。
+2. 标识符：如表名，列名，变量名等，用于引用数据库中的对象。
+3. 常量：如数字，字符串等，用于提供数据。
+4. 操作符：如=, <, >, +, -, *等，用于对数据进行操作。
 
-举例：
+SQL语句对大小写不敏感，但通常关键字使用大写，标识符使用小写。双引号可以用于标识符，以避免关键字冲突，特别注意，被双引号包围的标识符大小写敏感。
+
+SQL语句举例：
+```sql
 SELECT * FROM MY_TABLE;
 UPDATE MY_TABLE SET A = 5;
 INSERT INTO MY_TABLE VALUES (3, 'hi there');
+```
+
+### Unicode
+使用‘U&’标记，\hhhh或\+hhhhhh表示一个Unicode字符，其中h代表一个十六进制字符。举例data可以表示为：
+```unicode
+U&"d\0061t\+000061"
+```
+
+可以使用UESCAPE定义转义字符替代\,比如：
+```unicode
+U&"d!00061t!+000061" UESCAPE '!'
+```
 
