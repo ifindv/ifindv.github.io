@@ -73,7 +73,7 @@ INSERT INTO MY_TABLE VALUES (3, 'hi there');
 | \u, \uu, \uuu, \uuuu | Unicode字符 |
 
 
-使用‘U&’标记标识unicode，\uuuu或\\+uuuuuu表示一个Unicode字符，其中u代表一个十六进制字符。举例data可以表示为：
+使用‘U&’标记标识unicode，格式U&\uuuu或U&\\+uuuuuu，其中u代表一个十六进制字符。举例data可以表示为：
 ```unicode
 U&"d\0061t\+000061"
 ```
@@ -81,4 +81,70 @@ U&"d\0061t\+000061"
 可以使用UESCAPE定义转义字符替代\\,比如：
 ```unicode
 U&"d!00061t!+000061" UESCAPE '!'
+```
+
+使用$标记标识原始字符串，$标记包围的字符串可以包含任何字符，不需要转义，格式：
+```
+$$raw_string$$
+$tag$raw_string$tag$
+```
+
+举例函数定义可以表示为：
+```
+$function$
+BEGIN
+    RETURN ($1 ~ $q$[\t\r\n\v\\]$q$);
+END;
+$function$
+```
+
+### 位串常量
+二进制位串使用B标记，十六进制位串使用X标记，举例：
+```
+B'101001'
+X'1FF'
+```
+
+### 数字常量
+常用的数字常量格式：
+```
+digits
+digits.[digits][e[+-]digits]
+[digits].digits[e[+-]digits]
+digitse[+-]digits
+0xhexdigits
+0ooctdigits
+0bbindigits
+digits_digits
+```
+
+举例：
+```
+43
+2.3
+4.
+.002
+5e4
+1.82e-3
+0x1A
+0o27
+0b101011
+1_000_000
+```
+
+数字常量自动被转换为最合适的类型，比如interger（32位）、bigint（64位）、numeric等。可以使用强制类型转换，语法：
+```
+CAST ('expression' AS type)
+expression::CAST
+```
+
+举例：
+```
+REAL '1.23'
+1.23::REAL
+```
+
+### 操作符
+```
++-*/<>=~!@#%^&|`?
 ```
