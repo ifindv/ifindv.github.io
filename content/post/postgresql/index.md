@@ -47,8 +47,33 @@ UPDATE MY_TABLE SET A = 5;
 INSERT INTO MY_TABLE VALUES (3, 'hi there');
 ```
 
-### Unicode
-使用‘U&’标记，\hhhh或\\+hhhhhh表示一个Unicode字符，其中h代表一个十六进制字符。举例data可以表示为：
+### 字符串常量
+任意字符构成的序列，使用单引号包围，如：
+```
+'This is a string'
+```
+
+单引号可以嵌套使用，如：
+```
+'This is a string with a ''quote'' in it'
+```
+
+两个字符串之间必须使用空格分隔。
+
+字符串常量支持C风格转义字符，如下表所示：
+| 转义字符 | 含义 |
+| --- | --- |
+| \b | 退格符 |
+| \f | 换页符 |
+| \n | 换行符 |
+| \r | 回车符 |
+| \t | 制表符 |
+| \o, \oo, \ooo | 八进制字符 |
+| \xh, \xhh, \xhhh | 十六进制字符 |
+| \u, \uu, \uuu, \uuuu | Unicode字符 |
+
+
+使用‘U&’标记标识unicode，\uuuu或\\+uuuuuu表示一个Unicode字符，其中u代表一个十六进制字符。举例data可以表示为：
 ```unicode
 U&"d\0061t\+000061"
 ```
@@ -57,4 +82,3 @@ U&"d\0061t\+000061"
 ```unicode
 U&"d!00061t!+000061" UESCAPE '!'
 ```
-
