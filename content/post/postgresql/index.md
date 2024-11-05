@@ -149,15 +149,22 @@ REAL '1.23'
 +-*/<>=~!@#%^&|`?
 ```
 
-### 特殊字符
-下表展示SQL中常用的特殊字符及用法：
-| 字符 | 作用 |
-| --- | --- |
-| $ | 用于标识标识符，如$1, $2等 |
-| （） | 用于分组 | 
-| [] | 用于数组索引 |
-| , | 用于分隔元素 |
-| ; | 用于结束语句 |
-| ： | 用于数组切片 |
-| * | 用于通配符匹配 |
-| . | 用于数字常量 |
+### 注释
+```
+-- This is single-line comment
+
+/** This is multi-line comment
+* with nesting: /* nested comment */
+*/
+```
+
+### 表达式
+| 类型 | 表达式 | 描述 |
+| --- | --- | --- |
+| 列 | table_name.column_name | 列名唯一时表名和逗号可以省略 |
+| 参数 | $1, $2, ... | 比如$1代表函数调用中的第一个参数，类比shell脚本 |
+| 数组 | table_name.array_column_name[INDEX] | 支持多维数组，类比C语言中的数组，支持切片，类比python中字符串切片 |
+| 字段 | (composite_column).field | 复合列中选取字段，类比C语言中的结构体，括号不能省略 |
+| 一元运算 | opertator expression | 一元运算符 |
+| 二元运算 | expression operator expression | 二元运算符 |
+| 函数调用 | function_name(expression, ...) | 函数调用， 比如sqrt(2) |
