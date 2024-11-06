@@ -28,9 +28,11 @@ PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL
 
 PG可以免费使用、修改和分发，并且可以用于商业用途。
 
-## SQL语法
+## SQL
 
-### 语法结构
+### 语法
+
+#### SQL语句
 
 一条SQL语句由多个tokens组成，以分号结束。tokens分为以下几种类型：
 1. 关键字：如SELECT, FROM, WHERE, ORDER BY等，用于描述SQL语句的操作。
@@ -47,7 +49,7 @@ UPDATE MY_TABLE SET A = 5;
 INSERT INTO MY_TABLE VALUES (3, 'hi there');
 ```
 
-### 字符串常量
+#### 字符串常量
 任意字符构成的序列，使用单引号包围，如：
 ```
 'This is a string'
@@ -98,14 +100,14 @@ END;
 $function$
 ```
 
-### 位串常量
+#### 位串常量
 二进制位串使用B标记，十六进制位串使用X标记，举例：
 ```
 B'101001'
 X'1FF'
 ```
 
-### 数字常量
+#### 数字常量
 常用的数字常量格式：
 ```
 digits
@@ -144,12 +146,12 @@ REAL '1.23'
 1.23::REAL
 ```
 
-### 操作符
+#### 操作符
 ```
 +-*/<>=~!@#%^&|`?
 ```
 
-### 注释
+#### 注释
 ```
 -- This is single-line comment
 
@@ -158,7 +160,7 @@ REAL '1.23'
 */
 ```
 
-### 表达式
+#### 表达式
 | 类型 | 表达式 | 描述 |
 | --- | --- | --- |
 | 列 | table_name.column_name | 列名唯一时表名和逗号可以省略 |
@@ -168,3 +170,152 @@ REAL '1.23'
 | 一元运算 | opertator expression | 一元运算符 |
 | 二元运算 | expression operator expression | 二元运算符 |
 | 函数调用 | function_name(expression, ...) | 函数调用， 比如sqrt(2) |
+| 排序规则 | expression COLLATE collation_name | 指定排序规则，ORDER BY name COLLATE "en_US"; 表示使用美式英语对name排序 |
+
+#### 函数传参
+postgresql支持位置参数、命名参数、以及混合参数，举例：
+```sql
+SELECT concat_lower_or_upper('Hello', 'World');
+SELECT concat_lower_or_upper(a => 'Hello', b => 'World');
+SELECT concat_lower_or_upper(a := 'Hello', uppercase := true, b :='World');
+SELECT concat_lower_or_upper('Hello', 'World', uppercase => true);
+```
+
+### 数据
+
+#### 表
+SQL中的数据都存储在表中，表由行和列组成，列定义了数据类型，行定义了数据值。列是固定的，行是可变的。
+表的基本操作有创建、插入、更新、删除、查询等。
+```sql
+CREATE TABLE my_first_table (
+    first_column text,
+    second_column integer
+);
+INSERT INTO my_first_table VALUES ('Hello', 1);
+UPDATE my_first_table SET first_column = 'Hi';
+DELETE FROM my_first_table WHERE first_column = 'Hi';
+SELECT * FROM my_first_table;
+DROP TABLE my_first_table;
+```
+
+#### 指定列的默认值
+使用DEFAULT关键字指定列的默认值，如：
+```sql
+CREATE TABLE my_table (
+    first_column text DEFAULT 'Hello',
+    second_column integer DEFAULT 1
+);
+```
+
+#### 生成列
+生成列是只读的，其值由表达式计算得出，如：
+```sql
+CREATE TABLE people (
+    ...,
+    height_cm numeric,
+    height_in numeric GENERATED ALWAYS AS (height_cm / 2.54) STORED
+);
+```
+
+#### check约束
+使用CHECK关键字定义列的约束，如：
+```sql
+CREATE TABLE products (
+    product_no integer,
+    product_name text,
+    product_price numeric CHECK (product_price > 0)
+);
+
+CREATE TABLE products (
+    product_no integer,
+    name text,
+    price numeric CHECK (price > 0),
+    discounted_price numeric CHECK (discounted_price > 0),
+    CHECK (price > discounted_price)
+);
+```
+
+#### 非空约束
+使用NOT NULL关键字定义列的约束，如：
+```sql
+CREATE TABLE products (
+    product_no integer NOT NULL,
+    name text NOT NULL,
+    price numeric
+);
+```
+
+#### 唯一约束
+使用UNIQUE关键字定义列的约束，如：
+```sql
+CREATE TABLE products (
+    product_no integer UNIQUE,
+    name text
+);
+
+CREATE TABLE products (
+    product_no integer,
+    name text,
+    price numeric,
+    UNIQUE (product_no)
+);
+
+CREATE TABLE example (
+    a integer,
+    b integer,
+    c integer,
+    UNIQUE (a, c)
+);
+```
+
+#### 主键
+主键唯一标识表中的每一行，使用PRIMARY KEY关键字定义主键，主键可以是多个列的组合，要求同时满足唯一约束和非空约束，如：
+```sql
+CREATE TABLE products (
+    product_no integer PRIMARY KEY,
+    name text,
+    price numeric
+);
+
+CREATE TABLE example (
+    a integer,
+    b integer,
+    c integer,
+    PRIMARY KEY (a, c)
+);
+```
+
+#### 外键
+外键用于建立表之间的关系，外键引用另一个表的主键，如：
+```sql
+CREATE TABLE orders (
+    order_id integer PRIMARY KEY,
+    product_no integer REFERENCES products (product_no),
+    quantity integer
+);
+
+CREATE TABLE orders (
+    order_id integer PRIMARY KEY,
+    product_no integer REFERENCES products,
+    quantity integer
+);
+
+CREATE TABLE t1 (
+    a integer PRIMARY KEY,
+    b integer,
+    c integer,
+    FOREIGN KEY (b, c) REFERENCES other_table (c1, c2)
+    );
+```
+
+#### 排除约束
+排除约束用于定义列的值不能重复，如：
+```sql
+CREATE TABLE example (
+    a integer,
+    b integer,
+    c integer,
+    EXCLUDE USING gist (point)
+);
+```
+
