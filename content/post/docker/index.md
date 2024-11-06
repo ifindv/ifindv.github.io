@@ -39,6 +39,19 @@ wsl --install -d Debian
 
 ## docker常用命令
 
+### 代理设置
+
+为dockerd设置代理，在daemon.json添加以下内容：
+```
+mkdir -p /etc/systemd/system/docker.service.d
+cat > /etc/systemd/system/docker.service.d/http-proxy.conf << EOF
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:7890/" "HTTPS_PROXY=http://127.0.0.1:7890/" "NO_PROXY=localhost,127.0.0.1,.example.com"
+EOF
+systemctl daemon-reload
+systemctl restart docker
+```
+
 ### 镜像
 | 命令 | 说明 | 示例 |
 | --- | --- | --- |
@@ -89,3 +102,7 @@ wsl --install -d Debian
 | docker volume rm | 删除数据卷 | docker volume rm myvol |
 | docker volume prune | 清理无用的数据卷 | docker volume prune |
 | docker run -v | 挂载数据卷 | docker run -d --name mynginx -p 80:80 -v myvol:/usr/share/nginx/html nginx |
+
+## 链接
+- [Docker 官方文档](https://docs.docker.com/)
+- [Docker Hub](https://hub.docker.com/)
