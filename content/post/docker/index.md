@@ -41,7 +41,7 @@ wsl --install -d Debian
 
 ### 代理设置
 
-为dockerd设置代理，在daemon.json添加以下内容：
+为dockerd设置代理，执行：
 ```
 mkdir -p /etc/systemd/system/docker.service.d
 cat > /etc/systemd/system/docker.service.d/http-proxy.conf << EOF
