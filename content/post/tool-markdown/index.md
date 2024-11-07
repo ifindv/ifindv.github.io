@@ -2,7 +2,7 @@
 title: markdown常用语法总结
 date: 2024-10-17
 categories:
-    - 知识
+    - 工具
 tags: 
     - markdown
 weight: 1

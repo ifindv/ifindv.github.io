@@ -2,9 +2,9 @@
 title: Docker不完全指南
 date: 2024-09-27 17:45:00+0000
 categories:
-    - 知识
+    - 虚拟化
 tags:
-    - Docker
+    - docker
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 image: docker.jpg
 ---
