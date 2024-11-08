@@ -11,12 +11,13 @@ image: docker.jpg
 
 ## docker Desktop安装
 
-### 硬件/系统要求
+### 硬件/系统/网络要求
 
 - 64-bit处理器，支持SLAT（Second Level Address Translation）
 - 至少4GB内存
 - BIOS启用硬件虚拟化特性
 - windows 11 64-bit: 家庭版/专业版都要求21H2及以上（win10也可以，不在此讨论）
+- 需要魔法来访问docker hub（或者替换国内registry）
 
 ### 系统设置
 
@@ -35,24 +36,13 @@ wsl --install -d Debian
 ```
 
 ### 安装docker desktop
+
 官网（https://www.docker.com）下载最新版本安装即可
 
 ## docker常用命令
 
-### 代理设置
-
-为dockerd设置代理，执行：
-```
-mkdir -p /etc/systemd/system/docker.service.d
-cat > /etc/systemd/system/docker.service.d/http-proxy.conf << EOF
-[Service]
-Environment="HTTP_PROXY=http://127.0.0.1:7890/" "HTTPS_PROXY=http://127.0.0.1:7890/" "NO_PROXY=localhost,127.0.0.1,.example.com"
-EOF
-systemctl daemon-reload
-systemctl restart docker
-```
-
 ### 镜像
+
 | 命令 | 说明 | 示例 |
 | --- | --- | --- |
 | docker images | 查看本地镜像 | docker images |
@@ -64,6 +54,7 @@ systemctl restart docker
 | docker build | 构建镜像 | docker build -t nginx:v1 . |
 
 ### 容器
+
 | 命令 | 说明 | 示例 |
 | --- | --- | --- |
 | docker ps | 查看运行中的容器 | docker ps |
@@ -84,6 +75,7 @@ systemctl restart docker
 | docker import | 导入容器 | docker import mynginx.tar mynginx:v1 |
 
 ### 网络
+
 | 命令 | 说明 | 示例 |
 | --- | --- | --- |
 | docker network ls | 查看网络 | docker network ls |
@@ -94,6 +86,7 @@ systemctl restart docker
 | docker network disconnect | 断开容器与网络的连接 | docker network disconnect mynet mynginx |
 
 ### 数据卷
+
 | 命令 | 说明 | 示例 |
 | --- | --- | --- |
 | docker volume ls | 查看数据卷 | docker volume ls |
@@ -103,6 +96,45 @@ systemctl restart docker
 | docker volume prune | 清理无用的数据卷 | docker volume prune |
 | docker run -v | 挂载数据卷 | docker run -d --name mynginx -p 80:80 -v myvol:/usr/share/nginx/html nginx |
 
+## 实践
+
+### 搭建freeradius服务器
+
+拉取freeradius镜像并运行容器：
+```
+docker pull freeradius/freeradius-server
+docker run -d --name freeradius-server -p 1812-1813:1812-1813/udp freeradius/freeradius-server
+```
+
+该镜像基于ubuntu，配置阿里云镜像源，安装必要的软件：
+```
+sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+apt update
+apt-get install -y iproute2
+apt-get install -y vim
+apt-get install -y tcpdump
+```
+
+freeradius的配置在/etc/freeradius目录下，先编辑clients.conf文件，修改localhost配置：
+```
+client localhost {
+    ipaddr = 172.17.0.1
+    secret = beta1234
+    shortname = beta
+}
+```
+
+然后编辑users文件，添加以下内容：
+```
+beta Cleartext-Password := "beta1234"
+     Reply-Message := "Welcome to FreeRadius"
+```
+
+退出并重启容器，使配置生效。
+
+freeradius调试日志在/var/log/freeradius目录下，可以tail -f /var/log/freeradius/radius.log实时查看。
+
 ## 链接
+
 - [Docker 官方文档](https://docs.docker.com/)
 - [Docker Hub](https://hub.docker.com/)
