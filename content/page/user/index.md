@@ -3,7 +3,7 @@ title: "关于"
 slug: "user"
 menu:
     main:
-        weight: 5
+        weight: 6
         params: 
             icon: user
 ---
