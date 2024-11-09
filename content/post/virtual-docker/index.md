@@ -106,7 +106,7 @@ docker pull freeradius/freeradius-server
 docker run -d --name freeradius-server -p 1812-1813:1812-1813/udp freeradius/freeradius-server
 ```
 
-该镜像基于ubuntu，配置阿里云镜像源，安装必要的软件：
+为apt配置阿里云镜像源，并安装软件：
 ```
 sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 apt update
