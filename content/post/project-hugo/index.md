@@ -14,5 +14,5 @@ image: hugo.jpg
 | 分类 | 选型 | 说明 |
 | --- | --- | --- |
 | 博客框架 | hugo | 基于GO语言，构建速度快，部署简单 |
-| 主题 | stack | 简洁，聚焦内容， ![主题地址](https://github.com/CaiJimmy/hugo-theme-stack-starter) |
+| 主题 | stack | 简洁，聚焦内容， [主题地址](https://github.com/CaiJimmy/hugo-theme-stack-starter) |
 | 托管服务 | github pages | 0成本 |
