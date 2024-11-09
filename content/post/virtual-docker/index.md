@@ -115,7 +115,7 @@ apt-get install -y vim
 apt-get install -y tcpdump
 ```
 
-freeradius的配置在/etc/freeradius目录下，先编辑clients.conf文件，修改localhost配置：
+freeradius的配置在/etc/freeradius目录下，编辑clients.conf文件，配置客户端：
 ```
 client localhost {
     ipaddr = 172.17.0.1
@@ -124,7 +124,7 @@ client localhost {
 }
 ```
 
-然后编辑users文件，添加以下内容：
+再编辑users文件，配置用户：
 ```
 beta Cleartext-Password := "beta1234"
      Reply-Message := "Welcome to FreeRadius"
