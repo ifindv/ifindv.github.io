@@ -1,12 +1,12 @@
 ---
-title: 网络安全技术之用户认证
+title: 用户认证技术介绍
 date: 2024-11-06 16:00:00+0000
 categories:
     - 网络
 tags:
-    - 用户认证
+    - network
 weight: 1 
-image: 
+image: network.png
 ---
 
 ## AAA
