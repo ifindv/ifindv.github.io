@@ -34,6 +34,21 @@
         ]
     }
     -->
+    {{ $data := getJSON "content/page/favor/favor.json" }}
+    {{ range $key, $value := $data }}
+        <div class=$key>
+            {{ range $index, $item := $value }}
+                <div class="poster">
+                    <a href="{{ $item.link }}">
+                        <img src="content/page/favor/{{ $item.image }}" alt="{{ $item.title }}">
+                        <div class="caption">{{ $item.caption }}</div>
+                        <div class="score">{{ $item.score }}</div>
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
 </div>
+
 {{ end }}
 
