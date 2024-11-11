@@ -1,6 +1,6 @@
 {{ define "main" }}
+
 <div class="category">
-    <!-- 分类 -->
     <button class="filter" data-category="movies">电影</button>
     <button class="filter" data-category="books">书籍</button>
     <button class="filter" data-category="music">音乐</button>
@@ -8,46 +8,8 @@
     <button class="filter" data-category="photos">相册</button>
     <button class="filter" data-category="others">其他</button>
 </div>
+
 <div class="content">
-    <!--
-    每行限制5个海报，海报存放在content/page/favor/目录下
-    海报详情信息记录在content/page/favor/favor.json文件中
-    content/page/favor/favor.json文件格式如下：
-    {
-        "movies": [
-            {"title": "教父", "image": "jiaofu.jpg", "caption": "", "score": "5/5", "link": "xxx"}
-        ],
-        "books": [
-            {"title": "追风筝的人", "image": "zfzdr.jpg", "caption": "", "score": "4/5", "link": "xxx"}
-        ],
-        "music": [
-            {"title": "夜的第七章", "image": "yddqz.jpg", "caption": "", "score": "5/5", "link": "xxx"}
-        ],
-        "games": [
-            {"title": "塞尔达传说：旷野之息", "image": "sedcskyzx.jpg", "caption": "", "score": "5/5", "link": "xxx"}
-        ],
-        "photos": [
-            {"title": "我的小窝", "image": "wdxw.jpg", "caption": "", "score": "5/5", "link": "xxx"}
-        ],
-        "others": [
-            {"title": "vscode", "image": "vscode.jpg", "caption": "", "score": "5/5", "link": "xxx"}
-        ]
-    }
-    -->
-    {{ $data := getJSON "content/page/favor/favor.json" }}
-    {{ range $key, $value := $data }}
-        <div class=$key>
-            {{ range $index, $item := $value }}
-                <div class="poster">
-                    <a href="{{ $item.link }}">
-                        <img src="content/page/favor/{{ $item.image }}" alt="{{ $item.title }}">
-                        <div class="caption">{{ $item.caption }}</div>
-                        <div class="score">{{ $item.score }}</div>
-                    </a>
-                </div>
-            {{ end }}
-        </div>
-    {{ end }}
 </div>
 
 {{ end }}
