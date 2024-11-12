@@ -40,7 +40,7 @@ Match User test
 systemctl restart sshd
 ```
 
-5. chroot创建了一个隔离的文件系统，因此需要安装一些基本的软件包，可以选择从现有系统复制，以bash为例：
+5. chroot创建了一个隔离的文件系统，因此需要安装一些基础软件，可以选择从现有系统复制：
 ```bash
 mkdir -p /home/test/{bin,lib,lib32,lib64,usr,sbin,usr/local}
 ln -s ../bin /home/test/usr/bin
@@ -53,15 +53,51 @@ ln -s ../lib32 /home/test/usr/lib32
 ln -s ../lib32 /home/test/usr/local/lib32
 ln -s ../lib64 /home/test/usr/lib64
 ln -s ../lib64 /home/test/usr/local/lib64
-cp /bin/bash /home/test/bin/
 cp /usr/local/lib/libreadline.so.6 /home/test/usr/local/lib/
 cp /usr/local/lib/libhistory.so.6 /home/test/usr/local/lib/
 cp /usr/local/lib/libncurses.so.5 /home/test/usr/local/lib/
 cp /usr/local/lib/libdl.so.2 /home/test/usr/local/lib/
 cp /usr/local/lib/libc.so.6 /home/test/usr/local/lib/
+cp /usr/local/lib/libm.so.6 /home/test/usr/local/lib/
+cp /usr/local/lib/libnsl.so.1 /home/test/usr/local/lib/
 cp /lib/ld-linux-* /home/test/lib/
+cp /bin/bash /home/test/bin/
 cp /bin/ls /home/test/bin/
+cp /bin/cat /home/test/bin/
+cp /bin/cp /home/test/bin/
+cp /bin/mkdir /home/test/bin/
+cp /bin/rm /home/test/bin/
+cp /bin/mv /home/test/bin/
+cp /bin/touch /home/test/bin/
+cp /bin/chmod /home/test/bin/
+cp /bin/vi /home/test/bin/
+cp /bin/rz /home/test/bin/
+cp /bin/sz /home/test/bin/
 ```
 
-6. 使用test用户登录，可以看到只能访问到/home/test目录，并且无法访问其他目录
+6. 挂载必要的文件系统：
+```
+mkdir -p /home/test/{proc,sys,dev,run,var}
+mount -t proc /proc /home/test/proc
+mount -t sysfs /sys /home/test/sys
+mount --rbind /dev /home/test/dev
+mount --rbind /run /home/test/run
+ln -s ../run /home/test/var/run
+```
+
+7. 为test用户创建home目录，并设置权限
+```bash
+mkdir /home/test/home
+chown test:test /home/test/home
+chmod 755 /home/test/home
+```
+
+8. 使用test用户登录，可以看到只能访问到/home/test目录，并且无法访问其他目录
 ![bash](bash.png)
+
+## 在chroot环境中运行docker命令
+在上个部分完成设置后，只需复制docker命令到test用户目录，并修改相关文件的权限即可
+```
+cp /bin/docker /home/test/bin/
+chmod 766 /var/run/docker* -R
+```
