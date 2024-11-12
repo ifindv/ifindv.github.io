@@ -73,6 +73,9 @@ cp /bin/chmod /home/test/bin/
 cp /bin/vi /home/test/bin/
 cp /bin/rz /home/test/bin/
 cp /bin/sz /home/test/bin/
+cp /bin/clear /home/test/bin/
+mkdir -p /home/test/usr/share/terminfo/x
+cp /usr/share/terminfo/x/xterm /home/test/usr/share/terminfo/x/
 ```
 
 6. 挂载必要的文件系统：
