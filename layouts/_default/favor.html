@@ -10,6 +10,25 @@
 </div>
 
 <div class="content">
+    {{ $data := "" }}
+    {{ $path := "favor.json" }}
+    {{ with .Resources.Get $path }}
+        {{ $opt := dict "delimiter" "," }}
+        {{ $data = . | transform.Unmarshal $opt }}
+        {{ range $key, $value := $data }}
+            <div class= "{{ $key }}">
+            {{ range $index, $item := $value }}
+                <div class="item" item_index="{{ $index }}">
+                    <a href="{{ $item.link }}" target="_blank">
+                        <img src="{{ $item.image }}" alt="{{ $item.title }}">
+                        <div class="caption">{{ $item.caption }}</div>
+                        <div class="score">{{ $item.score }}</div>
+                    </a>
+                </div>
+            {{ end }}
+            </div>
+        {{ end }}
+    {{ end }}
 </div>
 
 {{ end }}
