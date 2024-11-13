@@ -6,7 +6,7 @@ categories:
 tags:
     - suricate
 weight: 2
-image: hugo.jpg
+image: suricata.png
 ---
 
 ## 简介
@@ -15,5 +15,5 @@ image: hugo.jpg
 
 > Suricata is a high performance, open source network analysis and threat detection software used by most private and public organizations, and embedded by major vendors to protect their assets.
 
-![suricata](suricata.png)
+![suricata](suricata2.png)
 
