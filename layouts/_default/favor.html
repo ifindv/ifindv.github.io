@@ -31,5 +31,37 @@
     {{ end }}
 </div>
 
+<!-- 隐藏其它分类内容 -->
+<script>
+    document.querySelectorAll(".content > div").forEach(function (item) {
+        if (item.classList.contains("movies")) {
+            return;
+        }
+        item.style.display = "none";
+    });
+</script>
+
+<!-- 默认当前页面为电影分类 -->
+<script>
+    document.querySelector(".filter[data-category='movies']").classList.add("active");
+    document.querySelector(".content .movies").style.display = "block";
+</script>
+
+<!-- 分类按钮点击事件 -->
+<script>
+    document.querySelectorAll(".filter").forEach(function (item) {
+        item.addEventListener("click", function () {
+            document.querySelectorAll(".filter").forEach(function (item) {
+                item.classList.remove("active");
+            });
+            this.classList.add("active");
+            document.querySelectorAll(".content > div").forEach(function (item) {
+                item.style.display = "none";
+            });
+            document.querySelector(".content ." + this.dataset.category).style.display = "block";
+        });
+    });
+</script>
+
 {{ end }}
 
