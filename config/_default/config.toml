@@ -15,4 +15,4 @@ hasCJKLanguage = false
 # disqusShortname = "ifindv个人博客"
 
 [pagination]
-pagerSize = 8
+pagerSize = 5
