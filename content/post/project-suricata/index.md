@@ -1,5 +1,5 @@
 ---
-title: suricata基础
+title: 入侵检测引擎suricata
 date: 2024-11-12 00:00:00+0000
 categories:
     - 项目
@@ -50,9 +50,11 @@ sudo suricata -c /etc/suricata/suricata.yaml -i eth0
 
 ### 测试
 
-事件日志/var/log/suricata/eve.json(使用event_type标识事件类型，常见的像统计事件stats、告警事件alert、流事件flow等，记录非常详细)，告警日志/var/log/suricata/fast.log，可以使用curl www.baidu.com触发告警，日志示例如下：
+事件日志/var/log/suricata/eve.json(使用event_type标识事件类型，常见的像统计stats、告警alert、流flow等，记录非常详细)，告警日志/var/log/suricata/fast.log，可以使用curl进行测试(比如curl www.baidu.com)，日志示例如下：
 
 ![eve.json](eve-log.png) ![fast.log](fast-log.png)
+
+也可以通过报文回放进行测试，使用-r FILE.pcap指定要回放的pcap文件。
 
 ## 规则
 
@@ -82,4 +84,93 @@ alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"HTTP GET Request Containing 
 | metadata | 元数据 | metadata:created_at,2024_01_01,metadata:created_by,xxx，用于附加一些功能无关的信息 |
 | target | 目标 | target:[src_ip|dest_ip]，说明告警记录中哪个IP是攻击目标 |
 | requires | 依赖 | requires: feature geoip, version >= 7.0.0, 用于指定规则依赖的模块以及版本，不符合依赖条件的规则会被忽略 |
+
+## 性能
+
+### 运行模式
+
+suricata采用(多)线程模型，每个线程可以包含多个功能模块（比如decode、detect、output），多个线程之间通过queue来传递报文。suricata支持的运行模式有：
+
+- workers: 多个线程，每个线程都是一个完整的流水线，默认模式。
+- single: workers的特例，只有一个线程，多用于开发调试。
+- autofp: 多个线程，线程分为Capture和Processing两种，通过queue传递报文。
+
+![workers](workers.png) ![autofp](autofp.png)
+
+### 负载均衡
+
+可以在抓包模块实现负载均衡算法（通过软件hash计算将报文分发到不同的worker），或者通过网卡硬件的RSS（Receive Side Scaling）功能，将报文分发到不同的队列（worker）。
+硬件功能卸载功能必须关闭，防止报文某些特征被破坏影响检测。典型的像LRO/GRO会导致小包合并成大的super packet，从而影响dsize关键字的检测以及TCP状态跟踪。
+若使用AF_PACKET或PF_RING抓包，checksum卸载功能可以保持开启。
+
+### 性能调优
+
+- max-pending-packets: 引擎可以同时处理的报文数，数值越高，线程越繁忙，内存消耗越大。经验值10000~65000，所需内存计算公式number_of.threads X max-pending-packets X (default-packet-size + ~750 bytes)
+- mpm-algo: 多模式匹配算法，支持ac,hs,ac-bc,ac-ks, hs性能最高但对平台有要求，ac-ks次之, ac相对较低。
+- detect.profile: 规则分组数，数值越高检测性能越高，内存消耗小幅增加，支持low, medium, high, custom, 默认为high。
+- detect.sgh-mpm-context: 多模式匹配上下文大小，根据选择的mpm-algo自动调整，一般无需修改。
+- af-packet: IDS/NSM推荐使用v3，IPS推荐使用v2。
+- ring-size: 队列大小，内存消耗计算公式af-packet.threads X af-packet.ring-size X (default-packet-size + ~750 bytes)。
+- stream-bypass: 设定flow的ressembly depth，比如1mb，超过的部分跳过检测（针对某些特殊的流）。
+
+
+### NIC/CPU配置
+
+不同的厂商和型号支持的特性不同，具体参考官方文档第11.5章节。
+
+### 统计
+
+统计信息以固定的周期输出，默认间隔8秒，可以用于检查suricata的运行状况，suricata退出时会输出丢包统计信息。
+![packet-loss](packet-loss.png)
+
+网卡的统计信息可以使用ethtool命令查看，比如：
+```
+# ethtool -S em2
+NIC statistics:
+     rx_packets: 35430208463
+     tx_packets: 216072
+     rx_bytes: 32454370137414
+     tx_bytes: 53624450
+     rx_broadcast: 17424355
+     tx_broadcast: 133508
+     rx_multicast: 5332175
+     tx_multicast: 82564
+     rx_errors: 47
+     tx_errors: 0
+     tx_dropped: 0
+     ...
+```
+
+另外可以通过stats.log查看kernel的丢包信息。
+
+### 过滤
+
+借助于BPF，suricata可以过滤某些特定的流量，只对感兴趣的流进行检测。可以通过命令行直接运行，或者通过配置文件指定过滤规则。举例如下：
+
+```
+suricata -i eth0 -v not host 1.2.3.4
+suricata -i eno1 -c suricata.yaml tcp or udp
+suricata -i ens5f0 -F capture-filter.bpf
+```
+
+### 抑制
+
+supress规则用于抑制某些特定的告警，比如某个特定的host不产生告警。举例如下：
+
+```
+suppress gen_id 0, sig_id 0, track by_src, ip 1.2.3.4
+```
+
+### 加密流绕过
+
+对于像TLS这种加密流量，suricata可以配置在握手结束后，跳过后续加密流的检测，通过app-layer.protocols.tls.encryption-handling进行设置。
+
+### Tcmalloc
+
+google公司研发的性能优化内存分配器，可以小幅提升性能，同时节约一部分内存。使用方法如下：
+
+```
+LD_PRELOAD="/usr/lib64/libtcmalloc_minimal.so.4" suricata -c suricata.yaml -i eth0
+```
+
 
