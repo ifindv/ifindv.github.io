@@ -28,12 +28,12 @@ sudo apt install suricata
 
 ### 配置
 
-基础配置只需关注HOME_NET与interfaces两个参数即可，其中HOME_NET为本地网络地址，interfaces为监听的网络接口。配置文件路径为/etc/suricata/suricata.yaml，
+基础配置只需关注HOME_NET与interface两个参数即可，其中HOME_NET为本地网络地址，interface为监听的网络接口。配置文件路径为/etc/suricata/suricata.yaml，
 示例如下：
 
 ![HOME_NET](HOME_NET.png) ![interface](af-interface.png)
 
-告警规则（suricata称为signatures）保存在/etc/suricata/rules/，可以通过suricata-update命令更新规则。当然，也可以手动新建规则文件（比如测试时）：
+规则（suricata中称为signatures）保存在/etc/suricata/rules/目录下，可以通过suricata-update命令更新。当然，也可以手动新建规则文件（比如用于测试）：
 
 ```bash
 sudo touch /etc/suricata/rules/suricata.rules
@@ -50,6 +50,6 @@ sudo suricata -c /etc/suricata/suricata.yaml -i eth0
 
 ### 测试
 
-事件日志/var/log/suricata/eve.json，告警日志/var/log/suricata/fast.log，可以使用curl www.baidu.com触发告警，日志示例如下：
+事件日志/var/log/suricata/eve.json(使用event_type标识事件类型，常见的像统计事件stats、告警事件alert、流事件flow等，记录非常详细)，告警日志/var/log/suricata/fast.log，可以使用curl www.baidu.com触发告警，日志示例如下：
 
 ![eve.json](eve-log.png) ![fast.log](fast-log.png)
