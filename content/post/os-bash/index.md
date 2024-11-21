@@ -1,12 +1,12 @@
 ---
-title: 超实用的shell技巧
+title: 超级实用的bash技巧
 date: 2024-11-13 18:47:00+0000
 categories:
     - 操作系统
 tags:
     - linux
 weight: 2 
-image: shell.png
+image: bash.jpg
 ---
 
 ## 使用screen后台运行gdb
