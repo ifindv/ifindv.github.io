@@ -178,7 +178,7 @@ LD_PRELOAD="/usr/lib64/libtcmalloc_minimal.so.4" suricata -c suricata.yaml -i et
 
 ### 源码编译 & 安装
 
-从github下载源码，[suricata-suricata-7.0.7.zip](https://codeload.github.com/OISF/suricata/zip/refs/tags/suricata-7.0.7)与[libhtp-0.5.49.zip](https://codeload.github.com/OISF/libhtp/zip/refs/tags/0.5.49)。放在同级目录下，然后执行如下命令：
+从github下载源码，[suricata-suricata-7.0.7.zip](https://codeload.github.com/OISF/suricata/zip/refs/tags/suricata-7.0.7)与[libhtp-0.5.49.zip](https://codeload.github.com/OISF/libhtp/zip/refs/tags/0.5.49)。放在同级目录下，执行命令（以Debian为例）：
 
 ```
 sudo apt -y install autoconf automake build-essential cargo \
@@ -191,12 +191,14 @@ unzip suricata-suricata-7.0.7.zip
 cd suricata-suricata-7.0.7
 mv ../libhtp-0.5.49 libhtp
 ./libhtp/autogen.sh
-./libhtp/configure
+./libhtp/configure --prefix=/usr
 ./autogen.sh
 ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-lua --enable-geoip --enable-dpdk
 make
 make install
 ```
+
+安装完成执行suricata -V可查看版本信息。
 
 ### 项目集成
 
