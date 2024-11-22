@@ -6,7 +6,7 @@ categories:
 tags:
     - network
 weight: 1 
-image: network.png
+image: 
 ---
 
 ## cargo
@@ -14,7 +14,8 @@ image: network.png
 ### 中科大（2024-11-12）
 
 ```shell
-cat ~/.cargo/config <<EOF
+touch ~/.cargo/config
+cat <<EOF | tee ~/.cargo/config
 [source.crates-io]
 replace-with = 'ustc'
 
