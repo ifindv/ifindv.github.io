@@ -25,6 +25,14 @@
     --card-text-color-secondary: #53565A;
     --card-text-color-tertiary: #888B8D;
   }
+
+  /* -------- background image -------- */
+  body {
+    background-image: url(/assets/img/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
   
   /* -------- widget animation -------- */
   .search-form.widget {
