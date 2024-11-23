@@ -17,4 +17,5 @@ menu:
 
 comments: false
 nomain: true
+noheader: true
 ---
