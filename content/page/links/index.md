@@ -16,4 +16,5 @@ menu:
             icon: link
 
 comments: false
+nomain: true
 ---
