@@ -6,6 +6,7 @@ menu:
         weight: 6
         params: 
             icon: user
+noheader: true
 ---
 
 # 人生就是荒野啊！
