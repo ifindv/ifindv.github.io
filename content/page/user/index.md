@@ -9,8 +9,6 @@ menu:
 noheader: true
 ---
 
-# 人生就是荒野啊！
-
 ![](zelda.jpg)
 
 ## 关于我
