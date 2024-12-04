@@ -139,6 +139,15 @@
     transform: scale(1.02, 1.02);
   }
 
+  /* -------- article hovor animation in link page -------- */
+  .article-list--compact.links article a {
+    transition: transform 0.6s ease;
+  }
+
+  .article-list--compact.links article a:hover {
+    transform: scale(1.02, 1.02);
+  }
+
   /* -------- menu hovor animation -------- */
   .menu li a {
     transition: transform 0.6s ease;
