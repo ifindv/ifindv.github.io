@@ -129,3 +129,12 @@
   .sidebar header .site-avatar .site-logo:hover {
     transform: rotate(360deg); // 旋转角度为360度
   }
+
+  /* -------- article header scroll animation -------- */
+  .article-list article .article-header {
+    transition: transform 0.6s ease;
+  }
+
+  .article-list article .article-header:hover {
+    transform: scale(1.02, 1.02);
+  }
