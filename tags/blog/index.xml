@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on ifindv个人博客</title><link>https://ifindv.github.io/tags/blog/</link><description>Recent content in Blog on ifindv个人博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 27 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>使用hugo搭建个人专属博客</title><link>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</link><pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/hugo.jpg" alt="Featured image of post 使用hugo搭建个人专属博客" />&lt;h2 id="技术选型">技术选型
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>分类&lt;/th>
+&lt;th>选型&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>博客框架&lt;/td>
+&lt;td>hugo&lt;/td>
+&lt;td>基于GO语言，构建速度快，部署简单&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>主题&lt;/td>
+&lt;td>stack&lt;/td>
+&lt;td>简洁，聚焦内容， &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>主题地址&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>托管服务&lt;/td>
+&lt;td>github pages&lt;/td>
+&lt;td>0成本&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="调试方法">调试方法
+&lt;/h2>&lt;p>github提供了codespace服务，可以在线调试hugo项目。codespace允许你在浏览器中修改项目代码，并实时预览效果。
+&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace.png"
+width="1263"
+height="814"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace_hu14353944033214623303.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace_hu12088226407884602224.png 1024w"
+loading="lazy"
+alt="codespace"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+> &lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2.png"
+width="1914"
+height="943"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2_hu14893676175844340819.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2_hu8205208297648068093.png 1024w"
+loading="lazy"
+alt="debug-in-codespace"
+class="gallery-image"
+data-flex-grow="202"
+data-flex-basis="487px"
+>&lt;/p>
+&lt;h2 id="访客统计">访客统计
+&lt;/h2>&lt;p>umami提供了免费服务，使用方法参考&lt;a class="link" href="https://umami.is/docs/enable-share-url" target="_blank" rel="noopener"
+>umami帮助文档&lt;/a>&lt;/p></description></item></channel></rss>
