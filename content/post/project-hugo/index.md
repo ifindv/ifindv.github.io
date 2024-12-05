@@ -22,3 +22,6 @@ image: hugo.jpg
 github提供了codespace服务，可以在线调试hugo项目。codespace允许你在浏览器中修改项目代码，并实时预览效果。
 ![codespace](codespace.png) ![debug-in-codespace](codespace2.png)
 
+## 访客统计
+
+umami提供了免费服务，使用方法参考[umami帮助文档](https://umami.is/docs/enable-share-url)
