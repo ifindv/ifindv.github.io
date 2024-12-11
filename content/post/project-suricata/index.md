@@ -16,6 +16,7 @@ image: suricata.png
 - [官网](https://suricata.io/)
 - [官方文档](https://docs.suricata.io/en/latest/index.html#)
 - [源代码](https://github.com/OISF/suricata)
+- [官方社区](https://forum.suricata.io/)
 
 ## 快速开始
 
