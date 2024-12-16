@@ -201,7 +201,8 @@ make install
 
 安装完成执行suricata -V可查看版本信息。
 
-### 项目集成
+### suricata library
 
-### 功能扩展
-
+suricata当前还不支持以动态库的形式直接集成到APP中（APP已经具备收发包功能，只利用suricata做检测）。官方回复正在推进中，预计8.0之后的某个版本会支持。
+花了一周多的时间尝试在7.0.2版本基础上封装动态库，测试基础功能可用（因精力有限尚未做详尽的测试），项目地址[suricata-lib](https://github.com/ifindv/suricata-lib)
+可供参考。
