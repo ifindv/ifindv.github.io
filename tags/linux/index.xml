@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on ifindv个人博客</title><link>https://ifindv.github.io/tags/linux/</link><description>Recent content in Linux on ifindv个人博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 13 Nov 2024 18:47:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>使用chroot监狱限制用户权限</title><link>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/</link><pubDate>Sun, 10 Nov 2024 15:40:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/</guid><description>&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/os.png" alt="Featured image of post 使用chroot监狱限制用户权限" />&lt;h2 id="什么是chroot">什么是chroot
+&lt;/h2>&lt;p>chroot即change root，是linux操作系统的一种文件系统访问隔离技术，通过改变用户/进程的根目录，使得用户/进程只能访问到该目录及其子目录，从而实现访问隔离。&lt;/p>
+&lt;h2 id="使用chroot限制用户的访问权限">使用chroot限制用户的访问权限
+&lt;/h2>&lt;ol>
+&lt;li>创建一个用户test,并设置密码&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">useradd &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>为用户test创建根目录/home/test,该目录必须为root用户所有，否则chroot会失败&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /home/test
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown root:root /home/test
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">755&lt;/span> /home/test
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>修改/etc/ssh/sshd_config文件，将test加入到AllowUsers中，并且设置chroot目录为/home/test&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">AllowUsers &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Subsystem sftp internal-sftp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Match User &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ChrootDirectory /home/test
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>重启sshd服务（systemctl不生效的话也可以ps查看进程号直接kill）&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>chroot创建了一个隔离的文件系统，因此需要安装一些基础软件，可以选择从现有系统复制：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /home/test/&lt;span class="o">{&lt;/span>bin,lib,lib32,lib64,usr,sbin,usr/local&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../bin /home/test/usr/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../bin /home/test/usr/local/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../sbin /home/test/usr/sbin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../sbin /home/test/usr/local/sbin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib /home/test/usr/lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib /home/test/usr/local/lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib32 /home/test/usr/lib32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib32 /home/test/usr/local/lib32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib64 /home/test/usr/lib64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib64 /home/test/usr/local/lib64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libreadline.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libhistory.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libncurses.so.5 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libdl.so.2 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libc.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libm.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libnsl.so.1 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /lib/ld-linux-* /home/test/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/bash /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/ls /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/cat /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/cp /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/mkdir /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/rm /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/mv /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/touch /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/chmod /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/vi /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/rz /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/sz /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/clear /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /home/test/usr/share/terminfo/x
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/share/terminfo/x/xterm /home/test/usr/share/terminfo/x/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>挂载必要的文件系统：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">mkdir&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="n">proc&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">dev&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">var&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">t&lt;/span> &lt;span class="n">proc&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">proc&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">proc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">t&lt;/span> &lt;span class="n">sysfs&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">sys&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">rbind&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">dev&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">rbind&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ln&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">s&lt;/span> &lt;span class="o">../&lt;/span>&lt;span class="n">run&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="7">
+&lt;li>为test用户创建home目录，并设置权限&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /home/test/home
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown test:test /home/test/home
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">755&lt;/span> /home/test/home
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="8">
+&lt;li>使用test用户登录，可以看到只能访问到/home/test目录，并且无法访问其他目录
+&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/bash.png"
+width="703"
+height="334"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/bash_hu6671605092977361185.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/bash_hu13082025645065381787.png 1024w"
+loading="lazy"
+alt="bash"
+class="gallery-image"
+data-flex-grow="210"
+data-flex-basis="505px"
+>&lt;/li>
+&lt;/ol>
+&lt;h2 id="在chroot环境中运行docker命令">在chroot环境中运行docker命令
+&lt;/h2>&lt;p>在上个部分完成设置后，只需复制docker命令到test用户目录，并修改相关文件的权限即可&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">cp&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">bin&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">docker&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">bin&lt;/span>&lt;span class="o">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chmod&lt;/span> &lt;span class="mi">766&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="k">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">docker&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">R&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>超级实用的bash技巧</title><link>https://ifindv.github.io/p/%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E7%9A%84bash%E6%8A%80%E5%B7%A7/</link><pubDate>Wed, 13 Nov 2024 18:47:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E7%9A%84bash%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://ifindv.github.io/p/%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E7%9A%84bash%E6%8A%80%E5%B7%A7/bash.jpg" alt="Featured image of post 超级实用的bash技巧" />&lt;h2 id="使用screen后台运行gdb">使用screen后台运行gdb
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># 创建会话
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S &amp;lt;SESSION_NAME&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 在screen会话中运行gdb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gdb attach &amp;lt;PID&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 按ctrl + a，再按d，将当前会话放入后台
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">crtl + a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 可以随时恢复会话（即使使用xshell远程连接，断开也不受影响）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -r &amp;lt;SESSION_NAME&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>项目 on ifindv个人博客</title><link>https://ifindv.github.io/categories/%E9%A1%B9%E7%9B%AE/</link><description>Recent content in 项目 on ifindv个人博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/categories/%E9%A1%B9%E7%9B%AE/index.xml" rel="self" type="application/rss+xml"/><item><title>使用hugo搭建个人专属博客</title><link>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</link><pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/hugo.jpg" alt="Featured image of post 使用hugo搭建个人专属博客" />&lt;h2 id="技术选型">技术选型
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>分类&lt;/th>
+&lt;th>选型&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>博客框架&lt;/td>
+&lt;td>hugo&lt;/td>
+&lt;td>基于GO语言，构建速度快，部署简单&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>主题&lt;/td>
+&lt;td>stack&lt;/td>
+&lt;td>简洁，聚焦内容， &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>主题地址&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>托管服务&lt;/td>
+&lt;td>github pages&lt;/td>
+&lt;td>0成本&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="调试方法">调试方法
+&lt;/h2>&lt;p>github提供了codespace服务，可以在线调试hugo项目。codespace允许你在浏览器中修改项目代码，并实时预览效果。
+&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace.png"
+width="1263"
+height="814"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace_hu14353944033214623303.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace_hu12088226407884602224.png 1024w"
+loading="lazy"
+alt="codespace"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+> &lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2.png"
+width="1914"
+height="943"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2_hu14893676175844340819.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2_hu8205208297648068093.png 1024w"
+loading="lazy"
+alt="debug-in-codespace"
+class="gallery-image"
+data-flex-grow="202"
+data-flex-basis="487px"
+>&lt;/p>
+&lt;h2 id="访客统计">访客统计
+&lt;/h2>&lt;p>umami提供了免费服务，使用方法参考&lt;a class="link" href="https://umami.is/docs/enable-share-url" target="_blank" rel="noopener"
+>umami帮助文档&lt;/a>&lt;/p></description></item><item><title>入侵检测引擎suricata</title><link>https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/</link><pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/</guid><description>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/suricata.png" alt="Featured image of post 入侵检测引擎suricata" />&lt;h2 id="简介">简介
+&lt;/h2>&lt;blockquote>
+&lt;p>Suricata is a high performance, open source network analysis and threat detection software used by most private and public organizations, and embedded by major vendors to protect their assets.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://suricata.io/" target="_blank" rel="noopener"
+>官网&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://docs.suricata.io/en/latest/index.html#" target="_blank" rel="noopener"
+>官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/OISF/suricata" target="_blank" rel="noopener"
+>源代码&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://forum.suricata.io/" target="_blank" rel="noopener"
+>官方社区&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="快速开始">快速开始
+&lt;/h2>&lt;h3 id="安装">安装
+&lt;/h3>&lt;p>debian系统，直接使用apt安装即可（其它系统参考官方文档第3部分installation）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install suricata
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="配置">配置
+&lt;/h3>&lt;p>基础配置只需关注HOME_NET与interface两个参数即可（详细配置参考官方文档第12章），其中HOME_NET为本地网络地址，interface为监听的网络接口。配置文件路径为/etc/suricata/suricata.yaml，
+示例如下：&lt;/p>
+&lt;p>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/HOME_NET.png"
+width="591"
+height="492"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/HOME_NET_hu3240128276943836632.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/HOME_NET_hu17192638537031297501.png 1024w"
+loading="lazy"
+alt="HOME_NET"
+class="gallery-image"
+data-flex-grow="120"
+data-flex-basis="288px"
+> &lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/af-interface.png"
+width="630"
+height="465"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/af-interface_hu9978305447657897537.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/af-interface_hu14486600342559106738.png 1024w"
+loading="lazy"
+alt="interface"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="325px"
+>&lt;/p>
+&lt;p>规则（suricata中称为signatures）保存在/etc/suricata/rules/目录下，可以通过suricata-update命令更新。当然，也可以手动新建规则文件（比如用于测试）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo touch /etc/suricata/rules/suricata.rules
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;alert ip any any -&amp;gt; any any (msg: &amp;#34;baidu&amp;#34;; content: &amp;#34;baidu&amp;#34;; )&amp;#39;&lt;/span> &amp;gt; /etc/suricata/rules/suricata.rules
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="启动">启动
+&lt;/h3>&lt;p>可以使用命令行直接起前台，或者通过service/systemd启动后台服务（后台启动需要先将/etc/default/suricata文件中的RUN改为yes，否则会报错）。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo suricata -c /etc/suricata/suricata.yaml -i eth0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="测试">测试
+&lt;/h3>&lt;p>事件日志/var/log/suricata/eve.json(使用event_type标识事件类型，常见的像统计stats、告警alert、流flow等，记录非常详细)，告警日志/var/log/suricata/fast.log，可以使用curl进行测试(比如curl &lt;a class="link" href="https://www.baidu.com" target="_blank" rel="noopener"
+>www.baidu.com&lt;/a>)，日志示例如下：&lt;/p>
+&lt;p>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/eve-log.png"
+width="477"
+height="649"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/eve-log_hu17629930225117932369.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/eve-log_hu4865995373407086950.png 1024w"
+loading="lazy"
+alt="eve.json"
+class="gallery-image"
+data-flex-grow="73"
+data-flex-basis="176px"
+> &lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/fast-log.png"
+width="1233"
+height="198"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/fast-log_hu15764629307791861142.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/fast-log_hu6051606144530140553.png 1024w"
+loading="lazy"
+alt="fast.log"
+class="gallery-image"
+data-flex-grow="622"
+data-flex-basis="1494px"
+>&lt;/p>
+&lt;p>也可以通过报文回放进行测试，使用-r FILE.pcap指定要回放的pcap文件。&lt;/p>
+&lt;h2 id="规则">规则
+&lt;/h2>&lt;h3 id="格式">格式
+&lt;/h3>&lt;p>一条规则由3个部分组成，分别是action、header、rule options，示例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">alert http &lt;span class="nv">$HOME_NET&lt;/span> any -&amp;gt; &lt;span class="nv">$EXTERNAL_NET&lt;/span> any &lt;span class="o">(&lt;/span>msg:&lt;span class="s2">&amp;#34;HTTP GET Request Containing Rule in URI&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> flow:established,to_server&lt;span class="p">;&lt;/span> http.method&lt;span class="p">;&lt;/span> content:&lt;span class="s2">&amp;#34;GET&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> http.uri&lt;span class="p">;&lt;/span> content:&lt;span class="s2">&amp;#34;rule&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> fast_pattern&lt;span class="p">;&lt;/span> classtype:bad-unknown&lt;span class="p">;&lt;/span> sid:123&lt;span class="p">;&lt;/span> rev:1&lt;span class="p">;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>动作定义规则匹配时做什么，header定义规则的协议、IP、端口、方向等信息（网络层、传输层、应用层协议），rule options定义规则的细节（应用层数据）。&lt;/p>
+&lt;h3 id="关键字">关键字
+&lt;/h3>&lt;p>本部分介绍suricata元关键字（称为Meta Keywords），其它关键字（涉及协议细节）请参考官方文档第8部分。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: center">关键字&lt;/th>
+&lt;th style="text-align: center">说明&lt;/th>
+&lt;th style="text-align: center">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: center">msg&lt;/td>
+&lt;td style="text-align: center">告警信息&lt;/td>
+&lt;td style="text-align: center">msg:&amp;ldquo;HTTP GET Request Containing Rule in URI&amp;rdquo;, 该字段应该写在最前，各部分首字母大写，最好能反映规则的类型&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">sid&lt;/td>
+&lt;td style="text-align: center">规则ID&lt;/td>
+&lt;td style="text-align: center">sid:123&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">rev&lt;/td>
+&lt;td style="text-align: center">规则版本&lt;/td>
+&lt;td style="text-align: center">rev:1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">gid&lt;/td>
+&lt;td style="text-align: center">规则组ID&lt;/td>
+&lt;td style="text-align: center">gid:1，告警记录[gid:sid:rev]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">classtype&lt;/td>
+&lt;td style="text-align: center">告警类型&lt;/td>
+&lt;td style="text-align: center">classtype:bad-unknown，该字段应该写在sid与rev之前&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">reference&lt;/td>
+&lt;td style="text-align: center">参考信息&lt;/td>
+&lt;td style="text-align: center">reference:cve,2024-1234，规则的来源以及解决的问题&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">priority&lt;/td>
+&lt;td style="text-align: center">规则优先级&lt;/td>
+&lt;td style="text-align: center">priority:1，最高为1，取值1&lt;del>255, 一般使用1&lt;/del>4即可&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">metadata&lt;/td>
+&lt;td style="text-align: center">元数据&lt;/td>
+&lt;td style="text-align: center">metadata:created_at,2024_01_01,metadata:created_by,xxx，用于附加一些功能无关的信息&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">target&lt;/td>
+&lt;td style="text-align: center">目标&lt;/td>
+&lt;td style="text-align: center">target:[src_ip&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">requires&lt;/td>
+&lt;td style="text-align: center">依赖&lt;/td>
+&lt;td style="text-align: center">requires: feature geoip, version &amp;gt;= 7.0.0, 用于指定规则依赖的模块以及版本，不符合依赖条件的规则会被忽略&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="性能">性能
+&lt;/h2>&lt;h3 id="运行模式">运行模式
+&lt;/h3>&lt;p>suricata采用(多)线程模型，每个线程可以包含多个功能模块（比如decode、detect、output），多个线程之间通过queue来传递报文。suricata支持的运行模式有：&lt;/p>
+&lt;ul>
+&lt;li>workers: 多个线程，每个线程都是一个完整的流水线，默认模式。&lt;/li>
+&lt;li>single: workers的特例，只有一个线程，多用于开发调试。&lt;/li>
+&lt;li>autofp: 多个线程，线程分为Capture和Processing两种，通过queue传递报文。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/workers.png"
+width="332"
+height="457"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/workers_hu10823656059657005615.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/workers_hu3277525756799646143.png 1024w"
+loading="lazy"
+alt="workers"
+class="gallery-image"
+data-flex-grow="72"
+data-flex-basis="174px"
+> &lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/autofp.png"
+width="336"
+height="459"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/autofp_hu8384175418337690223.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/autofp_hu3339831037576899933.png 1024w"
+loading="lazy"
+alt="autofp"
+class="gallery-image"
+data-flex-grow="73"
+data-flex-basis="175px"
+>&lt;/p>
+&lt;h3 id="负载均衡">负载均衡
+&lt;/h3>&lt;p>可以在抓包模块实现负载均衡算法（通过软件hash计算将报文分发到不同的worker），或者通过网卡硬件的RSS（Receive Side Scaling）功能，将报文分发到不同的队列（worker）。
+硬件卸载功能必须关闭，以防止报文某些特征被破坏影响检测。典型的像LRO/GRO会导致小包合并成大的super packet，从而影响dsize关键字的检测以及TCP状态跟踪。
+若使用AF_PACKET或PF_RING抓包，checksum卸载功能可以保持开启。&lt;/p>
+&lt;h3 id="性能调优">性能调优
+&lt;/h3>&lt;ul>
+&lt;li>max-pending-packets: 引擎可以同时处理的报文数，数值越高，线程越繁忙，内存消耗越大。经验值10000~65000，所需内存计算公式number_of.threads X max-pending-packets X (default-packet-size + ~750 bytes)&lt;/li>
+&lt;li>mpm-algo: 多模式匹配算法，支持ac,hs,ac-bc,ac-ks, hs性能最高但对平台有要求，ac-ks次之, ac相对较低。&lt;/li>
+&lt;li>detect.profile: 规则分组数，数值越高检测性能越高，内存消耗小幅增加，支持low, medium, high, custom, 默认为high。&lt;/li>
+&lt;li>detect.sgh-mpm-context: 多模式匹配上下文大小，根据选择的mpm-algo自动调整，一般无需修改。&lt;/li>
+&lt;li>af-packet: IDS/NSM推荐使用v3，IPS推荐使用v2。&lt;/li>
+&lt;li>ring-size: 队列大小，内存消耗计算公式af-packet.threads X af-packet.ring-size X (default-packet-size + ~750 bytes)。&lt;/li>
+&lt;li>stream-bypass: 设定flow的ressembly depth，比如1mb，超过的部分跳过检测（针对某些特殊的流）。&lt;/li>
+&lt;/ul>
+&lt;h3 id="niccpu配置">NIC/CPU配置
+&lt;/h3>&lt;p>不同的厂商和型号支持的特性不同，具体参考官方文档第11.5章节。&lt;/p>
+&lt;h3 id="统计">统计
+&lt;/h3>&lt;p>统计信息以固定的周期输出，默认间隔8秒，可以用于检查suricata的运行状况，suricata退出时会输出丢包统计信息。
+&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/packet-loss.png"
+width="692"
+height="62"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/packet-loss_hu13891848417547690091.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/packet-loss_hu2543593101601738850.png 1024w"
+loading="lazy"
+alt="packet-loss"
+class="gallery-image"
+data-flex-grow="1116"
+data-flex-basis="2678px"
+>&lt;/p>
+&lt;p>网卡的统计信息可以使用ethtool命令查看，比如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ethtool -S em2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">NIC&lt;/span> &lt;span class="n">statistics&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_packets&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">35430208463&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_packets&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">216072&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_bytes&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">32454370137414&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_bytes&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">53624450&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_broadcast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">17424355&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_broadcast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">133508&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_multicast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5332175&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_multicast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">82564&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_errors&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">47&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_errors&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_dropped&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">...&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>另外可以通过stats.log查看kernel的丢包信息。&lt;/p>
+&lt;h3 id="过滤">过滤
+&lt;/h3>&lt;p>借助于BPF，suricata可以过滤某些特定的流量，只对感兴趣的流进行检测。可以通过命令行直接运行，或者通过配置文件指定过滤规则。举例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">suricata -i eth0 -v not host 1.2.3.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">suricata -i eno1 -c suricata.yaml tcp or udp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">suricata -i ens5f0 -F capture-filter.bpf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="抑制">抑制
+&lt;/h3>&lt;p>supress规则用于抑制某些特定的告警，比如某个特定的host不产生告警。举例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">suppress gen_id 0, sig_id 0, track by_src, ip 1.2.3.4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="加密流绕过">加密流绕过
+&lt;/h3>&lt;p>对于像TLS这种加密流量，suricata可以配置在握手结束后，跳过后续加密流的检测，通过app-layer.protocols.tls.encryption-handling进行设置。&lt;/p>
+&lt;h3 id="tcmalloc">Tcmalloc
+&lt;/h3>&lt;p>google公司研发的性能优化内存分配器，可以小幅提升性能，同时节约一部分内存。使用方法如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">LD_PRELOAD=&amp;#34;/usr/lib64/libtcmalloc_minimal.so.4&amp;#34; suricata -c suricata.yaml -i eth0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="开发">开发
+&lt;/h2>&lt;h3 id="源码编译--安装">源码编译 &amp;amp; 安装
+&lt;/h3>&lt;p>从github下载源码，&lt;a class="link" href="https://codeload.github.com/OISF/suricata/zip/refs/tags/suricata-7.0.7" target="_blank" rel="noopener"
+>suricata-suricata-7.0.7.zip&lt;/a>与&lt;a class="link" href="https://codeload.github.com/OISF/libhtp/zip/refs/tags/0.5.49" target="_blank" rel="noopener"
+>libhtp-0.5.49.zip&lt;/a>。放在同级目录下，执行命令（以Debian为例）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">sudo&lt;/span> &lt;span class="n">apt&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">autoconf&lt;/span> &lt;span class="n">automake&lt;/span> &lt;span class="n">build&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">essential&lt;/span> &lt;span class="n">cargo&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cbindgen&lt;/span> &lt;span class="n">libjansson&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libpcap&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libpcre2&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libtool&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">libyaml&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">make&lt;/span> &lt;span class="n">pkg&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">config&lt;/span> &lt;span class="n">rustc&lt;/span> &lt;span class="n">zlib1g&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libnuma&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">dpdk&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">git&lt;/span> &lt;span class="n">liblua5&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libmaxminddb&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">libcap&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libmagic&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">liblz4&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libunwind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">unzip&lt;/span> &lt;span class="n">libhtp&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">49.&lt;/span>&lt;span class="n">zip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">unzip&lt;/span> &lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">7.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">7.&lt;/span>&lt;span class="n">zip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cd&lt;/span> &lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">7.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">7&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mv&lt;/span> &lt;span class="o">../&lt;/span>&lt;span class="n">libhtp&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">49&lt;/span> &lt;span class="n">libhtp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">libhtp&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">autogen&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">libhtp&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">configure&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">prefix&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">usr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">autogen&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">configure&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">prefix&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">usr&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">sysconfdir&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">etc&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">localstatedir&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="k">var&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">enable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">lua&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">enable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">geoip&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">enable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dpdk&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">make&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">make&lt;/span> &lt;span class="n">install&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安装完成执行suricata -V可查看版本信息。&lt;/p>
+&lt;h3 id="suricata-library">suricata library
+&lt;/h3>&lt;p>suricata当前还不支持以动态库的形式直接集成到APP中（APP已经具备收发包功能，只利用suricata做检测）。官方回复正在推进中，预计8.0之后的某个版本会支持。
+花了一周多的时间尝试在7.0.2版本基础上封装动态库，测试基础功能可用（因精力有限尚未做详尽的测试），项目地址&lt;a class="link" href="https://github.com/ifindv/suricata-lib" target="_blank" rel="noopener"
+>suricata-lib&lt;/a>
+可供参考。&lt;/p></description></item></channel></rss>
