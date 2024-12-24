@@ -319,4 +319,30 @@ CREATE TABLE example (
 );
 ```
 
+#### 修改表结构
+使用ALTER TABLE关键字修改表结构，如：
+```sql
+ALTER TABLE products ADD COLUMN description text;
+ALTER TABLE products DROP COLUMN description;
+ALTER TABLE products ALTER COLUMN price SET NOT NULL;
+ALTER TABLE products ALTER COLUMN price DROP NOT NULL;
+ALTER TABLE products ALTER COLUMN price TYPE numeric(10,2);
+ALTER TABLE products RENAME COLUMN product_no TO product_number;
+ALTER TABLE products RENAME TO items;
+```
+
+#### 权限
+使用ALTER修改owner，使用GRANT和REVOKE关键字授予和回收权限，如：
+```sql
+ALTER TABLE products OWNER TO joe;
+GRANT SELECT, INSERT ON products TO joe;
+REVOKE ALL ON products FROM PUBLIC;
+```
+
+#### 行安全策略
+启用行安全策略后，只有匹配策略的访问才被允许，使用ALTER TABLE关键字启用行安全策略，使用CREATE POLICY关键字创建策略，如：
+```sql
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+CREATE POLICY products_select ON products FOR SELECT USING (user = current_user);
+```
 
