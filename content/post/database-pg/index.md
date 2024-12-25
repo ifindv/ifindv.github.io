@@ -346,3 +346,34 @@ ALTER TABLE products ENABLE ROW LEVEL SECURITY;
 CREATE POLICY products_select ON products FOR SELECT USING (user = current_user);
 ```
 
+#### 模式（schema）
+模式是数据库中的命名空间(默认public)，用于组织表、视图、索引、函数等，可以将模式看作一个文件夹，用于存放不同的对象，PG内置了一个名为pg_catalog的模式，
+该模式包含了所有的系统内建的表、数据类型、函数、操作等，该模式的查找优先于search_path指定的模式。模式相关的常用操作如下：
+```sql
+CREATE SCHEMA myschema;
+CREATE TABLE myschema.my_table (...);
+ALTER SCHEMA myschema OWNER TO joe;
+DROP SCHEMA myschema;
+DROP SCHEMA myschema CASCADE;
+SET search_path TO myschema, public;
+REVOKE CREATE ON SCHEMA myschema FROM PUBLIC;
+```
+
+#### 继承
+PG支持表的继承(包含约束条件，除非用NO INHERIT关键字显式指出)，继承可以用于实现表的逻辑分区，如：方便数据库的设计，举例如下：
+```sql
+CREATE TABLE cities (
+    name text,
+    population float,
+    elevation int
+);
+
+CREATE TABLE capitals (
+    state char(2)
+) INHERITS (cities);
+
+SELECT name, elevation FROM cities WHERE elevation > 500;
+SELECT name, elevation FROM ONLY cities WHERE elevation > 500;
+SELECT c.tableoid, c.name, c.elevation FROM cities c WHERE c.elevation > 500;
+SELECT p.relname, c.name, c.elevation FROM cities c, pg_class p WHERE c.elevation > 500 AND c.tableoid = p.oid;
+```
