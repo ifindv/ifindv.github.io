@@ -1,0 +1,2169 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ifindv个人博客</title><link>https://ifindv.github.io/</link><description>Recent content on ifindv个人博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 26 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>国内镜像源大全</title><link>https://ifindv.github.io/p/%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%E5%A4%A7%E5%85%A8/</link><pubDate>Thu, 21 Nov 2024 14:14:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90%E5%A4%A7%E5%85%A8/</guid><description>&lt;h2 id="cargo">cargo
+&lt;/h2>&lt;h3 id="中科大2024-11-12">中科大（2024-11-12）
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">touch ~/.cargo/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &lt;span class="s">&amp;lt;&amp;lt;EOF | tee ~/.cargo/config
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[source.crates-io]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">replace-with = &amp;#39;ustc&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[source.ustc]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">registry = &amp;#34;git://mirrors.ustc.edu.cn/crates.io-index&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>使用chroot监狱限制用户权限</title><link>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/</link><pubDate>Sun, 10 Nov 2024 15:40:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/</guid><description>&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/os.png" alt="Featured image of post 使用chroot监狱限制用户权限" />&lt;h2 id="什么是chroot">什么是chroot
+&lt;/h2>&lt;p>chroot即change root，是linux操作系统的一种文件系统访问隔离技术，通过改变用户/进程的根目录，使得用户/进程只能访问到该目录及其子目录，从而实现访问隔离。&lt;/p>
+&lt;h2 id="使用chroot限制用户的访问权限">使用chroot限制用户的访问权限
+&lt;/h2>&lt;ol>
+&lt;li>创建一个用户test,并设置密码&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">useradd &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">passwd &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>为用户test创建根目录/home/test,该目录必须为root用户所有，否则chroot会失败&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /home/test
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown root:root /home/test
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">755&lt;/span> /home/test
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>修改/etc/ssh/sshd_config文件，将test加入到AllowUsers中，并且设置chroot目录为/home/test&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">AllowUsers &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Subsystem sftp internal-sftp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Match User &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ChrootDirectory /home/test
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>重启sshd服务（systemctl不生效的话也可以ps查看进程号直接kill）&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>chroot创建了一个隔离的文件系统，因此需要安装一些基础软件，可以选择从现有系统复制：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /home/test/&lt;span class="o">{&lt;/span>bin,lib,lib32,lib64,usr,sbin,usr/local&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../bin /home/test/usr/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../bin /home/test/usr/local/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../sbin /home/test/usr/sbin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../sbin /home/test/usr/local/sbin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib /home/test/usr/lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib /home/test/usr/local/lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib32 /home/test/usr/lib32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib32 /home/test/usr/local/lib32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib64 /home/test/usr/lib64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s ../lib64 /home/test/usr/local/lib64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libreadline.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libhistory.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libncurses.so.5 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libdl.so.2 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libc.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libm.so.6 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/lib/libnsl.so.1 /home/test/usr/local/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /lib/ld-linux-* /home/test/lib/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/bash /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/ls /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/cat /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/cp /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/mkdir /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/rm /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/mv /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/touch /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/chmod /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/vi /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/rz /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/sz /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /bin/clear /home/test/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /home/test/usr/share/terminfo/x
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/share/terminfo/x/xterm /home/test/usr/share/terminfo/x/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>挂载必要的文件系统：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">mkdir&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="n">proc&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">dev&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">var&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">t&lt;/span> &lt;span class="n">proc&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">proc&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">proc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">t&lt;/span> &lt;span class="n">sysfs&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">sys&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">rbind&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">dev&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mount&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">rbind&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ln&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">s&lt;/span> &lt;span class="o">../&lt;/span>&lt;span class="n">run&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="7">
+&lt;li>为test用户创建home目录，并设置权限&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /home/test/home
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown test:test /home/test/home
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">755&lt;/span> /home/test/home
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="8">
+&lt;li>使用test用户登录，可以看到只能访问到/home/test目录，并且无法访问其他目录
+&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/bash.png"
+width="703"
+height="334"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/bash_hu6671605092977361185.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8chroot%E7%9B%91%E7%8B%B1%E9%99%90%E5%88%B6%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/bash_hu13082025645065381787.png 1024w"
+loading="lazy"
+alt="bash"
+class="gallery-image"
+data-flex-grow="210"
+data-flex-basis="505px"
+>&lt;/li>
+&lt;/ol>
+&lt;h2 id="在chroot环境中运行docker命令">在chroot环境中运行docker命令
+&lt;/h2>&lt;p>在上个部分完成设置后，只需复制docker命令到test用户目录，并修改相关文件的权限即可&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">cp&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">bin&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">docker&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">home&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">bin&lt;/span>&lt;span class="o">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chmod&lt;/span> &lt;span class="mi">766&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="k">var&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">docker&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">R&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>用户认证技术</title><link>https://ifindv.github.io/p/%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF/</link><pubDate>Wed, 06 Nov 2024 16:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF/</guid><description>&lt;img src="https://ifindv.github.io/p/%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF/network.png" alt="Featured image of post 用户认证技术" />&lt;h2 id="radius">RADIUS
+&lt;/h2>&lt;p>RADIUS（Remote Authentication Dial In User Service，远程用户拨号认证系统）是一种网络认证协议，NAS（网络接入服务器）通过RADIUS协议与RADIUS服务器进行通信，以实现用户认证、授权和计费（AAA）。Radius协议在RFC 2865与RFC 2866中定义，使用UDP协议进行通信，端口号为1812和1813。&lt;/p>
+&lt;p>RADIUS特点：&lt;/p>
+&lt;ul>
+&lt;li>C/S架构&lt;/li>
+&lt;li>安全的消息交互机制（共享密钥）&lt;/li>
+&lt;li>支持多种认证方式（如PAP、CHAP、EAP）&lt;/li>
+&lt;li>支持多种计费方式（如基于时间、流量、会话等）&lt;/li>
+&lt;li>支持动态授权和强制下线（CoA &amp;amp; DM）&lt;/li>
+&lt;/ul>
+&lt;p>RADIUS认证过程：&lt;/p>
+&lt;ol>
+&lt;li>用户输入用户名和密码，NAS将用户名和密码发送给RADIUS服务器。&lt;/li>
+&lt;li>RADIUS服务器对用户身份进行校验。&lt;/li>
+&lt;li>NAS通知用户认证结果（成功或失败）。&lt;/li>
+&lt;li>如果认证成功，NAS发送计费开始请求。&lt;/li>
+&lt;li>RADIUS服务器返回计费开始响应，并开始计费。&lt;/li>
+&lt;li>用户开始访问网络资源。&lt;/li>
+&lt;/ol></description></item><item><title>postgresql快速入门指南</title><link>https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</link><pubDate>Mon, 21 Oct 2024 10:22:00 +0000</pubDate><guid>https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;img src="https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql.jpg" alt="Featured image of post postgresql快速入门指南" />&lt;h2 id="简介">简介
+&lt;/h2>&lt;p>PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:&lt;/p>
+&lt;ul>
+&lt;li>complex queries&lt;/li>
+&lt;li>foreign keys&lt;/li>
+&lt;li>triggers&lt;/li>
+&lt;li>updatable views&lt;/li>
+&lt;li>transactional integrity&lt;/li>
+&lt;li>multiversion concurrency control&lt;/li>
+&lt;/ul>
+&lt;p>用户可以灵活的的扩展PG的功能，支持自定义：&lt;/p>
+&lt;ul>
+&lt;li>data types&lt;/li>
+&lt;li>functions&lt;/li>
+&lt;li>operators&lt;/li>
+&lt;li>aggregate functions&lt;/li>
+&lt;li>index methods&lt;/li>
+&lt;li>procedural languages&lt;/li>
+&lt;/ul>
+&lt;p>PG可以免费使用、修改和分发，并且可以用于商业用途。&lt;/p>
+&lt;h2 id="sql">SQL
+&lt;/h2>&lt;h3 id="语法">语法
+&lt;/h3>&lt;h4 id="sql语句">SQL语句
+&lt;/h4>&lt;p>一条SQL语句由多个tokens组成，以分号结束。tokens分为以下几种类型：&lt;/p>
+&lt;ol>
+&lt;li>关键字：如SELECT, FROM, WHERE, ORDER BY等，用于描述SQL语句的操作。&lt;/li>
+&lt;li>标识符：如表名，列名，变量名等，用于引用数据库中的对象。&lt;/li>
+&lt;li>常量：如数字，字符串等，用于提供数据。&lt;/li>
+&lt;li>操作符：如=, &amp;lt;, &amp;gt;, +, -, *等，用于对数据进行操作。&lt;/li>
+&lt;/ol>
+&lt;p>SQL语句对大小写不敏感，但通常关键字使用大写，标识符使用小写。双引号可以用于标识符，以避免关键字冲突，特别注意，被双引号包围的标识符大小写敏感。&lt;/p>
+&lt;p>SQL语句举例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MY_TABLE&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">UPDATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MY_TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">INSERT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">INTO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MY_TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">VALUES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;hi there&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="字符串常量">字符串常量
+&lt;/h4>&lt;p>任意字符构成的序列，使用单引号包围，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;#39;This is a string&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>单引号可以嵌套使用，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;#39;This is a string with a &amp;#39;&amp;#39;quote&amp;#39;&amp;#39; in it&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>两个字符串之间必须使用空格分隔。&lt;/p>
+&lt;p>字符串常量支持C风格转义字符，如下表所示：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>转义字符&lt;/th>
+&lt;th>含义&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>\b&lt;/td>
+&lt;td>退格符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\f&lt;/td>
+&lt;td>换页符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\n&lt;/td>
+&lt;td>换行符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\r&lt;/td>
+&lt;td>回车符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\t&lt;/td>
+&lt;td>制表符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\o, \oo, \ooo&lt;/td>
+&lt;td>八进制字符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\xh, \xhh, \xhhh&lt;/td>
+&lt;td>十六进制字符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>\u, \uu, \uuu, \uuuu&lt;/td>
+&lt;td>Unicode字符&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>使用‘U&amp;amp;’标记标识unicode，格式U&amp;amp;\uuuu或U&amp;amp;\+uuuuuu，其中u代表一个十六进制字符。举例data可以表示为：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">U&amp;amp;&amp;#34;d\0061t\+000061&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以使用UESCAPE定义转义字符替代\,比如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">U&amp;amp;&amp;#34;d!00061t!+000061&amp;#34; UESCAPE &amp;#39;!&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用$标记标识原始字符串，$标记包围的字符串可以包含任何字符，不需要转义，格式：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$$raw_string$$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$tag$raw_string$tag$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>举例函数定义可以表示为：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$function$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BEGIN
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> RETURN ($1 ~ $q$[\t\r\n\v\\]$q$);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">END;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$function$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="位串常量">位串常量
+&lt;/h4>&lt;p>二进制位串使用B标记，十六进制位串使用X标记，举例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">B&amp;#39;101001&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">X&amp;#39;1FF&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="数字常量">数字常量
+&lt;/h4>&lt;p>常用的数字常量格式：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">digits
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">digits.[digits][e[+-]digits]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[digits].digits[e[+-]digits]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">digitse[+-]digits
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0xhexdigits
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0ooctdigits
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0bbindigits
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">digits_digits
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>举例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">43
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.002
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5e4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1.82e-3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0x1A
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0o27
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">0b101011
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1_000_000
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>数字常量自动被转换为最合适的类型，比如interger（32位）、bigint（64位）、numeric等。可以使用强制类型转换，语法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">CAST (&amp;#39;expression&amp;#39; AS type)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">expression::CAST
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>举例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">REAL &amp;#39;1.23&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1.23::REAL
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="操作符">操作符
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">+-*/&amp;lt;&amp;gt;=~!@#%^&amp;amp;|`?
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="注释">注释
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">-- This is single-line comment
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/** This is multi-line comment
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* with nesting: /* nested comment */
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="表达式">表达式
+&lt;/h4>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>类型&lt;/th>
+&lt;th>表达式&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>列&lt;/td>
+&lt;td>table_name.column_name&lt;/td>
+&lt;td>列名唯一时表名和逗号可以省略&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>参数&lt;/td>
+&lt;td>$1, $2, &amp;hellip;&lt;/td>
+&lt;td>比如$1代表函数调用中的第一个参数，类比shell脚本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>数组&lt;/td>
+&lt;td>table_name.array_column_name[INDEX]&lt;/td>
+&lt;td>支持多维数组，类比C语言中的数组，支持切片，类比python中字符串切片&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>字段&lt;/td>
+&lt;td>(composite_column).field&lt;/td>
+&lt;td>复合列中选取字段，类比C语言中的结构体，括号不能省略&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>一元运算&lt;/td>
+&lt;td>opertator expression&lt;/td>
+&lt;td>一元运算符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>二元运算&lt;/td>
+&lt;td>expression operator expression&lt;/td>
+&lt;td>二元运算符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>函数调用&lt;/td>
+&lt;td>function_name(expression, &amp;hellip;)&lt;/td>
+&lt;td>函数调用， 比如sqrt(2)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>排序规则&lt;/td>
+&lt;td>expression COLLATE collation_name&lt;/td>
+&lt;td>指定排序规则，ORDER BY name COLLATE &amp;ldquo;en_US&amp;rdquo;; 表示使用美式英语对name排序&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="函数传参">函数传参
+&lt;/h4>&lt;p>postgresql支持位置参数、命名参数、以及混合参数，举例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">concat_lower_or_upper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;World&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">concat_lower_or_upper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Hello&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;World&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">concat_lower_or_upper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Hello&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">uppercase&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;World&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">concat_lower_or_upper&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;World&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">uppercase&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">true&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="数据">数据
+&lt;/h3>&lt;h4 id="表">表
+&lt;/h4>&lt;p>SQL中的数据都存储在表中，表由行和列组成，列定义了数据类型，行定义了数据值。列是固定的，行是可变的。
+表的基本操作有创建、插入、更新、删除、查询等。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_first_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">first_column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">second_column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">INSERT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">INTO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_first_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">VALUES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">UPDATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_first_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">first_column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Hi&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">DELETE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_first_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">first_column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Hi&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_first_table&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_first_table&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="指定列的默认值">指定列的默认值
+&lt;/h4>&lt;p>使用DEFAULT关键字指定列的默认值，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">my_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">first_column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DEFAULT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Hello&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">second_column&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DEFAULT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="生成列">生成列
+&lt;/h4>&lt;p>生成列是只读的，其值由表达式计算得出，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">people&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">...,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">height_cm&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">height_in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">GENERATED&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ALWAYS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">height_cm&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">54&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STORED&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="check约束">check约束
+&lt;/h4>&lt;p>使用CHECK关键字定义列的约束，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CHECK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">product_price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CHECK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">discounted_price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CHECK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">discounted_price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">CHECK&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">discounted_price&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="非空约束">非空约束
+&lt;/h4>&lt;p>使用NOT NULL关键字定义列的约束，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NOT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NULL&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NOT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NULL&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="唯一约束">唯一约束
+&lt;/h4>&lt;p>使用UNIQUE关键字定义列的约束，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">UNIQUE&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">UNIQUE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">example&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">UNIQUE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="主键">主键
+&lt;/h4>&lt;p>主键唯一标识表中的每一行，使用PRIMARY KEY关键字定义主键，主键可以是多个列的组合，要求同时满足唯一约束和非空约束，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PRIMARY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">KEY&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">example&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">PRIMARY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">KEY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="外键">外键
+&lt;/h4>&lt;p>外键用于建立表之间的关系，外键引用另一个表的主键，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">orders&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">order_id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PRIMARY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">KEY&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">REFERENCES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">quantity&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">orders&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">order_id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PRIMARY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">KEY&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">REFERENCES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">quantity&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">t1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PRIMARY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">KEY&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">FOREIGN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">KEY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">REFERENCES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">other_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">c2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="排除约束">排除约束
+&lt;/h4>&lt;p>排除约束用于定义列的值不能重复，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">example&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">integer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">EXCLUDE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">USING&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">gist&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">point&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="修改表结构">修改表结构
+&lt;/h4>&lt;p>使用ALTER TABLE关键字修改表结构，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ADD&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COLUMN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COLUMN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COLUMN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NOT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NULL&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COLUMN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NOT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NULL&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COLUMN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">price&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TYPE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">RENAME&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">COLUMN&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">product_no&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">product_number&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">RENAME&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="权限">权限
+&lt;/h4>&lt;p>使用ALTER修改owner，使用GRANT和REVOKE关键字授予和回收权限，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">OWNER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">joe&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">GRANT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">INSERT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">joe&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">REVOKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ALL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PUBLIC&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="行安全策略">行安全策略
+&lt;/h4>&lt;p>启用行安全策略后，只有匹配策略的访问才被允许，使用ALTER TABLE关键字启用行安全策略，使用CREATE POLICY关键字创建策略，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ENABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ROW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LEVEL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SECURITY&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">POLICY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products_select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">products&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FOR&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">USING&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">current_user&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="模式schema">模式（schema）
+&lt;/h4>&lt;p>模式是数据库中的命名空间(默认public)，用于组织表、视图、索引、函数等，可以将模式看作一个文件夹，用于存放不同的对象，PG内置了一个名为pg_catalog的模式，
+该模式包含了所有的系统内建的表、数据类型、函数、操作等，该模式的查找优先于search_path指定的模式。模式相关的常用操作如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SCHEMA&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">my_table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(...);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SCHEMA&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">OWNER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">joe&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SCHEMA&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">DROP&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SCHEMA&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CASCADE&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">search_path&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">public&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">REVOKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SCHEMA&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">myschema&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PUBLIC&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="继承">继承
+&lt;/h4>&lt;p>PG支持表的继承(包含约束条件，除非用NO INHERIT关键字显式指出)，继承可以用于实现表的逻辑分区，如：方便数据库的设计，举例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cities&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">text&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">population&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">float&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">capitals&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">state&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">INHERITS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cities&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cities&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">500&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ONLY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cities&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">500&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tableoid&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cities&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">500&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">relname&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cities&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">pg_class&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">elevation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">500&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">AND&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tableoid&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">oid&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="分区">分区
+&lt;/h4>&lt;p>分区指的是将一个大的逻辑表拆分成多个小的物理表，每个物理表只包含部分数据，分区的好处如下：
+1、高频访问的数据存放在一个分区中，以提升查询性能
+2、一个分区中使用顺序扫描替换索引，以提升查询/更新性能
+3、使用DROP TABLE与ALTER TABLE DETACH PARTITION，替换批量删除，以提升删除性能
+4、低频访问的数据存放在一个分区中，可以迁移到低成本的存储设备上，以降低成本&lt;/p>
+&lt;p>PG支持范围分区（水平分区）、列表分区、哈希分区。其它形式的分区可以使用继承和联合查询实现。&lt;/p></description></item><item><title>markdown常用语法总结</title><link>https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/</link><pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/</guid><description>&lt;img src="https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/markdown.jpg" alt="Featured image of post markdown常用语法总结" />&lt;h2 id="标题">标题
+&lt;/h2>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># H1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## H2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">### H3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#### H4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##### H5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">###### H6
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;h1 id="h1">H1
+&lt;/h1>&lt;h2 id="h2">H2
+&lt;/h2>&lt;h3 id="h3">H3
+&lt;/h3>&lt;h4 id="h4">H4
+&lt;/h4>&lt;h5 id="h5">H5
+&lt;/h5>&lt;h6 id="h6">H6
+&lt;/h6>&lt;h2 id="段落">段落
+&lt;/h2>&lt;p>Markdown is a lightweight and easy-to-use markup language that allows you to write formatted text using a plain-text editor.
+It is widely used for creating documentation, writing articles, and creating content for websites and blogs.&lt;/p>
+&lt;p>Markdown syntax is simple and intuitive, making it easy to learn and use. It supports various formatting options such as
+headings, bold and italic text, lists, links, images, and more. With just a few keystrokes, you can create well-structured
+and visually appealing content.&lt;/p>
+&lt;h2 id="引用">引用
+&lt;/h2>&lt;p>引用的内容会显示为灰色背景，使用&lt;code>&amp;gt;&lt;/code>来表示引用。&lt;/p>
+&lt;h3 id="在引用中使用markdown语法">在引用中使用markdown语法
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;gt; Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; **Note** that you can use *Markdown syntax* within a blockquote.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;blockquote>
+&lt;p>Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+&lt;strong>Note&lt;/strong> that you can use &lt;em>Markdown syntax&lt;/em> within a blockquote.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="引用中使用cite标记">引用中使用cite标记
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;gt; Don&amp;#39;t communicate by sharing memory, share memory by communicating.&amp;lt;br&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; — &amp;lt;cite&amp;gt;Rob Pike[^1]&amp;lt;/cite&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[^1]: Rob Pike&amp;#39;s [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;blockquote>
+&lt;p>Don&amp;rsquo;t communicate by sharing memory, share memory by communicating.&lt;br>
+— &lt;cite>Rob Pike&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/cite>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="表格">表格
+&lt;/h2>&lt;p>表格不是markdown的标准语法，但HUGO支持表格。&lt;/p>
+&lt;h3 id="在表格中使用markdown语法">在表格中使用markdown语法
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="line">&lt;span class="cl">&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Italics&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Bold&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Code&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">------&lt;/span>&lt;span class="c1">-- | -------- | ------ |
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">italics&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="n">bold&lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Italics&lt;/th>
+&lt;th>Bold&lt;/th>
+&lt;th>Code&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;em>italics&lt;/em>&lt;/td>
+&lt;td>&lt;strong>bold&lt;/strong>&lt;/td>
+&lt;td>&lt;code>code&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">|A|B|C|D|E|F|
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">|---|---|---|---|---|---|
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex. | Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus | Proin sit amet velit nec enim imperdiet vehicula. | Ut bibendum vestibulum quam, eu egestas turpis gravida nec | Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien |
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>C&lt;/th>
+&lt;th>D&lt;/th>
+&lt;th>E&lt;/th>
+&lt;th>F&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/td>
+&lt;td>Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex.&lt;/td>
+&lt;td>Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus&lt;/td>
+&lt;td>Proin sit amet velit nec enim imperdiet vehicula.&lt;/td>
+&lt;td>Ut bibendum vestibulum quam, eu egestas turpis gravida nec&lt;/td>
+&lt;td>Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="代码">代码
+&lt;/h2>&lt;p>代码块显示为灰色背景，使用三个反引号来表示代码块。&lt;/p>
+&lt;h3 id="指定编程语言">指定编程语言
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!doctype html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;en&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Example HTML5 Document&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Test&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="代码版本比较">代码版本比较
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">[dependencies.bevy]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git = &amp;#34;https://github.com/bevyengine/bevy&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rev = &amp;#34;11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- features = [&amp;#34;dynamic&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ features = [&amp;#34;jpeg&amp;#34;, &amp;#34;dynamic&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="列表">列表
+&lt;/h2>&lt;h3 id="有序列表">有序列表
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">1. First item
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Second item
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. Third item
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;ol>
+&lt;li>First item&lt;/li>
+&lt;li>Second item&lt;/li>
+&lt;li>Third item&lt;/li>
+&lt;/ol>
+&lt;h3 id="无序列表">无序列表
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">* List item
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Another item
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* And another item
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;ul>
+&lt;li>List item&lt;/li>
+&lt;li>Another item&lt;/li>
+&lt;li>And another item&lt;/li>
+&lt;/ul>
+&lt;h3 id="嵌套列表">嵌套列表
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">* Fruit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Apple
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Orange
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Banana
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* Dairy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Milk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * Cheese
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;ul>
+&lt;li>Fruit
+&lt;ul>
+&lt;li>Apple&lt;/li>
+&lt;li>Orange&lt;/li>
+&lt;li>Banana&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Dairy
+&lt;ul>
+&lt;li>Milk&lt;/li>
+&lt;li>Cheese&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="图片">图片
+&lt;/h2>&lt;p>使用&lt;code>![]()&lt;/code>来表示图片。&lt;/p>
+&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">![&lt;span class="nt">Image 1&lt;/span>](&lt;span class="na">1.jpg&lt;/span>) ![&lt;span class="nt">Image 2&lt;/span>](&lt;span class="na">2.jpg&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>&lt;img src="https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/1.jpg"
+width="2000"
+height="1400"
+srcset="https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/1_hu4574578169203714971.jpg 480w, https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/1_hu9042511268598201431.jpg 1024w"
+loading="lazy"
+alt="Image 1"
+class="gallery-image"
+data-flex-grow="142"
+data-flex-basis="342px"
+> &lt;img src="https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/2.jpg"
+width="1500"
+height="2250"
+srcset="https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/2_hu10699635480308914167.jpg 480w, https://ifindv.github.io/p/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/2_hu1741040415904021193.jpg 1024w"
+loading="lazy"
+alt="Image 2"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/p>
+&lt;h2 id="数学公式">数学公式
+&lt;/h2>&lt;p>hugo支持数学公式，在frontmatter中添加&lt;code>math: true&lt;/code>即可。&lt;/p>
+&lt;h3 id="内嵌公式">内嵌公式
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">This is an inline mathematical expression: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>This is an inline mathematical expression: $\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…$&lt;/p>
+&lt;h3 id="公式块">公式块
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+$$
+\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+$$$$
+f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+$$&lt;h2 id="多媒体">多媒体
+&lt;/h2>&lt;p>使用{{&amp;lt; + tencent|bilibili|youtube|video + &amp;ldquo;URL&amp;rdquo; &amp;gt;}}`来表示视频。&lt;/p>
+&lt;h3 id="腾讯视频">腾讯视频
+&lt;/h3>
+&lt;div class="video-wrapper">
+&lt;iframe src="https://v.qq.com/txp/iframe/player.html?vid=g0014r3khdw&amp;auto=0"
+scrolling="no"
+frameborder="no"
+framespacing="0"
+allowfullscreen="true"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;h3 id="哔哩哔哩">哔哩哔哩
+&lt;/h3>
+&lt;div class="video-wrapper">
+&lt;iframe src="https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1d4411N7zD"
+scrolling="no"
+frameborder="no"
+framespacing="0"
+allowfullscreen="true"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;h3 id="youtube">Youtube
+&lt;/h3>&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/0qwALOOvUik"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div>
+&lt;h3 id="mp4文件">mp4文件
+&lt;/h3>&lt;div class="video-wrapper">
+&lt;video
+controls
+src="https://www.w3schools.com/tags/movie.mp4"
+>
+&lt;p>
+Your browser doesn't support HTML5 video. Here is a
+&lt;a href="https://www.w3schools.com/tags/movie.mp4">link to the video&lt;/a> instead.
+&lt;/p>
+&lt;/video>
+&lt;/div>
+&lt;h2 id="其它">其它
+&lt;/h2>&lt;h3 id="缩写">缩写
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;lt;abbr title=&amp;#34;Graphics Interchange Format&amp;#34;&amp;gt;GIF&amp;lt;/abbr&amp;gt; is a bitmap image format.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>&lt;abbr title="Graphics Interchange Format">GIF&lt;/abbr> is a bitmap image format.&lt;/p>
+&lt;h3 id="下标">下标
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">H&amp;lt;sub&amp;gt;2&amp;lt;/sub&amp;gt;O
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>H&lt;sub>2&lt;/sub>O&lt;/p>
+&lt;h3 id="上标">上标
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">X&amp;lt;sup&amp;gt;n&amp;lt;/sup&amp;gt; + Y&amp;lt;sup&amp;gt;n&amp;lt;/sup&amp;gt; = Z&amp;lt;sup&amp;gt;n&amp;lt;/sup&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>X&lt;sup>n&lt;/sup> + Y&lt;sup>n&lt;/sup> = Z&lt;sup>n&lt;/sup>&lt;/p>
+&lt;h3 id="键盘按键">键盘按键
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">press &amp;lt;kbd&amp;gt;CTRL&amp;lt;/kbd&amp;gt; + &amp;lt;kbd&amp;gt;ALT&amp;lt;/kbd&amp;gt; + &amp;lt;kbd&amp;gt;Delete&amp;lt;/kbd&amp;gt; to end the session.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>ALT&lt;/kbd> + &lt;kbd>Delete&lt;/kbd> to end the session.&lt;/p>
+&lt;h3 id="高亮显示">高亮显示
+&lt;/h3>&lt;p>代码&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">This is very &amp;lt;mark&amp;gt;important&amp;lt;/mark&amp;gt; !
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果&lt;/p>
+&lt;p>This is very &lt;mark>important&lt;/mark> !&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Rob Pike&amp;rsquo;s &lt;a class="link" href="https://www.youtube.com/watch?v=PAAkCSZUG1c" target="_blank" rel="noopener"
+>talk&lt;/a> during Gopherfest, November 18, 2015.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>Docker不完全指南</title><link>https://ifindv.github.io/p/docker%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Fri, 27 Sep 2024 17:45:00 +0000</pubDate><guid>https://ifindv.github.io/p/docker%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;img src="https://ifindv.github.io/p/docker%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/docker.jpg" alt="Featured image of post Docker不完全指南" />&lt;h2 id="docker-desktop安装">docker Desktop安装
+&lt;/h2>&lt;h3 id="硬件系统网络要求">硬件/系统/网络要求
+&lt;/h3>&lt;ul>
+&lt;li>64-bit处理器，支持SLAT（Second Level Address Translation）&lt;/li>
+&lt;li>至少4GB内存&lt;/li>
+&lt;li>BIOS启用硬件虚拟化特性&lt;/li>
+&lt;li>windows 11 64-bit: 家庭版/专业版都要求21H2及以上（win10也可以，不在此讨论）&lt;/li>
+&lt;li>需要魔法来访问docker hub（或者替换国内registry）&lt;/li>
+&lt;/ul>
+&lt;h3 id="系统设置">系统设置
+&lt;/h3>&lt;p>按照以下步骤对系统进行设置：&lt;/p>
+&lt;ul>
+&lt;li>搜索启用或关闭Windows功能，勾选Hyper-V相关选项&lt;/li>
+&lt;li>以管理员身份运行powershell，执行bcdedit /set hypervisorlaunchtype auto&lt;/li>
+&lt;li>重启计算机&lt;/li>
+&lt;/ul>
+&lt;h3 id="安装wsl">安装WSL
+&lt;/h3>&lt;p>以管理员身份运行powershell，执行：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">wsl --install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --install -d Debian
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="安装docker-desktop">安装docker desktop
+&lt;/h3>&lt;p>官网（https://www.docker.com）下载最新版本安装即可&lt;/p>
+&lt;h2 id="docker常用命令">docker常用命令
+&lt;/h2>&lt;h3 id="镜像">镜像
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker images&lt;/td>
+&lt;td>查看本地镜像&lt;/td>
+&lt;td>docker images&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker search&lt;/td>
+&lt;td>搜索镜像&lt;/td>
+&lt;td>docker search nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker pull&lt;/td>
+&lt;td>拉取镜像&lt;/td>
+&lt;td>docker pull nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker rmi&lt;/td>
+&lt;td>删除镜像&lt;/td>
+&lt;td>docker rmi nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker save&lt;/td>
+&lt;td>导出镜像&lt;/td>
+&lt;td>docker save nginx &amp;gt; nginx.tar&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker load&lt;/td>
+&lt;td>导入镜像&lt;/td>
+&lt;td>docker load &amp;lt; nginx.tar&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker build&lt;/td>
+&lt;td>构建镜像&lt;/td>
+&lt;td>docker build -t nginx:v1 .&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="容器">容器
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker ps&lt;/td>
+&lt;td>查看运行中的容器&lt;/td>
+&lt;td>docker ps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker ps -a&lt;/td>
+&lt;td>查看所有容器&lt;/td>
+&lt;td>docker ps -a&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker run&lt;/td>
+&lt;td>创建并启动容器&lt;/td>
+&lt;td>docker run -d &amp;ndash;name mynginx -p 80:80 nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker start&lt;/td>
+&lt;td>启动容器&lt;/td>
+&lt;td>docker start mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker stop&lt;/td>
+&lt;td>停止容器&lt;/td>
+&lt;td>docker stop mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker restart&lt;/td>
+&lt;td>重启容器&lt;/td>
+&lt;td>docker restart mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker rm&lt;/td>
+&lt;td>删除容器&lt;/td>
+&lt;td>docker rm mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker exec&lt;/td>
+&lt;td>进入容器&lt;/td>
+&lt;td>docker exec -it mynginx /bin/bash&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker cp&lt;/td>
+&lt;td>复制文件&lt;/td>
+&lt;td>docker cp localfile mynginx:/tmp/&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker logs&lt;/td>
+&lt;td>查看容器日志&lt;/td>
+&lt;td>docker logs mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker top&lt;/td>
+&lt;td>查看容器内进程&lt;/td>
+&lt;td>docker top mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker stats&lt;/td>
+&lt;td>查看容器资源使用情况&lt;/td>
+&lt;td>docker stats mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker inspect&lt;/td>
+&lt;td>查看容器详细信息&lt;/td>
+&lt;td>docker inspect mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker commit&lt;/td>
+&lt;td>创建镜像&lt;/td>
+&lt;td>docker commit mynginx mynginx:v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker export&lt;/td>
+&lt;td>导出容器&lt;/td>
+&lt;td>docker export mynginx &amp;gt; mynginx.tar&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker import&lt;/td>
+&lt;td>导入容器&lt;/td>
+&lt;td>docker import mynginx.tar mynginx:v1&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="网络">网络
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker network ls&lt;/td>
+&lt;td>查看网络&lt;/td>
+&lt;td>docker network ls&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network create&lt;/td>
+&lt;td>创建网络&lt;/td>
+&lt;td>docker network create mynet&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network inspect&lt;/td>
+&lt;td>查看网络详情&lt;/td>
+&lt;td>docker network inspect mynet&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network rm&lt;/td>
+&lt;td>删除网络&lt;/td>
+&lt;td>docker network rm mynet&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network connect&lt;/td>
+&lt;td>连接容器到网络&lt;/td>
+&lt;td>docker network connect mynet mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network disconnect&lt;/td>
+&lt;td>断开容器与网络的连接&lt;/td>
+&lt;td>docker network disconnect mynet mynginx&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="数据卷">数据卷
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker volume ls&lt;/td>
+&lt;td>查看数据卷&lt;/td>
+&lt;td>docker volume ls&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume create&lt;/td>
+&lt;td>创建数据卷&lt;/td>
+&lt;td>docker volume create myvol&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume inspect&lt;/td>
+&lt;td>查看数据卷详情&lt;/td>
+&lt;td>docker volume inspect myvol&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume rm&lt;/td>
+&lt;td>删除数据卷&lt;/td>
+&lt;td>docker volume rm myvol&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume prune&lt;/td>
+&lt;td>清理无用的数据卷&lt;/td>
+&lt;td>docker volume prune&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker run -v&lt;/td>
+&lt;td>挂载数据卷&lt;/td>
+&lt;td>docker run -d &amp;ndash;name mynginx -p 80:80 -v myvol:/usr/share/nginx/html nginx&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="实践">实践
+&lt;/h2>&lt;h3 id="搭建freeradius服务器">搭建freeradius服务器
+&lt;/h3>&lt;p>拉取freeradius镜像并运行容器：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker pull freeradius/freeradius-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -d --name freeradius-server -p 1812-1813:1812-1813/udp freeradius/freeradius-server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>为apt配置阿里云镜像源，并安装软件：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sed -i &amp;#39;s/archive.ubuntu.com/mirrors.aliyun.com/g&amp;#39; /etc/apt/sources.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y iproute2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y vim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y tcpdump
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>freeradius的配置在/etc/freeradius目录下，编辑clients.conf文件，配置客户端：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">client localhost {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ipaddr = 172.17.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> secret = beta1234
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> shortname = beta
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>再编辑users文件，配置用户：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">beta Cleartext-Password := &amp;#34;beta1234&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Reply-Message := &amp;#34;Welcome to FreeRadius&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>退出并重启容器，使配置生效。&lt;/p>
+&lt;p>freeradius调试日志在/var/log/freeradius目录下，可以tail -f /var/log/freeradius/radius.log实时查看。&lt;/p>
+&lt;h2 id="链接">链接
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.docker.com/" target="_blank" rel="noopener"
+>Docker 官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://hub.docker.com/" target="_blank" rel="noopener"
+>Docker Hub&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>使用hugo搭建个人专属博客</title><link>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</link><pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/hugo.jpg" alt="Featured image of post 使用hugo搭建个人专属博客" />&lt;h2 id="技术选型">技术选型
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>分类&lt;/th>
+&lt;th>选型&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>博客框架&lt;/td>
+&lt;td>hugo&lt;/td>
+&lt;td>基于GO语言，构建速度快，部署简单&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>主题&lt;/td>
+&lt;td>stack&lt;/td>
+&lt;td>简洁，聚焦内容， &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>主题地址&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>托管服务&lt;/td>
+&lt;td>github pages&lt;/td>
+&lt;td>0成本&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="调试方法">调试方法
+&lt;/h2>&lt;p>github提供了codespace服务，可以在线调试hugo项目。codespace允许你在浏览器中修改项目代码，并实时预览效果。
+&lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace.png"
+width="1263"
+height="814"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace_hu14353944033214623303.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace_hu12088226407884602224.png 1024w"
+loading="lazy"
+alt="codespace"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+> &lt;img src="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2.png"
+width="1914"
+height="943"
+srcset="https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2_hu14893676175844340819.png 480w, https://ifindv.github.io/p/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%93%E5%B1%9E%E5%8D%9A%E5%AE%A2/codespace2_hu8205208297648068093.png 1024w"
+loading="lazy"
+alt="debug-in-codespace"
+class="gallery-image"
+data-flex-grow="202"
+data-flex-basis="487px"
+>&lt;/p>
+&lt;h2 id="访客统计">访客统计
+&lt;/h2>&lt;p>umami提供了免费服务，使用方法参考&lt;a class="link" href="https://umami.is/docs/enable-share-url" target="_blank" rel="noopener"
+>umami帮助文档&lt;/a>&lt;/p></description></item><item><title>我的生词本</title><link>https://ifindv.github.io/p/%E6%88%91%E7%9A%84%E7%94%9F%E8%AF%8D%E6%9C%AC/</link><pubDate>Thu, 26 Dec 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E6%88%91%E7%9A%84%E7%94%9F%E8%AF%8D%E6%9C%AC/</guid><description>&lt;h2 id="f">F
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">flagship: 旗舰，旗舰的，举例：flagship product、flagship store、flagship model（旗舰型号）
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="v">V
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">versatile: 多才多艺的，多功能的，举例：versatile talent、versatile material(多功能材料)、versatile application（广泛应用）
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>超级实用的bash技巧</title><link>https://ifindv.github.io/p/%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E7%9A%84bash%E6%8A%80%E5%B7%A7/</link><pubDate>Wed, 13 Nov 2024 18:47:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E7%9A%84bash%E6%8A%80%E5%B7%A7/</guid><description>&lt;img src="https://ifindv.github.io/p/%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E7%9A%84bash%E6%8A%80%E5%B7%A7/bash.jpg" alt="Featured image of post 超级实用的bash技巧" />&lt;h2 id="使用screen后台运行gdb">使用screen后台运行gdb
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># 创建会话
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S &amp;lt;SESSION_NAME&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 在screen会话中运行gdb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gdb attach &amp;lt;PID&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 按ctrl + a，再按d，将当前会话放入后台
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">crtl + a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 可以随时恢复会话（即使使用xshell远程连接，断开也不受影响）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -r &amp;lt;SESSION_NAME&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>入侵检测引擎suricata</title><link>https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/</link><pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/</guid><description>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/suricata.png" alt="Featured image of post 入侵检测引擎suricata" />&lt;h2 id="简介">简介
+&lt;/h2>&lt;blockquote>
+&lt;p>Suricata is a high performance, open source network analysis and threat detection software used by most private and public organizations, and embedded by major vendors to protect their assets.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://suricata.io/" target="_blank" rel="noopener"
+>官网&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://docs.suricata.io/en/latest/index.html#" target="_blank" rel="noopener"
+>官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/OISF/suricata" target="_blank" rel="noopener"
+>源代码&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://forum.suricata.io/" target="_blank" rel="noopener"
+>官方社区&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="快速开始">快速开始
+&lt;/h2>&lt;h3 id="安装">安装
+&lt;/h3>&lt;p>debian系统，直接使用apt安装即可（其它系统参考官方文档第3部分installation）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install suricata
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="配置">配置
+&lt;/h3>&lt;p>基础配置只需关注HOME_NET与interface两个参数即可（详细配置参考官方文档第12章），其中HOME_NET为本地网络地址，interface为监听的网络接口。配置文件路径为/etc/suricata/suricata.yaml，
+示例如下：&lt;/p>
+&lt;p>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/HOME_NET.png"
+width="591"
+height="492"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/HOME_NET_hu3240128276943836632.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/HOME_NET_hu17192638537031297501.png 1024w"
+loading="lazy"
+alt="HOME_NET"
+class="gallery-image"
+data-flex-grow="120"
+data-flex-basis="288px"
+> &lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/af-interface.png"
+width="630"
+height="465"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/af-interface_hu9978305447657897537.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/af-interface_hu14486600342559106738.png 1024w"
+loading="lazy"
+alt="interface"
+class="gallery-image"
+data-flex-grow="135"
+data-flex-basis="325px"
+>&lt;/p>
+&lt;p>规则（suricata中称为signatures）保存在/etc/suricata/rules/目录下，可以通过suricata-update命令更新。当然，也可以手动新建规则文件（比如用于测试）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo touch /etc/suricata/rules/suricata.rules
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;alert ip any any -&amp;gt; any any (msg: &amp;#34;baidu&amp;#34;; content: &amp;#34;baidu&amp;#34;; )&amp;#39;&lt;/span> &amp;gt; /etc/suricata/rules/suricata.rules
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="启动">启动
+&lt;/h3>&lt;p>可以使用命令行直接起前台，或者通过service/systemd启动后台服务（后台启动需要先将/etc/default/suricata文件中的RUN改为yes，否则会报错）。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo suricata -c /etc/suricata/suricata.yaml -i eth0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="测试">测试
+&lt;/h3>&lt;p>事件日志/var/log/suricata/eve.json(使用event_type标识事件类型，常见的像统计stats、告警alert、流flow等，记录非常详细)，告警日志/var/log/suricata/fast.log，可以使用curl进行测试(比如curl &lt;a class="link" href="https://www.baidu.com" target="_blank" rel="noopener"
+>www.baidu.com&lt;/a>)，日志示例如下：&lt;/p>
+&lt;p>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/eve-log.png"
+width="477"
+height="649"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/eve-log_hu17629930225117932369.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/eve-log_hu4865995373407086950.png 1024w"
+loading="lazy"
+alt="eve.json"
+class="gallery-image"
+data-flex-grow="73"
+data-flex-basis="176px"
+> &lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/fast-log.png"
+width="1233"
+height="198"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/fast-log_hu15764629307791861142.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/fast-log_hu6051606144530140553.png 1024w"
+loading="lazy"
+alt="fast.log"
+class="gallery-image"
+data-flex-grow="622"
+data-flex-basis="1494px"
+>&lt;/p>
+&lt;p>也可以通过报文回放进行测试，使用-r FILE.pcap指定要回放的pcap文件。&lt;/p>
+&lt;h2 id="规则">规则
+&lt;/h2>&lt;h3 id="格式">格式
+&lt;/h3>&lt;p>一条规则由3个部分组成，分别是action、header、rule options，示例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">alert http &lt;span class="nv">$HOME_NET&lt;/span> any -&amp;gt; &lt;span class="nv">$EXTERNAL_NET&lt;/span> any &lt;span class="o">(&lt;/span>msg:&lt;span class="s2">&amp;#34;HTTP GET Request Containing Rule in URI&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> flow:established,to_server&lt;span class="p">;&lt;/span> http.method&lt;span class="p">;&lt;/span> content:&lt;span class="s2">&amp;#34;GET&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> http.uri&lt;span class="p">;&lt;/span> content:&lt;span class="s2">&amp;#34;rule&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> fast_pattern&lt;span class="p">;&lt;/span> classtype:bad-unknown&lt;span class="p">;&lt;/span> sid:123&lt;span class="p">;&lt;/span> rev:1&lt;span class="p">;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>动作定义规则匹配时做什么，header定义规则的协议、IP、端口、方向等信息（网络层、传输层、应用层协议），rule options定义规则的细节（应用层数据）。&lt;/p>
+&lt;h3 id="关键字">关键字
+&lt;/h3>&lt;p>本部分介绍suricata元关键字（称为Meta Keywords），其它关键字（涉及协议细节）请参考官方文档第8部分。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: center">关键字&lt;/th>
+&lt;th style="text-align: center">说明&lt;/th>
+&lt;th style="text-align: center">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: center">msg&lt;/td>
+&lt;td style="text-align: center">告警信息&lt;/td>
+&lt;td style="text-align: center">msg:&amp;ldquo;HTTP GET Request Containing Rule in URI&amp;rdquo;, 该字段应该写在最前，各部分首字母大写，最好能反映规则的类型&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">sid&lt;/td>
+&lt;td style="text-align: center">规则ID&lt;/td>
+&lt;td style="text-align: center">sid:123&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">rev&lt;/td>
+&lt;td style="text-align: center">规则版本&lt;/td>
+&lt;td style="text-align: center">rev:1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">gid&lt;/td>
+&lt;td style="text-align: center">规则组ID&lt;/td>
+&lt;td style="text-align: center">gid:1，告警记录[gid:sid:rev]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">classtype&lt;/td>
+&lt;td style="text-align: center">告警类型&lt;/td>
+&lt;td style="text-align: center">classtype:bad-unknown，该字段应该写在sid与rev之前&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">reference&lt;/td>
+&lt;td style="text-align: center">参考信息&lt;/td>
+&lt;td style="text-align: center">reference:cve,2024-1234，规则的来源以及解决的问题&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">priority&lt;/td>
+&lt;td style="text-align: center">规则优先级&lt;/td>
+&lt;td style="text-align: center">priority:1，最高为1，取值1&lt;del>255, 一般使用1&lt;/del>4即可&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">metadata&lt;/td>
+&lt;td style="text-align: center">元数据&lt;/td>
+&lt;td style="text-align: center">metadata:created_at,2024_01_01,metadata:created_by,xxx，用于附加一些功能无关的信息&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">target&lt;/td>
+&lt;td style="text-align: center">目标&lt;/td>
+&lt;td style="text-align: center">target:[src_ip&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">requires&lt;/td>
+&lt;td style="text-align: center">依赖&lt;/td>
+&lt;td style="text-align: center">requires: feature geoip, version &amp;gt;= 7.0.0, 用于指定规则依赖的模块以及版本，不符合依赖条件的规则会被忽略&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="性能">性能
+&lt;/h2>&lt;h3 id="运行模式">运行模式
+&lt;/h3>&lt;p>suricata采用(多)线程模型，每个线程可以包含多个功能模块（比如decode、detect、output），多个线程之间通过queue来传递报文。suricata支持的运行模式有：&lt;/p>
+&lt;ul>
+&lt;li>workers: 多个线程，每个线程都是一个完整的流水线，默认模式。&lt;/li>
+&lt;li>single: workers的特例，只有一个线程，多用于开发调试。&lt;/li>
+&lt;li>autofp: 多个线程，线程分为Capture和Processing两种，通过queue传递报文。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/workers.png"
+width="332"
+height="457"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/workers_hu10823656059657005615.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/workers_hu3277525756799646143.png 1024w"
+loading="lazy"
+alt="workers"
+class="gallery-image"
+data-flex-grow="72"
+data-flex-basis="174px"
+> &lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/autofp.png"
+width="336"
+height="459"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/autofp_hu8384175418337690223.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/autofp_hu3339831037576899933.png 1024w"
+loading="lazy"
+alt="autofp"
+class="gallery-image"
+data-flex-grow="73"
+data-flex-basis="175px"
+>&lt;/p>
+&lt;h3 id="负载均衡">负载均衡
+&lt;/h3>&lt;p>可以在抓包模块实现负载均衡算法（通过软件hash计算将报文分发到不同的worker），或者通过网卡硬件的RSS（Receive Side Scaling）功能，将报文分发到不同的队列（worker）。
+硬件卸载功能必须关闭，以防止报文某些特征被破坏影响检测。典型的像LRO/GRO会导致小包合并成大的super packet，从而影响dsize关键字的检测以及TCP状态跟踪。
+若使用AF_PACKET或PF_RING抓包，checksum卸载功能可以保持开启。&lt;/p>
+&lt;h3 id="性能调优">性能调优
+&lt;/h3>&lt;ul>
+&lt;li>max-pending-packets: 引擎可以同时处理的报文数，数值越高，线程越繁忙，内存消耗越大。经验值10000~65000，所需内存计算公式number_of.threads X max-pending-packets X (default-packet-size + ~750 bytes)&lt;/li>
+&lt;li>mpm-algo: 多模式匹配算法，支持ac,hs,ac-bc,ac-ks, hs性能最高但对平台有要求，ac-ks次之, ac相对较低。&lt;/li>
+&lt;li>detect.profile: 规则分组数，数值越高检测性能越高，内存消耗小幅增加，支持low, medium, high, custom, 默认为high。&lt;/li>
+&lt;li>detect.sgh-mpm-context: 多模式匹配上下文大小，根据选择的mpm-algo自动调整，一般无需修改。&lt;/li>
+&lt;li>af-packet: IDS/NSM推荐使用v3，IPS推荐使用v2。&lt;/li>
+&lt;li>ring-size: 队列大小，内存消耗计算公式af-packet.threads X af-packet.ring-size X (default-packet-size + ~750 bytes)。&lt;/li>
+&lt;li>stream-bypass: 设定flow的ressembly depth，比如1mb，超过的部分跳过检测（针对某些特殊的流）。&lt;/li>
+&lt;/ul>
+&lt;h3 id="niccpu配置">NIC/CPU配置
+&lt;/h3>&lt;p>不同的厂商和型号支持的特性不同，具体参考官方文档第11.5章节。&lt;/p>
+&lt;h3 id="统计">统计
+&lt;/h3>&lt;p>统计信息以固定的周期输出，默认间隔8秒，可以用于检查suricata的运行状况，suricata退出时会输出丢包统计信息。
+&lt;img src="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/packet-loss.png"
+width="692"
+height="62"
+srcset="https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/packet-loss_hu13891848417547690091.png 480w, https://ifindv.github.io/p/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E5%BC%95%E6%93%8Esuricata/packet-loss_hu2543593101601738850.png 1024w"
+loading="lazy"
+alt="packet-loss"
+class="gallery-image"
+data-flex-grow="1116"
+data-flex-basis="2678px"
+>&lt;/p>
+&lt;p>网卡的统计信息可以使用ethtool命令查看，比如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ethtool -S em2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">NIC&lt;/span> &lt;span class="n">statistics&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_packets&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">35430208463&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_packets&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">216072&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_bytes&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">32454370137414&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_bytes&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">53624450&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_broadcast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">17424355&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_broadcast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">133508&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_multicast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5332175&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_multicast&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">82564&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rx_errors&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">47&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_errors&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tx_dropped&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">...&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>另外可以通过stats.log查看kernel的丢包信息。&lt;/p>
+&lt;h3 id="过滤">过滤
+&lt;/h3>&lt;p>借助于BPF，suricata可以过滤某些特定的流量，只对感兴趣的流进行检测。可以通过命令行直接运行，或者通过配置文件指定过滤规则。举例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">suricata -i eth0 -v not host 1.2.3.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">suricata -i eno1 -c suricata.yaml tcp or udp
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">suricata -i ens5f0 -F capture-filter.bpf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="抑制">抑制
+&lt;/h3>&lt;p>supress规则用于抑制某些特定的告警，比如某个特定的host不产生告警。举例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">suppress gen_id 0, sig_id 0, track by_src, ip 1.2.3.4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="加密流绕过">加密流绕过
+&lt;/h3>&lt;p>对于像TLS这种加密流量，suricata可以配置在握手结束后，跳过后续加密流的检测，通过app-layer.protocols.tls.encryption-handling进行设置。&lt;/p>
+&lt;h3 id="tcmalloc">Tcmalloc
+&lt;/h3>&lt;p>google公司研发的性能优化内存分配器，可以小幅提升性能，同时节约一部分内存。使用方法如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">LD_PRELOAD=&amp;#34;/usr/lib64/libtcmalloc_minimal.so.4&amp;#34; suricata -c suricata.yaml -i eth0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="开发">开发
+&lt;/h2>&lt;h3 id="源码编译--安装">源码编译 &amp;amp; 安装
+&lt;/h3>&lt;p>从github下载源码，&lt;a class="link" href="https://codeload.github.com/OISF/suricata/zip/refs/tags/suricata-7.0.7" target="_blank" rel="noopener"
+>suricata-suricata-7.0.7.zip&lt;/a>与&lt;a class="link" href="https://codeload.github.com/OISF/libhtp/zip/refs/tags/0.5.49" target="_blank" rel="noopener"
+>libhtp-0.5.49.zip&lt;/a>。放在同级目录下，执行命令（以Debian为例）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">sudo&lt;/span> &lt;span class="n">apt&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">autoconf&lt;/span> &lt;span class="n">automake&lt;/span> &lt;span class="n">build&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">essential&lt;/span> &lt;span class="n">cargo&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cbindgen&lt;/span> &lt;span class="n">libjansson&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libpcap&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libpcre2&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libtool&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">libyaml&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">make&lt;/span> &lt;span class="n">pkg&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">config&lt;/span> &lt;span class="n">rustc&lt;/span> &lt;span class="n">zlib1g&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libnuma&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">dpdk&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">git&lt;/span> &lt;span class="n">liblua5&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libmaxminddb&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">libcap&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">ng&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libmagic&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">liblz4&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span> &lt;span class="n">libunwind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dev&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">unzip&lt;/span> &lt;span class="n">libhtp&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">49.&lt;/span>&lt;span class="n">zip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">unzip&lt;/span> &lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">7.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">7.&lt;/span>&lt;span class="n">zip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cd&lt;/span> &lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">suricata&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">7.0&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">7&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mv&lt;/span> &lt;span class="o">../&lt;/span>&lt;span class="n">libhtp&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">49&lt;/span> &lt;span class="n">libhtp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">libhtp&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">autogen&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">libhtp&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">configure&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">prefix&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">usr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">autogen&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">./&lt;/span>&lt;span class="n">configure&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">prefix&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">usr&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">sysconfdir&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="n">etc&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">localstatedir&lt;/span>&lt;span class="o">=/&lt;/span>&lt;span class="k">var&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">enable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">lua&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">enable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">geoip&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">enable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">dpdk&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">make&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">make&lt;/span> &lt;span class="n">install&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安装完成执行suricata -V可查看版本信息。&lt;/p>
+&lt;h3 id="suricata-library">suricata library
+&lt;/h3>&lt;p>suricata当前还不支持以动态库的形式直接集成到APP中（APP已经具备收发包功能，只利用suricata做检测）。官方回复正在推进中，预计8.0之后的某个版本会支持。
+花了一周多的时间尝试在7.0.2版本基础上封装动态库，测试基础功能可用（因精力有限尚未做详尽的测试），项目地址&lt;a class="link" href="https://github.com/ifindv/suricata-lib" target="_blank" rel="noopener"
+>suricata-lib&lt;/a>
+可供参考。&lt;/p></description></item><item><title>关于</title><link>https://ifindv.github.io/user/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/user/</guid><description>&lt;p>&lt;img src="https://ifindv.github.io/user/zelda.jpg"
+width="1024"
+height="576"
+srcset="https://ifindv.github.io/user/zelda_hu923019852184332531.jpg 480w, https://ifindv.github.io/user/zelda_hu426629487955569149.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h2 id="关于我">关于我
+&lt;/h2>&lt;blockquote>
+&lt;p>一个没有感情的代码机器，喜欢折腾，喜欢新技术，喜欢开源，喜欢分享。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="联系方式">联系方式
+&lt;/h2>&lt;blockquote>
+&lt;p>邮箱： &lt;a class="link" href="mailto:ifindv@gmail.com" >ifindv@gmail.com&lt;/a>&lt;/p>
+&lt;/blockquote></description></item><item><title>链接</title><link>https://ifindv.github.io/%E9%93%BE%E6%8E%A5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/%E9%93%BE%E6%8E%A5/</guid><description/></item><item><title>搜索</title><link>https://ifindv.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/search/</guid><description/></item></channel></rss>

@@ -1,0 +1,367 @@
+<!doctype html><html lang=zh-CN dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="简介 PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:\ncomplex queries foreign keys triggers updatable views transactional integrity multiversion concurrency control 用户可以灵活的的扩展PG的功能，支持自定义：\n"><title>postgresql快速入门指南</title>
+<link rel=canonical href=https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/><link rel=stylesheet href=/scss/style.min.6d902bd0a9d3aa47f28be318edfe2a590c87faf5624fac3806ce90954f083e52.css><meta property='og:title' content="postgresql快速入门指南"><meta property='og:description' content="简介 PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:\ncomplex queries foreign keys triggers updatable views transactional integrity multiversion concurrency control 用户可以灵活的的扩展PG的功能，支持自定义：\n"><meta property='og:url' content='https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/'><meta property='og:site_name' content='ifindv个人博客'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='postgresql'><meta property='article:published_time' content='2024-10-21T10:22:00+00:00'><meta property='article:modified_time' content='2024-10-21T10:22:00+00:00'><meta property='og:image' content='https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql.jpg'><meta name=twitter:title content="postgresql快速入门指南"><meta name=twitter:description content="简介 PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:\ncomplex queries foreign keys triggers updatable views transactional integrity multiversion concurrency control 用户可以灵活的的扩展PG的功能，支持自定义：\n"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://ifindv.github.io/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql.jpg'><link rel="shortcut icon" href=/favicon.png><script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="https://hm.baidu.com/hm.js?ea0fadb5eebff81e81ce5b8249534644",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu5617991577430592071.png width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>ifindv个人博客</a></h1><h2 class=site-description></h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>首页</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/%E9%93%BE%E6%8E%A5/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>链接</span></a></li><li><a href=/user/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li class=menu-bottom-section><ol class=menu></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#简介>简介</a></li><li><a href=#sql>SQL</a><ol><li><a href=#语法>语法</a><ol><li><a href=#sql语句>SQL语句</a></li><li><a href=#字符串常量>字符串常量</a></li><li><a href=#位串常量>位串常量</a></li><li><a href=#数字常量>数字常量</a></li><li><a href=#操作符>操作符</a></li><li><a href=#注释>注释</a></li><li><a href=#表达式>表达式</a></li><li><a href=#函数传参>函数传参</a></li></ol></li><li><a href=#数据>数据</a><ol><li><a href=#表>表</a></li><li><a href=#指定列的默认值>指定列的默认值</a></li><li><a href=#生成列>生成列</a></li><li><a href=#check约束>check约束</a></li><li><a href=#非空约束>非空约束</a></li><li><a href=#唯一约束>唯一约束</a></li><li><a href=#主键>主键</a></li><li><a href=#外键>外键</a></li><li><a href=#排除约束>排除约束</a></li><li><a href=#修改表结构>修改表结构</a></li><li><a href=#权限>权限</a></li><li><a href=#行安全策略>行安全策略</a></li><li><a href=#模式schema>模式（schema）</a></li><li><a href=#继承>继承</a></li><li><a href=#分区>分区</a></li></ol></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/><img src=/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql_hu2467904050388739129.jpg srcset="/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql_hu2467904050388739129.jpg 800w, /p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/postgresql_hu1764460944981350125.jpg 1600w" width=800 height=331 loading=lazy alt="Featured image of post postgresql快速入门指南"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/p/postgresql%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/>postgresql快速入门指南</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Oct 21, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 6 分钟</time></div><div><svg class="icon icon-tabler icon-tabler-word-count" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 18h6"/><text x="7" y="14" font-family="sans-serif" font-size="12" fill="currentcolor">123</text></svg>
+<time class=article-words>2656字</time></div></footer></div></header><section class=article-content><h2 id=简介>简介</h2><p>PG是一款开源的对象关系数据库管理系统，它支持大部分的SQL标准，并提供了大量的modern features:</p><ul><li>complex queries</li><li>foreign keys</li><li>triggers</li><li>updatable views</li><li>transactional integrity</li><li>multiversion concurrency control</li></ul><p>用户可以灵活的的扩展PG的功能，支持自定义：</p><ul><li>data types</li><li>functions</li><li>operators</li><li>aggregate functions</li><li>index methods</li><li>procedural languages</li></ul><p>PG可以免费使用、修改和分发，并且可以用于商业用途。</p><h2 id=sql>SQL</h2><h3 id=语法>语法</h3><h4 id=sql语句>SQL语句</h4><p>一条SQL语句由多个tokens组成，以分号结束。tokens分为以下几种类型：</p><ol><li>关键字：如SELECT, FROM, WHERE, ORDER BY等，用于描述SQL语句的操作。</li><li>标识符：如表名，列名，变量名等，用于引用数据库中的对象。</li><li>常量：如数字，字符串等，用于提供数据。</li><li>操作符：如=, &lt;, >, +, -, *等，用于对数据进行操作。</li></ol><p>SQL语句对大小写不敏感，但通常关键字使用大写，标识符使用小写。双引号可以用于标识符，以避免关键字冲突，特别注意，被双引号包围的标识符大小写敏感。</p><p>SQL语句举例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>MY_TABLE</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>UPDATE</span><span class=w> </span><span class=n>MY_TABLE</span><span class=w> </span><span class=k>SET</span><span class=w> </span><span class=n>A</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>5</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>INSERT</span><span class=w> </span><span class=k>INTO</span><span class=w> </span><span class=n>MY_TABLE</span><span class=w> </span><span class=k>VALUES</span><span class=w> </span><span class=p>(</span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;hi there&#39;</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=字符串常量>字符串常量</h4><p>任意字符构成的序列，使用单引号包围，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&#39;This is a string&#39;
+</span></span></code></pre></td></tr></table></div></div><p>单引号可以嵌套使用，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&#39;This is a string with a &#39;&#39;quote&#39;&#39; in it&#39;
+</span></span></code></pre></td></tr></table></div></div><p>两个字符串之间必须使用空格分隔。</p><p>字符串常量支持C风格转义字符，如下表所示：</p><div class=table-wrapper><table><thead><tr><th>转义字符</th><th>含义</th></tr></thead><tbody><tr><td>\b</td><td>退格符</td></tr><tr><td>\f</td><td>换页符</td></tr><tr><td>\n</td><td>换行符</td></tr><tr><td>\r</td><td>回车符</td></tr><tr><td>\t</td><td>制表符</td></tr><tr><td>\o, \oo, \ooo</td><td>八进制字符</td></tr><tr><td>\xh, \xhh, \xhhh</td><td>十六进制字符</td></tr><tr><td>\u, \uu, \uuu, \uuuu</td><td>Unicode字符</td></tr></tbody></table></div><p>使用‘U&’标记标识unicode，格式U&\uuuu或U&\+uuuuuu，其中u代表一个十六进制字符。举例data可以表示为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>U&amp;&#34;d\0061t\+000061&#34;
+</span></span></code></pre></td></tr></table></div></div><p>可以使用UESCAPE定义转义字符替代\,比如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>U&amp;&#34;d!00061t!+000061&#34; UESCAPE &#39;!&#39;
+</span></span></code></pre></td></tr></table></div></div><p>使用$标记标识原始字符串，$标记包围的字符串可以包含任何字符，不需要转义，格式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$$raw_string$$
+</span></span><span class=line><span class=cl>$tag$raw_string$tag$
+</span></span></code></pre></td></tr></table></div></div><p>举例函数定义可以表示为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$function$
+</span></span><span class=line><span class=cl>BEGIN
+</span></span><span class=line><span class=cl>    RETURN ($1 ~ $q$[\t\r\n\v\\]$q$);
+</span></span><span class=line><span class=cl>END;
+</span></span><span class=line><span class=cl>$function$
+</span></span></code></pre></td></tr></table></div></div><h4 id=位串常量>位串常量</h4><p>二进制位串使用B标记，十六进制位串使用X标记，举例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>B&#39;101001&#39;
+</span></span><span class=line><span class=cl>X&#39;1FF&#39;
+</span></span></code></pre></td></tr></table></div></div><h4 id=数字常量>数字常量</h4><p>常用的数字常量格式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>digits
+</span></span><span class=line><span class=cl>digits.[digits][e[+-]digits]
+</span></span><span class=line><span class=cl>[digits].digits[e[+-]digits]
+</span></span><span class=line><span class=cl>digitse[+-]digits
+</span></span><span class=line><span class=cl>0xhexdigits
+</span></span><span class=line><span class=cl>0ooctdigits
+</span></span><span class=line><span class=cl>0bbindigits
+</span></span><span class=line><span class=cl>digits_digits
+</span></span></code></pre></td></tr></table></div></div><p>举例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>43
+</span></span><span class=line><span class=cl>2.3
+</span></span><span class=line><span class=cl>4.
+</span></span><span class=line><span class=cl>.002
+</span></span><span class=line><span class=cl>5e4
+</span></span><span class=line><span class=cl>1.82e-3
+</span></span><span class=line><span class=cl>0x1A
+</span></span><span class=line><span class=cl>0o27
+</span></span><span class=line><span class=cl>0b101011
+</span></span><span class=line><span class=cl>1_000_000
+</span></span></code></pre></td></tr></table></div></div><p>数字常量自动被转换为最合适的类型，比如interger（32位）、bigint（64位）、numeric等。可以使用强制类型转换，语法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>CAST (&#39;expression&#39; AS type)
+</span></span><span class=line><span class=cl>expression::CAST
+</span></span></code></pre></td></tr></table></div></div><p>举例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>REAL &#39;1.23&#39;
+</span></span><span class=line><span class=cl>1.23::REAL
+</span></span></code></pre></td></tr></table></div></div><h4 id=操作符>操作符</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>+-*/&lt;&gt;=~!@#%^&amp;|`?
+</span></span></code></pre></td></tr></table></div></div><h4 id=注释>注释</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>-- This is single-line comment
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/** This is multi-line comment
+</span></span><span class=line><span class=cl>* with nesting: /* nested comment */
+</span></span><span class=line><span class=cl>*/
+</span></span></code></pre></td></tr></table></div></div><h4 id=表达式>表达式</h4><div class=table-wrapper><table><thead><tr><th>类型</th><th>表达式</th><th>描述</th></tr></thead><tbody><tr><td>列</td><td>table_name.column_name</td><td>列名唯一时表名和逗号可以省略</td></tr><tr><td>参数</td><td>$1, $2, &mldr;</td><td>比如$1代表函数调用中的第一个参数，类比shell脚本</td></tr><tr><td>数组</td><td>table_name.array_column_name[INDEX]</td><td>支持多维数组，类比C语言中的数组，支持切片，类比python中字符串切片</td></tr><tr><td>字段</td><td>(composite_column).field</td><td>复合列中选取字段，类比C语言中的结构体，括号不能省略</td></tr><tr><td>一元运算</td><td>opertator expression</td><td>一元运算符</td></tr><tr><td>二元运算</td><td>expression operator expression</td><td>二元运算符</td></tr><tr><td>函数调用</td><td>function_name(expression, &mldr;)</td><td>函数调用， 比如sqrt(2)</td></tr><tr><td>排序规则</td><td>expression COLLATE collation_name</td><td>指定排序规则，ORDER BY name COLLATE &ldquo;en_US&rdquo;; 表示使用美式英语对name排序</td></tr></tbody></table></div><h4 id=函数传参>函数传参</h4><p>postgresql支持位置参数、命名参数、以及混合参数，举例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=n>concat_lower_or_upper</span><span class=p>(</span><span class=s1>&#39;Hello&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;World&#39;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>concat_lower_or_upper</span><span class=p>(</span><span class=n>a</span><span class=w> </span><span class=o>=&gt;</span><span class=w> </span><span class=s1>&#39;Hello&#39;</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=w> </span><span class=o>=&gt;</span><span class=w> </span><span class=s1>&#39;World&#39;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>concat_lower_or_upper</span><span class=p>(</span><span class=n>a</span><span class=w> </span><span class=p>:</span><span class=o>=</span><span class=w> </span><span class=s1>&#39;Hello&#39;</span><span class=p>,</span><span class=w> </span><span class=n>uppercase</span><span class=w> </span><span class=p>:</span><span class=o>=</span><span class=w> </span><span class=k>true</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=w> </span><span class=p>:</span><span class=o>=</span><span class=s1>&#39;World&#39;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>concat_lower_or_upper</span><span class=p>(</span><span class=s1>&#39;Hello&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;World&#39;</span><span class=p>,</span><span class=w> </span><span class=n>uppercase</span><span class=w> </span><span class=o>=&gt;</span><span class=w> </span><span class=k>true</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=数据>数据</h3><h4 id=表>表</h4><p>SQL中的数据都存储在表中，表由行和列组成，列定义了数据类型，行定义了数据值。列是固定的，行是可变的。
+表的基本操作有创建、插入、更新、删除、查询等。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>my_first_table</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>first_column</span><span class=w> </span><span class=nb>text</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>second_column</span><span class=w> </span><span class=nb>integer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>INSERT</span><span class=w> </span><span class=k>INTO</span><span class=w> </span><span class=n>my_first_table</span><span class=w> </span><span class=k>VALUES</span><span class=w> </span><span class=p>(</span><span class=s1>&#39;Hello&#39;</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>UPDATE</span><span class=w> </span><span class=n>my_first_table</span><span class=w> </span><span class=k>SET</span><span class=w> </span><span class=n>first_column</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;Hi&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>DELETE</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>my_first_table</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>first_column</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;Hi&#39;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>my_first_table</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>DROP</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>my_first_table</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=指定列的默认值>指定列的默认值</h4><p>使用DEFAULT关键字指定列的默认值，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>my_table</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>first_column</span><span class=w> </span><span class=nb>text</span><span class=w> </span><span class=k>DEFAULT</span><span class=w> </span><span class=s1>&#39;Hello&#39;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>second_column</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>DEFAULT</span><span class=w> </span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=生成列>生成列</h4><p>生成列是只读的，其值由表达式计算得出，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>people</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>...,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>height_cm</span><span class=w> </span><span class=nb>numeric</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>height_in</span><span class=w> </span><span class=nb>numeric</span><span class=w> </span><span class=k>GENERATED</span><span class=w> </span><span class=n>ALWAYS</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=p>(</span><span class=n>height_cm</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=mi>2</span><span class=p>.</span><span class=mi>54</span><span class=p>)</span><span class=w> </span><span class=n>STORED</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=check约束>check约束</h4><p>使用CHECK关键字定义列的约束，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_name</span><span class=w> </span><span class=nb>text</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_price</span><span class=w> </span><span class=nb>numeric</span><span class=w> </span><span class=k>CHECK</span><span class=w> </span><span class=p>(</span><span class=n>product_price</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=w> </span><span class=nb>text</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>price</span><span class=w> </span><span class=nb>numeric</span><span class=w> </span><span class=k>CHECK</span><span class=w> </span><span class=p>(</span><span class=n>price</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>0</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>discounted_price</span><span class=w> </span><span class=nb>numeric</span><span class=w> </span><span class=k>CHECK</span><span class=w> </span><span class=p>(</span><span class=n>discounted_price</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>0</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>CHECK</span><span class=w> </span><span class=p>(</span><span class=n>price</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=n>discounted_price</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=非空约束>非空约束</h4><p>使用NOT NULL关键字定义列的约束，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=w> </span><span class=nb>text</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>price</span><span class=w> </span><span class=nb>numeric</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=唯一约束>唯一约束</h4><p>使用UNIQUE关键字定义列的约束，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>UNIQUE</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=w> </span><span class=nb>text</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=w> </span><span class=nb>text</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>price</span><span class=w> </span><span class=nb>numeric</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>UNIQUE</span><span class=w> </span><span class=p>(</span><span class=n>product_no</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>example</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>a</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>b</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>c</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>UNIQUE</span><span class=w> </span><span class=p>(</span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=主键>主键</h4><p>主键唯一标识表中的每一行，使用PRIMARY KEY关键字定义主键，主键可以是多个列的组合，要求同时满足唯一约束和非空约束，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>PRIMARY</span><span class=w> </span><span class=k>KEY</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=w> </span><span class=nb>text</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>price</span><span class=w> </span><span class=nb>numeric</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>example</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>a</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>b</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>c</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>PRIMARY</span><span class=w> </span><span class=k>KEY</span><span class=w> </span><span class=p>(</span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=外键>外键</h4><p>外键用于建立表之间的关系，外键引用另一个表的主键，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>orders</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>order_id</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>PRIMARY</span><span class=w> </span><span class=k>KEY</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>REFERENCES</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=n>product_no</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>quantity</span><span class=w> </span><span class=nb>integer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>orders</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>order_id</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>PRIMARY</span><span class=w> </span><span class=k>KEY</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>product_no</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>REFERENCES</span><span class=w> </span><span class=n>products</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>quantity</span><span class=w> </span><span class=nb>integer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>t1</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>a</span><span class=w> </span><span class=nb>integer</span><span class=w> </span><span class=k>PRIMARY</span><span class=w> </span><span class=k>KEY</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>b</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>c</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>FOREIGN</span><span class=w> </span><span class=k>KEY</span><span class=w> </span><span class=p>(</span><span class=n>b</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>)</span><span class=w> </span><span class=k>REFERENCES</span><span class=w> </span><span class=n>other_table</span><span class=w> </span><span class=p>(</span><span class=n>c1</span><span class=p>,</span><span class=w> </span><span class=n>c2</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=排除约束>排除约束</h4><p>排除约束用于定义列的值不能重复，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>example</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>a</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>b</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>c</span><span class=w> </span><span class=nb>integer</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>EXCLUDE</span><span class=w> </span><span class=k>USING</span><span class=w> </span><span class=n>gist</span><span class=w> </span><span class=p>(</span><span class=n>point</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=修改表结构>修改表结构</h4><p>使用ALTER TABLE关键字修改表结构，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>ADD</span><span class=w> </span><span class=k>COLUMN</span><span class=w> </span><span class=n>description</span><span class=w> </span><span class=nb>text</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>DROP</span><span class=w> </span><span class=k>COLUMN</span><span class=w> </span><span class=n>description</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>ALTER</span><span class=w> </span><span class=k>COLUMN</span><span class=w> </span><span class=n>price</span><span class=w> </span><span class=k>SET</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>ALTER</span><span class=w> </span><span class=k>COLUMN</span><span class=w> </span><span class=n>price</span><span class=w> </span><span class=k>DROP</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>ALTER</span><span class=w> </span><span class=k>COLUMN</span><span class=w> </span><span class=n>price</span><span class=w> </span><span class=k>TYPE</span><span class=w> </span><span class=nb>numeric</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span><span class=mi>2</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>RENAME</span><span class=w> </span><span class=k>COLUMN</span><span class=w> </span><span class=n>product_no</span><span class=w> </span><span class=k>TO</span><span class=w> </span><span class=n>product_number</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>RENAME</span><span class=w> </span><span class=k>TO</span><span class=w> </span><span class=n>items</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=权限>权限</h4><p>使用ALTER修改owner，使用GRANT和REVOKE关键字授予和回收权限，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>OWNER</span><span class=w> </span><span class=k>TO</span><span class=w> </span><span class=n>joe</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>GRANT</span><span class=w> </span><span class=k>SELECT</span><span class=p>,</span><span class=w> </span><span class=k>INSERT</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>TO</span><span class=w> </span><span class=n>joe</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>REVOKE</span><span class=w> </span><span class=k>ALL</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>PUBLIC</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=行安全策略>行安全策略</h4><p>启用行安全策略后，只有匹配策略的访问才被允许，使用ALTER TABLE关键字启用行安全策略，使用CREATE POLICY关键字创建策略，如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>ALTER</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=n>ENABLE</span><span class=w> </span><span class=k>ROW</span><span class=w> </span><span class=k>LEVEL</span><span class=w> </span><span class=k>SECURITY</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=n>POLICY</span><span class=w> </span><span class=n>products_select</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=k>FOR</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=k>USING</span><span class=w> </span><span class=p>(</span><span class=k>user</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>current_user</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=模式schema>模式（schema）</h4><p>模式是数据库中的命名空间(默认public)，用于组织表、视图、索引、函数等，可以将模式看作一个文件夹，用于存放不同的对象，PG内置了一个名为pg_catalog的模式，
+该模式包含了所有的系统内建的表、数据类型、函数、操作等，该模式的查找优先于search_path指定的模式。模式相关的常用操作如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>SCHEMA</span><span class=w> </span><span class=n>myschema</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>myschema</span><span class=p>.</span><span class=n>my_table</span><span class=w> </span><span class=p>(...);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>ALTER</span><span class=w> </span><span class=k>SCHEMA</span><span class=w> </span><span class=n>myschema</span><span class=w> </span><span class=k>OWNER</span><span class=w> </span><span class=k>TO</span><span class=w> </span><span class=n>joe</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>DROP</span><span class=w> </span><span class=k>SCHEMA</span><span class=w> </span><span class=n>myschema</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>DROP</span><span class=w> </span><span class=k>SCHEMA</span><span class=w> </span><span class=n>myschema</span><span class=w> </span><span class=k>CASCADE</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SET</span><span class=w> </span><span class=n>search_path</span><span class=w> </span><span class=k>TO</span><span class=w> </span><span class=n>myschema</span><span class=p>,</span><span class=w> </span><span class=k>public</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>REVOKE</span><span class=w> </span><span class=k>CREATE</span><span class=w> </span><span class=k>ON</span><span class=w> </span><span class=k>SCHEMA</span><span class=w> </span><span class=n>myschema</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>PUBLIC</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=继承>继承</h4><p>PG支持表的继承(包含约束条件，除非用NO INHERIT关键字显式指出)，继承可以用于实现表的逻辑分区，如：方便数据库的设计，举例如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>cities</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>name</span><span class=w> </span><span class=nb>text</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>population</span><span class=w> </span><span class=nb>float</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>elevation</span><span class=w> </span><span class=nb>int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>capitals</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>state</span><span class=w> </span><span class=nb>char</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w> </span><span class=k>INHERITS</span><span class=w> </span><span class=p>(</span><span class=n>cities</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>elevation</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>cities</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>elevation</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>500</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>elevation</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>ONLY</span><span class=w> </span><span class=n>cities</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>elevation</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>500</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>tableoid</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>elevation</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>cities</span><span class=w> </span><span class=k>c</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>elevation</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>500</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>p</span><span class=p>.</span><span class=n>relname</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>elevation</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>cities</span><span class=w> </span><span class=k>c</span><span class=p>,</span><span class=w> </span><span class=n>pg_class</span><span class=w> </span><span class=n>p</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>elevation</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>500</span><span class=w> </span><span class=k>AND</span><span class=w> </span><span class=k>c</span><span class=p>.</span><span class=n>tableoid</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>p</span><span class=p>.</span><span class=n>oid</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=分区>分区</h4><p>分区指的是将一个大的逻辑表拆分成多个小的物理表，每个物理表只包含部分数据，分区的好处如下：
+1、高频访问的数据存放在一个分区中，以提升查询性能
+2、一个分区中使用顺序扫描替换索引，以提升查询/更新性能
+3、使用DROP TABLE与ALTER TABLE DETACH PARTITION，替换批量删除，以提升删除性能
+4、低频访问的数据存放在一个分区中，可以迁移到低成本的存储设备上，以降低成本</p><p>PG支持范围分区（水平分区）、列表分区、哈希分区。其它形式的分区可以使用继承和联合查询实现。</p></section><footer class=article-footer><header class=article-category><a href=/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/>数据库</a></header><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>最后更新于 Oct 21, 2024 10:22 UTC</span></section></footer></article><script src=https://giscus.app/client.js data-repo=ifindv/ifindv.github.io data-repo-id=R_kgDOM0chZg data-category=Announcements data-category-id=DIC_kwDOM0chZs4CjcSI data-mapping=title data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2024 ifindv个人博客</section><section class=powerby></section><section class=running-time>本博客已稳定运行
+<span id=runningdays class=running-days></span></section><a href=https://cloud.umami.is/share/DRDojqBTuFQ233rF/ifindv.github.io style=color:#865c3a target=_blank>访客统计</a></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script><script>let s1="2023-06-01 17:00:00";s1=new Date(s1.replace(/-/g,"/"));let s2=new Date,timeDifference=s2.getTime()-s1.getTime(),days=Math.floor(timeDifference/(1e3*60*60*24)),hours=Math.floor(timeDifference%(1e3*60*60*24)/(1e3*60*60)),minutes=Math.floor(timeDifference%(1e3*60*60)/(1e3*60)),result=days+"天"+hours+"小时"+minutes+"分钟";document.getElementById("runningdays").innerHTML=result</script></body></html>
