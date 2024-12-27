@@ -377,3 +377,13 @@ SELECT name, elevation FROM ONLY cities WHERE elevation > 500;
 SELECT c.tableoid, c.name, c.elevation FROM cities c WHERE c.elevation > 500;
 SELECT p.relname, c.name, c.elevation FROM cities c, pg_class p WHERE c.elevation > 500 AND c.tableoid = p.oid;
 ```
+
+#### 分区
+分区指的是将一个大的逻辑表拆分成多个小的物理表，每个物理表只包含部分数据，分区的好处如下：
+1、高频访问的数据存放在一个分区中，以提升查询性能
+2、一个分区中使用顺序扫描替换索引，以提升查询/更新性能
+3、使用DROP TABLE与ALTER TABLE DETACH PARTITION，替换批量删除，以提升删除性能
+4、低频访问的数据存放在一个分区中，可以迁移到低成本的存储设备上，以降低成本
+
+PG支持范围分区（水平分区）、列表分区、哈希分区。其它形式的分区可以使用继承和联合查询实现。
+
