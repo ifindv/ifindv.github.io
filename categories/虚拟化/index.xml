@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>虚拟化 on ifindv个人博客</title><link>https://ifindv.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/</link><description>Recent content in 虚拟化 on ifindv个人博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 27 Sep 2024 17:45:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker不完全指南</title><link>https://ifindv.github.io/p/docker%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Fri, 27 Sep 2024 17:45:00 +0000</pubDate><guid>https://ifindv.github.io/p/docker%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;img src="https://ifindv.github.io/p/docker%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/docker.jpg" alt="Featured image of post Docker不完全指南" />&lt;h2 id="docker-desktop安装">docker Desktop安装
+&lt;/h2>&lt;h3 id="硬件系统网络要求">硬件/系统/网络要求
+&lt;/h3>&lt;ul>
+&lt;li>64-bit处理器，支持SLAT（Second Level Address Translation）&lt;/li>
+&lt;li>至少4GB内存&lt;/li>
+&lt;li>BIOS启用硬件虚拟化特性&lt;/li>
+&lt;li>windows 11 64-bit: 家庭版/专业版都要求21H2及以上（win10也可以，不在此讨论）&lt;/li>
+&lt;li>需要魔法来访问docker hub（或者替换国内registry）&lt;/li>
+&lt;/ul>
+&lt;h3 id="系统设置">系统设置
+&lt;/h3>&lt;p>按照以下步骤对系统进行设置：&lt;/p>
+&lt;ul>
+&lt;li>搜索启用或关闭Windows功能，勾选Hyper-V相关选项&lt;/li>
+&lt;li>以管理员身份运行powershell，执行bcdedit /set hypervisorlaunchtype auto&lt;/li>
+&lt;li>重启计算机&lt;/li>
+&lt;/ul>
+&lt;h3 id="安装wsl">安装WSL
+&lt;/h3>&lt;p>以管理员身份运行powershell，执行：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">wsl --install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wsl --install -d Debian
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="安装docker-desktop">安装docker desktop
+&lt;/h3>&lt;p>官网（https://www.docker.com）下载最新版本安装即可&lt;/p>
+&lt;h2 id="docker常用命令">docker常用命令
+&lt;/h2>&lt;h3 id="镜像">镜像
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker images&lt;/td>
+&lt;td>查看本地镜像&lt;/td>
+&lt;td>docker images&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker search&lt;/td>
+&lt;td>搜索镜像&lt;/td>
+&lt;td>docker search nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker pull&lt;/td>
+&lt;td>拉取镜像&lt;/td>
+&lt;td>docker pull nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker rmi&lt;/td>
+&lt;td>删除镜像&lt;/td>
+&lt;td>docker rmi nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker save&lt;/td>
+&lt;td>导出镜像&lt;/td>
+&lt;td>docker save nginx &amp;gt; nginx.tar&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker load&lt;/td>
+&lt;td>导入镜像&lt;/td>
+&lt;td>docker load &amp;lt; nginx.tar&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker build&lt;/td>
+&lt;td>构建镜像&lt;/td>
+&lt;td>docker build -t nginx:v1 .&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="容器">容器
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker ps&lt;/td>
+&lt;td>查看运行中的容器&lt;/td>
+&lt;td>docker ps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker ps -a&lt;/td>
+&lt;td>查看所有容器&lt;/td>
+&lt;td>docker ps -a&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker run&lt;/td>
+&lt;td>创建并启动容器&lt;/td>
+&lt;td>docker run -d &amp;ndash;name mynginx -p 80:80 nginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker start&lt;/td>
+&lt;td>启动容器&lt;/td>
+&lt;td>docker start mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker stop&lt;/td>
+&lt;td>停止容器&lt;/td>
+&lt;td>docker stop mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker restart&lt;/td>
+&lt;td>重启容器&lt;/td>
+&lt;td>docker restart mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker rm&lt;/td>
+&lt;td>删除容器&lt;/td>
+&lt;td>docker rm mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker exec&lt;/td>
+&lt;td>进入容器&lt;/td>
+&lt;td>docker exec -it mynginx /bin/bash&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker cp&lt;/td>
+&lt;td>复制文件&lt;/td>
+&lt;td>docker cp localfile mynginx:/tmp/&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker logs&lt;/td>
+&lt;td>查看容器日志&lt;/td>
+&lt;td>docker logs mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker top&lt;/td>
+&lt;td>查看容器内进程&lt;/td>
+&lt;td>docker top mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker stats&lt;/td>
+&lt;td>查看容器资源使用情况&lt;/td>
+&lt;td>docker stats mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker inspect&lt;/td>
+&lt;td>查看容器详细信息&lt;/td>
+&lt;td>docker inspect mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker commit&lt;/td>
+&lt;td>创建镜像&lt;/td>
+&lt;td>docker commit mynginx mynginx:v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker export&lt;/td>
+&lt;td>导出容器&lt;/td>
+&lt;td>docker export mynginx &amp;gt; mynginx.tar&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker import&lt;/td>
+&lt;td>导入容器&lt;/td>
+&lt;td>docker import mynginx.tar mynginx:v1&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="网络">网络
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker network ls&lt;/td>
+&lt;td>查看网络&lt;/td>
+&lt;td>docker network ls&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network create&lt;/td>
+&lt;td>创建网络&lt;/td>
+&lt;td>docker network create mynet&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network inspect&lt;/td>
+&lt;td>查看网络详情&lt;/td>
+&lt;td>docker network inspect mynet&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network rm&lt;/td>
+&lt;td>删除网络&lt;/td>
+&lt;td>docker network rm mynet&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network connect&lt;/td>
+&lt;td>连接容器到网络&lt;/td>
+&lt;td>docker network connect mynet mynginx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker network disconnect&lt;/td>
+&lt;td>断开容器与网络的连接&lt;/td>
+&lt;td>docker network disconnect mynet mynginx&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="数据卷">数据卷
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>命令&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>docker volume ls&lt;/td>
+&lt;td>查看数据卷&lt;/td>
+&lt;td>docker volume ls&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume create&lt;/td>
+&lt;td>创建数据卷&lt;/td>
+&lt;td>docker volume create myvol&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume inspect&lt;/td>
+&lt;td>查看数据卷详情&lt;/td>
+&lt;td>docker volume inspect myvol&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume rm&lt;/td>
+&lt;td>删除数据卷&lt;/td>
+&lt;td>docker volume rm myvol&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker volume prune&lt;/td>
+&lt;td>清理无用的数据卷&lt;/td>
+&lt;td>docker volume prune&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>docker run -v&lt;/td>
+&lt;td>挂载数据卷&lt;/td>
+&lt;td>docker run -d &amp;ndash;name mynginx -p 80:80 -v myvol:/usr/share/nginx/html nginx&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="实践">实践
+&lt;/h2>&lt;h3 id="搭建freeradius服务器">搭建freeradius服务器
+&lt;/h3>&lt;p>拉取freeradius镜像并运行容器：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker pull freeradius/freeradius-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -d --name freeradius-server -p 1812-1813:1812-1813/udp freeradius/freeradius-server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>为apt配置阿里云镜像源，并安装软件：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sed -i &amp;#39;s/archive.ubuntu.com/mirrors.aliyun.com/g&amp;#39; /etc/apt/sources.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y iproute2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y vim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y tcpdump
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>freeradius的配置在/etc/freeradius目录下，编辑clients.conf文件，配置客户端：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">client localhost {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ipaddr = 172.17.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> secret = beta1234
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> shortname = beta
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>再编辑users文件，配置用户：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">beta Cleartext-Password := &amp;#34;beta1234&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Reply-Message := &amp;#34;Welcome to FreeRadius&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>退出并重启容器，使配置生效。&lt;/p>
+&lt;p>freeradius调试日志在/var/log/freeradius目录下，可以tail -f /var/log/freeradius/radius.log实时查看。&lt;/p>
+&lt;h2 id="链接">链接
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.docker.com/" target="_blank" rel="noopener"
+>Docker 官方文档&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://hub.docker.com/" target="_blank" rel="noopener"
+>Docker Hub&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
