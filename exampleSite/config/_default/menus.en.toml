@@ -7,23 +7,28 @@ url = "/"
 weight = 1
 
 [[main]]
-name = "About"
-url = "/about"
+name = "Blog"
+url = "/blog"
 weight = 2
 
 [[main]]
-name = "Elements"
-url = "/elements"
+name = "Categories"
+url = "/categories"
 weight = 3
 
 [[main]]
+name = "About"
+url = "/about"
 weight = 4
+
+[[main]]
+weight = 5
 name = "Pages"
 
 [[main]]
 parent = "Pages"
-name = "Blog"
-url = "/blog"
+name = "Elements"
+url = "/elements"
 
 [[main]]
 parent = "Pages"
@@ -34,11 +39,6 @@ url = "/contact"
 parent = "Pages"
 name = "Authors"
 url = "/authors"
-
-[[main]]
-parent = "Pages"
-name = "Categories"
-url = "/categories"
 
 [[main]]
 parent = "Pages"
