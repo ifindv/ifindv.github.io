@@ -12,15 +12,15 @@ collections: # A list of collections the CMS should be able to edit
     path: "{{slug}}/index" # Each document is inside a folder with the slug name.
     create: true # Allow users to create new documents in this collection
     fields: # The fields each document in this collection have
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Meta Title", name: "meta_title", widget: "text", required: false}
-      - {label: "Intro Blurb", name: "description", widget: "text"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Image", name: "image", widget: "image", required: false}
-      - {label: "Categories", name: "categories", widget: "list"}
-      - {label: "Author", name: "author", widget: "string"}
-      - {label: "Tags", name: "tags", widget: "list"}
-      - {label: "Draft", name: "draft", widget: "boolean"}
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "简介", name: "description", widget: "text"}
+      - {label: "发布日期", name: "date", widget: "datetime"}
+      - {label: "图片", name: "image", widget: "image", required: false}
+      - {label: "分类", name: "categories", widget: "list"}
+      - {label: "作者", name: "author", widget: "string"}
+      - {label: "标签", name: "tags", widget: "list"}
+      - {label: "保存为草稿", name: "draft", widget: "boolean"}
+      - {label: "内容", name: "body", widget: "markdown", required: false}
   # - name: "pages"
   #   label: "Pages"
   #   files:
