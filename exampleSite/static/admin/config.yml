@@ -2,13 +2,13 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "static/images/uploads" # Folder where user uploaded files should go
+media_folder: "images/uploads" # Folder where user uploaded files should go
 public_folder: "/images/uploads"
 
 collections: # A list of collections the CMS should be able to edit
   - name: "blog" # Used in routes, ie.: /admin/collections/:slug/edit
     label: "Blog" # Used in the UI, ie.: "New Post"
-    folder: "content/english/blog" # The path to the folder where the documents are stored
+    folder: "exampleSite/content/english/blog" # The path to the folder where the documents are stored
     path: "{{slug}}/index" # Each document is inside a folder with the slug name.
     create: true # Allow users to create new documents in this collection
     fields: # The fields each document in this collection have
