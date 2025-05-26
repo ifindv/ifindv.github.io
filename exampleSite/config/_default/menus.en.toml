@@ -2,62 +2,57 @@
 
 # main menu
 [[main]]
-name = "首页"
+name = "Home"
 url = "/"
 weight = 1
 
 [[main]]
-name = "博客"
+name = "Blog"
 url = "/blog"
 weight = 2
 
 [[main]]
-name = "分类"
+name = "Catagories"
 url = "/categories"
 weight = 3
 
 [[main]]
-name = "关于"
+name = "About"
 url = "/about"
 weight = 4
 
 [[main]]
 weight = 5
-name = "其它"
+name = "Pages"
 
 [[main]]
-parent = "其它"
+parent = "Pages"
 name = "Elements"
 url = "/elements"
 
 [[main]]
-parent = "其它"
+parent = "Pages"
 name = "Contact"
 url = "/contact"
 
 [[main]]
-parent = "其它"
+parent = "Pages"
 name = "Authors"
 url = "/authors"
 
 [[main]]
-parent = "其它"
+parent = "Pages"
 name = "404 Page"
 url = "/404"
 
 
 # footer menu
 [[footer]]
-name = "关于"
+name = "About"
 url = "/about"
 weight = 1
 
 [[footer]]
-name = "模板"
-url = "/elements"
-weight = 2
-
-[[footer]]
-name = "隐私声明"
+name = "Privacy Policy"
 url = "/privacy-policy"
-weight = 3
+weight = 2
