@@ -18,7 +18,7 @@ chroot is a powerful tool for isolating applications and users on a Linux system
 
 1. create a new user
 
-```shell
+```abuild
 useradd test
 passwd test
 ```
