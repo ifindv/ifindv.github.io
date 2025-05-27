@@ -1,13 +1,15 @@
 ---
-title: "super useful bash skills"
-meta_title: ""
-description: "this is meta description"
-date: 2025-04-27T05:00:00Z
-image: "/images/bash.jpg"
-categories: ["Linux"]
-author: "ifindv"
-tags: ["bash"]
+title: some useful bash skills
+description: collection of bash commands that helpful
+date: 2025-05-27T09:20:00.000Z
+image: /images/bash.jpg
+categories:
+  - Linux
+author: ifindv
+tags:
+  - bash
 draft: false
+meta_title: ""
 ---
 
 bash is a powerful tool, here are some useful skills.
