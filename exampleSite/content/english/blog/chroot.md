@@ -2,7 +2,7 @@
 title: create a secure and isolated environment using chroot
 description: run application in an isolated environment and limit user's access
 date: 2022-04-04T05:00:00.000Z
-image: linux.jpg
+image: images/uploads/linux.jpg
 categories:
   - OS
   - Linux
