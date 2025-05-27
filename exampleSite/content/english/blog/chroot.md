@@ -1,8 +1,8 @@
 ---
-title: How to create a secure and isolated environment using chroot
-description: this is meta description
+title: create a secure and isolated environment using chroot
+description: run application in an isolated environment and limit user's access
 date: 2022-04-04T05:00:00.000Z
-image: /images/os.png
+image: linux.jpg
 categories:
   - OS
   - Linux
@@ -12,8 +12,6 @@ tags:
 draft: false
 meta_title: ""
 ---
-chroot is a powerful tool for isolating applications and users on a Linux system. It allows you to create a separate file system for each user or application, which can help prevent unauthorized access.
-
 ## create an isolated environment using chroot
 
 1. create a new user
