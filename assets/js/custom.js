@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   codeBlocks.forEach((block) => {
     const button = document.createElement('button');
     button.className = 'copy-btn';
-    button.textContent = 'Copy';
+    button.textContent = 'copy';
+    button.setAttribute('type', 'button');
     button.addEventListener('click', () => {
       const code = block.querySelector('code');
       if (code) {
