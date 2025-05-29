@@ -1,11 +1,11 @@
 /* copy button for code blocks */
 .copy-btn {
   display: none;
-  position: absolute;
+  position: relative;
   top: 5px;
   right: 5px;
-  padding: 5px 10px;
-  background-color: #007BFF;
+  padding: 0px 10px;
+  background-color: #61a1be;
   color: white;
   border: none;
   border-radius: 5px;

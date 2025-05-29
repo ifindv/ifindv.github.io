@@ -16,7 +16,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
-        alert('code copied');
+        button.textContent = 'copied';
+        setTimeout(() => {
+          button.textContent = 'copy';
+        }, 2000)
       }
     });
     block.appendChild(button);
