@@ -1,1 +1,22 @@
-/* Add your own custom styles here */
+/* copy button for code blocks */
+.copy-btn {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+pre:hover .copy-btn {
+  display: block;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+}
