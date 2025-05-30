@@ -21,8 +21,8 @@ pre:hover .copy-btn {
   opacity: 1;
 }
 
-/* navbar glass effect */
-.navbar.glass {
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
+/* header glass effect */
+.header.glass {
+  opacity: 0.8;
+  backdrop-filter: blur(30px);
 }

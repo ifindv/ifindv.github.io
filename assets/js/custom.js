@@ -25,18 +25,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
-// add glass effect to navbar when scrolled
+// add glass effect to header when scrolled
 document.addEventListener('DOMContentLoaded', (event) => {
-  const navbar = document.querySelector('.navbar');
+  const header = document.querySelector('.header');
   let isScrolled = false;
 
   const handleScroll = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     if (scrollTop > 0 && !isScrolled) {
-      navbar.classList.add('glass');
+      header.classList.add('glass');
       isScrolled = true;
     } else if (scrollTop === 0 && isScrolled) {
-      navbar.classList.remove('glass');
+      header.classList.remove('glass');
       isScrolled = false;
     }
   };
