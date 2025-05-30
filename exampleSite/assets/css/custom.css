@@ -22,14 +22,6 @@ pre:hover .copy-btn {
 }
 
 /* navbar glass effect */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  transition: background-color 0.3s, backdrop-filter 0.3s;
-}
-
 .navbar.glass {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
