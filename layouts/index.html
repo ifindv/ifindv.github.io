@@ -1,6 +1,6 @@
 {{ define "main" }}
   <!-- Banner -->
-  {{ with .Params.banner }}
+  {{ range $i, $e:= .Params.banners }}
     <section class="section-banner pt-14">
       <div class="container">
         <div class="row justify-center">
