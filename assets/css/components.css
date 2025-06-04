@@ -7,6 +7,14 @@
   @apply py-4 xl:py-8;
 }
 
+.section-banner {
+  @apply py-4 xl:py-8;
+}
+
+.section-favor {
+  @apply py-4 xl:py-8;
+}
+
 /* container */
 .container {
   @apply mx-auto xl:!max-w-[1320px] px-4;
