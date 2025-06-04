@@ -4,18 +4,18 @@ banners:
   - title: "The Only Way To Do Great Work Is To Love What You Do"
     content: ""
     image: "/images/banner.png"
-    button:
-      enable: true
-      label: "Get Started For Free"
-      link: "https://github.com/zeon-studio/hugoplate"
+    # button:
+    #   enable: true
+    #   label: "Get Started For Free"
+    #   link: "https://github.com/zeon-studio/hugoplate"
 
   - title: "The Harder You Work For Something, The Greater You Will Feel When You Achieve It"
     content: ""
     image: "/images/banner.png"
-    button:
-      enable: true
-      label: "Get Started For Free"
-      link: "https://github.com/zeon-studio/hugoplate"
+    # button:
+    #   enable: true
+    #   label: "Get Started For Free"
+    #   link: "https://github.com/zeon-studio/hugoplate"
 
 # Features
 features:
