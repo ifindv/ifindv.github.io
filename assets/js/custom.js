@@ -43,3 +43,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   window.addEventListener('scroll', handleScroll);
 });
+
+// banner auto scroll
+let currentIndex = 0;
+const banners = document.querySelectorAll('.section-banner.pt-14');
+const interval = 5000; // 5 seconds
+
+function switchBanner() {
+  banners.forEach((banner, index) => {
+    if (index === currentIndex) {
+      banner.style.display = 'block';
+    } else {
+      banner.style.display = 'none';
+    }
+  });
+  currentIndex = (currentIndex + 1) % banners.length;
+}
+
+setInterval(switchBanner, interval);
+switchBanner(); // Initialize the first banner

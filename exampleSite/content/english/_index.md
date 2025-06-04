@@ -9,6 +9,22 @@ banner:
     label: "Get Started For Free"
     link: "https://github.com/zeon-studio/hugoplate"
 
+  title: "The Only Way To Do Great Work Is To Love What You Do"
+  content: "- Steve Jobs"
+  image: "/images/banner.png"
+  button:
+    enable: true
+    label: "Get Started For Free"
+    link: "https://github.com/zeon-studio/hugoplate"
+
+  title: "The Harder You Work For Something, The Greater You Will Feel When You Achieve It"
+  content: "- Fred Devito"
+  image: "/images/banner.png"
+  button:
+    enable: true
+    label: "Get Started For Free"
+    link: "https://github.com/zeon-studio/hugoplate"
+
 # Features
 features:
   - title: "What's Included in Hugoplate"
