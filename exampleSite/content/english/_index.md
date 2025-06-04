@@ -1,16 +1,8 @@
 ---
 # Banner
 banners:
-  - title: "The Ultimate Starter Template You Need To Start Your Hugo Project"
-    content: "Hugoplate is a free starter template built with Hugo and TailwindCSS, providing everything you need to jumpstart your Hugo project and save valuable time."
-    image: "/images/banner.png"
-    button:
-      enable: true
-      label: "Get Started For Free"
-      link: "https://github.com/zeon-studio/hugoplate"
-
   - title: "The Only Way To Do Great Work Is To Love What You Do"
-    content: "- Steve Jobs"
+    content: ""
     image: "/images/banner.png"
     button:
       enable: true
@@ -18,7 +10,7 @@ banners:
       link: "https://github.com/zeon-studio/hugoplate"
 
   - title: "The Harder You Work For Something, The Greater You Will Feel When You Achieve It"
-    content: "- Fred Devito"
+    content: ""
     image: "/images/banner.png"
     button:
       enable: true
