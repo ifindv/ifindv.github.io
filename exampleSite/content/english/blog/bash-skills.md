@@ -2,7 +2,7 @@
 title: some useful bash skills
 description: collection of bash commands that helpful
 date: 2025-05-27T09:20:00.000Z
-image: /images/bash.jpg
+image: exampleSite/assets/images/uploads/bd26f78c344b3ad6afef7b12b1421227.jpg
 categories:
   - Linux
 author: ifindv
