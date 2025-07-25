@@ -3,7 +3,7 @@ title: package your python project with pyinstaller on windows
 description: transform your python app into .exe format, avoid complecated
   dependencies, make it easy to share
 date: 2025-07-17T11:16:00.000+08:00
-image: /images/uploads/altai-mountains-autumn-nature-landscape-thumbnail.jpg
+image: /images/uploads/img-summer-1.png
 categories:
   - python
 author: ifindv
