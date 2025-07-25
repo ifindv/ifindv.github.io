@@ -1,5 +1,5 @@
 ---
-title: deploy mysql service with docker in wsl
+title: deploy mysql server with docker in wsl
 description: "learn how to run a mysql server with docker in wsl, and config
   host network and mysql server to enable remote access "
 date: 2025-07-24T16:06:00.000+08:00
@@ -81,6 +81,12 @@ FLUSH PRIVILEGES;
 
 ![](debian12-eth0-ip.png)
 
-3. setup port forwarding rules on windows11, run powershell with management privilege, replace eth0-ip with your own (get from step 2):
+3. setup port forwarding rules on windows11, run powershell with administrator privilege:
 
-4. config host firewall rules, open tcp port 3306
+```
+# setup port forwarding
+netsh interface portproxy add v4tov4 listenport=3306 listenaddress=0.0.0.0 connectport=3306 connectaddress=<eth0-ip>
+
+# setup firewall rules, open tcp port 3306
+New-NetFirewallRule -DisplayName "Allow MySQL Port 3306" -Direction Inbound -Protocol TCP -LocalPort 3306 -Action Allow
+```
