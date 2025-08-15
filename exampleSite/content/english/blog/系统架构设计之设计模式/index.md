@@ -1,5 +1,5 @@
 ---
-title: 系统架构设计之设计模式
+title: 系统架构之设计模式
 description: 设计模式分类及脑图概览，收集汇总每个设计模式的结构图
 date: 2025-08-14T10:07:00.000+08:00
 image: /images/uploads/design-patterns.png
