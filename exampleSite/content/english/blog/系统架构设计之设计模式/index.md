@@ -10,12 +10,12 @@ tags:
   - 设计模式
 draft: false
 ---
-## 1 设计模式脑图
+## 设计模式脑图
 
 待完善
 
-## 2 创建型
+## 创建型
 
-### 2.1 Abstract Factory
+### Abstract Factory
 
 ![抽象工厂](abstract-factory.png "抽象工厂")
