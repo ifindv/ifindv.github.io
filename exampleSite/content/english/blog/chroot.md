@@ -1,35 +1,31 @@
 ---
-title: create a secure and isolated environment using chroot
-description: run application in an isolated environment and limit user's access
-date: 2022-04-04T05:00:00.000Z
-image: /images/uploads/linux.jpg
+title: 使用chroot实现用户访问控制
+description: 限制指定用户可见的目录及文件并控制其读写权限，允许该用户通过ssh访问设备
+date: 2025-08-13T17:03:00.000+08:00
+image: /images/uploads/linux.png
 categories:
-  - OS
-  - Linux
+  - 操作系统
 author: ifindv
 tags:
-  - chroot
+  - LINUX
 draft: false
 meta_title: ""
 ---
-## create an isolated environment using chroot
+## 使用chroot创建隔离的用户空间
 
-1. create a new user
+### 创建用户及工作目录
 
 ```abuild
+# 创建用户并修改密码
 useradd test
 passwd test
-```
-
-2. create a directory for the user and set the ownership and permissions
-
-```
+# 为用户创建根目录
 mkdir /home/test
 chown root:root /home/test
 chmod 755 /home/test
 ```
 
-3. modify sshd_config to allow the user to login via ssh and use chroot
+### 设置ssh远程登录
 
 ```
 AllowUsers test
@@ -38,13 +34,13 @@ Match User test
     ChrootDirectory /home/test
 ```
 
-4. restart sshd service
+### 重启sshd服务
 
 ```
 systemctl restart sshd
 ```
 
-5. install necessary libraries and commands
+### 安装动态库及常用工具
 
 ```
 mkdir -p /home/test/{bin,lib,lib32,lib64,usr,sbin,usr/local}
@@ -84,7 +80,7 @@ mkdir -p /home/test/usr/share/terminfo/x
 cp /usr/share/terminfo/x/xterm /home/test/usr/share/terminfo/x/
 ```
 
-6. mount necessary file systems
+### 挂载文件系统
 
 ```
 mkdir -p /home/test/{proc,sys,dev,run,var}
@@ -95,7 +91,7 @@ mount --rbind /run /home/test/run
 ln -s ../run /home/test/var/run
 ```
 
-7. create a new home directory for the user and set the ownership and permissions
+### 为用户创建home目录
 
 ```
 mkdir /home/test/home
@@ -103,7 +99,7 @@ chown test:test /home/test/home
 chmod 755 /home/test/home
 ```
 
-## run docker applications inside chroot
+## 安装docker程序
 
 ```
 cp /bin/docker /home/test/bin/
