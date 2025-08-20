@@ -10,10 +10,16 @@ tags:
   - 博客
 draft: false
 ---
-## 接入gitcus评论系统
+## 接入giscus评论系统
 
 原生的disqus评论系统广告充斥？与其花时间研究如何屏蔽，不如直接切换到giscus，网站瞬间变得清爽，照链接操作几分钟内轻松搞定
 [giscus](https://giscus.app/zh-CN)
+
+[](https://giscus.app/zh-CN)
+
+![giscus效果图](comment.png "gitcus效果图")
+
+
 
 ## 资源列表
 
@@ -21,5 +27,9 @@ draft: false
 
 不想被各种版权问题折磨，无需注册，快速获取心怡的网站logo
 [Free icons - Iconfinder](https://www.iconfinder.com/search?price=free)
+
+![免费logo下载](free-logo.png "免费logo下载")
+
+
 
 [](https://www.iconfinder.com/search?price=free)
