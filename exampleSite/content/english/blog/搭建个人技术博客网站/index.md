@@ -12,5 +12,5 @@ draft: false
 ---
 ## 接入giscus评论系统
 
-按照下方链接操作即可
+按照链接操作即可
 [giscus](https://giscus.app/zh-CN)
