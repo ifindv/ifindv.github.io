@@ -28,6 +28,6 @@ pre:hover .copy-btn {
 /* header glass effect */
 .header.glass {
   background-color: rgba(255, 255, 255, .7) !important;
-  box-shadow: 0 10px 30px 3px rgba(13, 34, 59, .12);
+  box-shadow: 0 10px 30px 3px rgba(212, 222, 231, 0.12);
   backdrop-filter: blur(20px) invert(0%);
 }
