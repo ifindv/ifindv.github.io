@@ -15,7 +15,7 @@ meta_title: ""
 
 ### 创建用户及工作目录
 
-```abuild
+```bash
 # 创建用户并修改密码
 useradd test
 passwd test
@@ -27,7 +27,7 @@ chmod 755 /home/test
 
 ### 设置ssh远程登录
 
-```
+```bash
 AllowUsers test
 Subsystem sftp internal-sftp
 Match User test
@@ -36,13 +36,13 @@ Match User test
 
 ### 重启sshd服务
 
-```
+```bash
 systemctl restart sshd
 ```
 
 ### 安装动态库及常用工具
 
-```
+```bash
 mkdir -p /home/test/{bin,lib,lib32,lib64,usr,sbin,usr/local}
 ln -s ../bin /home/test/usr/bin
 ln -s ../bin /home/test/usr/local/bin
@@ -82,7 +82,7 @@ cp /usr/share/terminfo/x/xterm /home/test/usr/share/terminfo/x/
 
 ### 挂载文件系统
 
-```
+```bash
 mkdir -p /home/test/{proc,sys,dev,run,var}
 mount -t proc /proc /home/test/proc
 mount -t sysfs /sys /home/test/sys
@@ -93,7 +93,7 @@ ln -s ../run /home/test/var/run
 
 ### 为用户创建home目录
 
-```
+```bash
 mkdir /home/test/home
 chown test:test /home/test/home
 chmod 755 /home/test/home
@@ -101,7 +101,7 @@ chmod 755 /home/test/home
 
 ## 安装docker程序
 
-```
+```bash
 cp /bin/docker /home/test/bin/
 chmod 766 /var/run/docker* -R
 ```
