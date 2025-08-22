@@ -2,7 +2,7 @@
 title: 使用chroot实现用户访问控制
 description: 限制指定用户可见的目录及文件并控制其读写权限，允许该用户通过ssh访问设备
 date: 2025-08-13T17:03:00.000+08:00
-image: /images/uploads/linux.png
+image: /images/uploads/chroot.png
 categories:
   - 操作系统
 author: ifindv
