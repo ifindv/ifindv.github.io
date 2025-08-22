@@ -63,8 +63,11 @@ FLUSH PRIVILEGES;
 1、打开WSL settings->网络，确认当前网络模式是否是镜像模式（Mirrored)，若不是，切换至镜像模式。
 
 ![WSL网络设置](wsl-settings.png "WSL网络设置")
+{{< notice "tip" >}}
+NAT模式也可以支持远程访问，前提是要配置端口转发策略，镜像模式更简单。
+{{< /notice >}}
 
-2、如果1中修改了网络模式，需要重启WSL使其生效，管理员身份打开powershell，执行
+2、如果1中修改了网络模式，需要重启WSL使其生效，管理员身份打开powershell，执行：
 ```bash
 # 关闭wsl
 wsl --shutdown
