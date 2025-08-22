@@ -3,6 +3,12 @@
     <div class="container">
       <div class="row justify-center">
         <article class="lg:col-10">
+          <button id="scrollToToc" class="fixed right-6 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-blue-600 w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-300 opacity-0 invisible z-50 backdrop-blur-sm">
+            <i class="fa fa-arrow-up"></i>
+          </button>
+          <button id="scrollToBottom" class="fixed right-6 top-1/2 -translate-y-1/2 mt-14 bg-white/70 hover:bg-white text-blue-600 w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-300 opacity-0 invisible z-50 backdrop-blur-sm">
+            <i class="fa fa-arrow-down"></i>
+          </button>
           {{ $image:= .Params.image }}
           {{ if $image }}
             <div class="mb-10">

@@ -62,3 +62,90 @@ function switchBanner() {
 
 setInterval(switchBanner, interval);
 switchBanner(); // Initialize the first banner
+
+// content table smooth scroll
+document.addEventListener('DOMContentLoaded', function() {
+  const fixedHeader = document.querySelector('.header');
+  const headerHeight = fixedHeader ? fixedHeader.offsetHeight : 0;
+  const tocLinks = document.querySelectorAll('#TableOfContents a');
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+
+      if (targetElement) {
+        const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+        window.scrollTo({
+          top: targetTop,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+});
+
+// auto scroll to content table on page load
+window.addEventListener('load', function() {
+  const targetToc = document.querySelector('.table-of-content.blog');
+  const fixedHeader = document.querySelector('.header');
+  const headerHeight = fixedHeader ? fixedHeader.offsetHeight : 0;
+
+  if (targetToc) {
+    const tocTop = targetToc.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+    window.scrollTo({
+      top: tocTop,
+      behavior: 'smooth'
+    });
+  }
+});
+
+// scroll to content table and bottom buttons
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollToTocBtn = document.getElementById('scrollToToc');
+  const scrollToBottomBtn = document.getElementById('scrollToBottom');
+  const targetToc = document.querySelector('.table-of-content.blog');
+  const fixedHeader = document.querySelector('.header');
+  const headerHeight = fixedHeader ? fixedHeader.offsetHeight : 0;
+  
+  function toggleButtons() {
+    if (targetToc) {
+      const tocPosition = targetToc.getBoundingClientRect().top + window.pageYOffset;
+      if (window.pageYOffset > tocPosition + 100 || window.pageYOffset < tocPosition - 100) {
+        scrollToTocBtn.classList.remove('opacity-0', 'invisible');
+        scrollToTocBtn.classList.add('opacity-100', 'visible');
+        
+        scrollToBottomBtn.classList.remove('opacity-0', 'invisible');
+        scrollToBottomBtn.classList.add('opacity-100', 'visible');
+      } else {
+        scrollToTocBtn.classList.remove('opacity-100', 'visible');
+        scrollToTocBtn.classList.add('opacity-0', 'invisible');
+      }
+    }
+  }
+  
+  function scrollToToc() {
+    if (targetToc) {
+      const tocTop = targetToc.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+      window.scrollTo({
+        top: tocTop,
+        behavior: 'smooth'
+      });
+    }
+  }
+  
+  function scrollToBottom() {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+  
+  window.addEventListener('scroll', toggleButtons);
+  scrollToTocBtn.addEventListener('click', scrollToToc);
+  scrollToBottomBtn.addEventListener('click', scrollToBottom);
+  
+  toggleButtons();
+});
