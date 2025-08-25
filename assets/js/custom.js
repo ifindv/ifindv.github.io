@@ -44,15 +44,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
   window.addEventListener('scroll', handleScroll);
 });
 
-// banner auto scroll
+// banner auto scroll and height adjustment
 let currentIndex = 0;
-const banners = document.querySelectorAll('.section-banner.pt-14');
+const banners = document.querySelectorAll('.section-banner');
+const header = document.querySelector('.header');
 const interval = 5000; // 5 seconds
+
+function setBannerHeight(banner) {
+  if (header && banner) {
+    const headerHeight = header.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    banner.style.minHeight = `${viewportHeight}px`;
+    if (header.classList.contains('sticky')) {
+      banner.style.paddingTop = `${headerHeight}px`;
+    }
+  }
+}
+
+banners.forEach(banner => {
+  setBannerHeight(banner);
+});
 
 function switchBanner() {
   banners.forEach((banner, index) => {
     if (index === currentIndex) {
+      setBannerHeight(banner);
       banner.style.display = 'block';
+      setTimeout(() => setBannerHeight(banner), 10);
     } else {
       banner.style.display = 'none';
     }
@@ -60,8 +78,46 @@ function switchBanner() {
   currentIndex = (currentIndex + 1) % banners.length;
 }
 
+window.addEventListener('resize', () => {
+  banners.forEach(banner => {
+    setBannerHeight(banner);
+  });
+});
+
 setInterval(switchBanner, interval);
 switchBanner(); // Initialize the first banner
+
+// feature section height adjustment
+document.addEventListener('DOMContentLoaded', function() {
+  const header = document.querySelector('.header');
+  const features = document.querySelectorAll('.section-favor');
+  function setFeatureHeight(feature) {
+    if (header && feature) {
+      const headerHeight = header.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      
+      feature.style.minHeight = `${viewportHeight}px`;
+      
+      if (header.classList.contains('sticky')) {
+        if (!feature.dataset.paddingApplied) {
+          const currentPadding = parseInt(getComputedStyle(feature).paddingTop) || 0;
+          feature.style.paddingTop = `${currentPadding + headerHeight}px`;
+          feature.dataset.paddingApplied = 'true';
+        }
+      }
+    }
+  }
+
+  function initFeatureHeights() {
+    features.forEach(feature => {
+      setFeatureHeight(feature);
+    });
+  }
+  
+  initFeatureHeights();
+  window.addEventListener('resize', initFeatureHeights);
+  window.addEventListener('scroll', initFeatureHeights);
+});
 
 // content table smooth scroll
 document.addEventListener('DOMContentLoaded', function() {
