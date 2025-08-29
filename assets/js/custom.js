@@ -205,3 +205,16 @@ document.addEventListener('DOMContentLoaded', function() {
   
   toggleButtons();
 });
+
+// click banner scroll to features
+document.addEventListener('DOMContentLoaded', function() {
+  const banners = document.querySelectorAll('.banner-clickable');
+  banners.forEach(function(banner, index) {
+    banner.addEventListener('click', function() {
+      const features = document.getElementById('features-' + 0);
+      if (features) {
+        features.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+});
