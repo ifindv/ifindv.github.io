@@ -10,4 +10,6 @@ tags:
   - AI
 draft: false
 ---
-待补充
+## AI知识图谱
+
+![](ai-markmap.png)
