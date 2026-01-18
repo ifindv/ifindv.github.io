@@ -1,36 +1,40 @@
 ---
 title: AI For Beginners A Curiculum
-description: 微软出品的AI初学者课程
+description: A curiculum from MicroSoft for AI beginners
 date: 2026-01-08T18:17:00.000+08:00
 image: /images/uploads/ai-learn.png
 categories:
   - AI
 author: ifindv
 tags:
-  - 深度学习；神经网络；Transformer
+  - DeepLearning;Transformer;NeuronNetwork
 draft: false
 ---
-## AI知识图谱
+## Mindmap
 
-![](ai-markmap.png)
+![mindmap](ai-markmap.png "mindmap for this course")
 
 ## Course Setup
 
-1、从github克隆完整项目到本地
+All steps is done on Debian 12. If you use a win11 system like me, just try to install Debian12 by WSL2.(About WSL2,goole yourself,It's quiet easy).
 
-`git clone https://github.com/microsoft/AI-For-Beginners.git`
+1. clone whole project to your local machine
 
-2、下载并安装nodejs（链接：https://nodejs.org/zh-cn/download/）
+```
+git clone https://github.com/microsoft/AI-For-Beginners.git
+```
 
-![](nodejs-donwload.png)
+2. install npm
 
-3、安装Docsify，win + R打开cmd，执行
-`npm i docsify-cli -g`
+```
+sudo apt update
+sudo apt install npm
+```
 
-4、在AI-For-Beginners根目录下执行
+3. install Docsify, and start service on your local machine.After that,you can visit the course on this url: 
+http://localhost:3000/etc/pdf/readme.pdf. By the way, you can also download the whole cource and reserve it in .pdf format.
 
-`docsify serve`
-
-![docsify-serve](docsify-serve.png)
-
-5、打开浏览器，输入http://localhost:3000/etc/pdf/readme.pdf，就可以浏览课程了
+```
+npm i docsify-cli -g
+docsify-serve
+```
