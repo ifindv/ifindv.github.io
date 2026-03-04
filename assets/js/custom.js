@@ -218,3 +218,61 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// global smooth scrolling for all anchor links
+document.addEventListener('DOMContentLoaded', function() {
+  // Add smooth scrolling to all links
+  const links = document.querySelectorAll('a[href^="#"]');
+  links.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Make sure this.hash has a value before overriding default behavior
+      if (this.hash !== '') {
+        // Prevent default anchor click behavior
+        e.preventDefault();
+
+        // Store hash
+        const hash = this.hash;
+
+        // Using scrollIntoView with smooth behavior
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    });
+  });
+
+  // Add smooth scrolling for mouse wheel
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function smoothScroll() {
+    const currentScrollY = window.scrollY;
+    const scrollDifference = currentScrollY - lastScrollY;
+    const scrollSpeed = scrollDifference * 0.1;
+
+    window.scrollTo({
+      top: lastScrollY + scrollSpeed,
+      behavior: 'auto'
+    });
+
+    lastScrollY = lastScrollY + scrollSpeed;
+
+    if (Math.abs(scrollDifference) > 0.1) {
+      requestAnimationFrame(smoothScroll);
+    } else {
+      ticking = false;
+    }
+  }
+
+  window.addEventListener('wheel', function(e) {
+    if (!ticking) {
+      lastScrollY = window.scrollY;
+      ticking = true;
+      requestAnimationFrame(smoothScroll);
+    }
+  });
+});
