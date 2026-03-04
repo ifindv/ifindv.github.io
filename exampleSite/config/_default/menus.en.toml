@@ -2,36 +2,27 @@
 
 # main menu
 [[main]]
-name = "Home"
+name = "首页"
 url = "/"
 weight = 1
 
 [[main]]
-name = "Blog"
+name = "博客"
 url = "/blog"
 weight = 2
 
 [[main]]
-name = "Catagories"
+name = "归档"
 url = "/categories"
 weight = 3
 
 [[main]]
-name = "About"
+name = "关于"
 url = "/about"
 weight = 4
 
-[[main]]
-weight = 5
-name = "Pages"
-
-[[main]]
-parent = "Pages"
-name = "Contact"
-url = "/contact"
-
 # footer menu
 [[footer]]
-name = "Privacy Policy"
+name = "隐私政策"
 url = "/privacy-policy"
 weight = 1
