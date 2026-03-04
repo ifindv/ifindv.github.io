@@ -133,11 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (targetElement) {
         const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-        window.scrollTo({
-          top: targetTop,
-          behavior: 'smooth'
-        });
+        smoothScrollTo(targetTop, 1500);
       }
     });
   });
@@ -151,10 +147,7 @@ window.addEventListener('load', function() {
 
   if (targetToc) {
     const tocTop = targetToc.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-    window.scrollTo({
-      top: tocTop,
-      behavior: 'smooth'
-    });
+    smoothScrollTo(tocTop, 1500);
   }
 });
 
@@ -185,18 +178,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function scrollToToc() {
     if (targetToc) {
       const tocTop = targetToc.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-      window.scrollTo({
-        top: tocTop,
-        behavior: 'smooth'
-      });
+      smoothScrollTo(tocTop, 1500);
     }
   }
   
   function scrollToBottom() {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: 'smooth'
-    });
+    smoothScrollTo(document.body.scrollHeight, 1500);
   }
   
   window.addEventListener('scroll', toggleButtons);
@@ -206,6 +193,30 @@ document.addEventListener('DOMContentLoaded', function() {
   toggleButtons();
 });
 
+// smooth scroll to position with specified duration
+function smoothScrollTo(targetPosition, duration) {
+  const startPosition = window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  let startTime = null;
+
+  function animation(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const run = easeInOutCubic(Math.min(timeElapsed / duration, 1));
+    window.scrollTo(0, startPosition + distance * run);
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  requestAnimationFrame(animation);
+}
+
 // click banner scroll to features
 document.addEventListener('DOMContentLoaded', function() {
   const banners = document.querySelectorAll('.banner-clickable');
@@ -213,7 +224,8 @@ document.addEventListener('DOMContentLoaded', function() {
     banner.addEventListener('click', function() {
       const features = document.getElementById('features-' + 0);
       if (features) {
-        features.scrollIntoView({ behavior: 'smooth' });
+        const featureTop = features.getBoundingClientRect().top + window.pageYOffset;
+        smoothScrollTo(featureTop, 1500);
       }
     });
   });
@@ -233,13 +245,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Store hash
         const hash = this.hash;
 
-        // Using scrollIntoView with smooth behavior
+        // Using smoothScrollTo with specified duration
         const targetElement = document.querySelector(hash);
         if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+          const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+          smoothScrollTo(targetTop, 1500);
         }
       }
     });
@@ -252,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function smoothScroll() {
     const currentScrollY = window.scrollY;
     const scrollDifference = currentScrollY - lastScrollY;
-    const scrollSpeed = scrollDifference * 0.1;
+    const scrollSpeed = scrollDifference * 0.05;
 
     window.scrollTo({
       top: lastScrollY + scrollSpeed,
