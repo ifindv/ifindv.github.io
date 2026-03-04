@@ -2,27 +2,27 @@
 
 # main menu
 [[main]]
-name = "首页"
+name = "棣栭〉"
 url = "/"
 weight = 1
 
 [[main]]
-name = "博客"
+name = "鍗氬"
 url = "/blog"
 weight = 2
 
 [[main]]
-name = "归档"
+name = "褰掓。"
 url = "/categories"
 weight = 3
 
 [[main]]
-name = "关于"
+name = "鍏充簬"
 url = "/about"
 weight = 4
 
 # footer menu
 [[footer]]
-name = "隐私政策"
+name = "闅愮鏀跨瓥"
 url = "/privacy-policy"
 weight = 1
