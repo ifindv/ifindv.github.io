@@ -17,7 +17,7 @@ url = "/categories"
 weight = 3
 
 [[main]]
-name = "收藏"
+name = "🩵"
 url = "/favorites/"
 weight = 4
 
