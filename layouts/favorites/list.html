@@ -1,0 +1,47 @@
+{{ define "main" }}
+  <section class="section-favorites py-12">
+    <div class="container mx-auto px-4">
+      <div class="page-header text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4">{{ .Title }}</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">{{ .Description }}</p>
+      </div>
+      
+      <div class="filters flex gap-4 mb-8 justify-center">
+        <div class="filter-dropdown group relative" id="category-filter">
+          <button class="filter-toggle flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+            <i class="fa-solid fa-filter"></i>
+            <span>分类</span>
+          </button>
+          <div class="filter-options absolute top-full left-0 mt-2 bg-white dark:bg-darkmode-body rounded-lg shadow-lg p-2 opacity-0 invisible transform scale-95 transition-all duration-300 z-10 min-w-[150px]">
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors active" data-category="all">全部</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-category="Movie">电影</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-category="Music">音乐</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-category="Game">游戏</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-category="Travel">旅行</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-category="Reading">阅读</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-category="Misc">杂谈</button>
+          </div>
+        </div>
+        
+        <div class="filter-dropdown relative" id="time-filter">
+          <button class="filter-toggle flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+            <i class="fa-solid fa-calendar"></i>
+            <span>时间</span>
+          </button>
+          <div class="filter-options absolute top-full left-0 mt-2 bg-white dark:bg-darkmode-body rounded-lg shadow-lg p-2 opacity-0 invisible transform scale-95 transition-all duration-300 z-10 min-w-[150px]">
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors active" data-time="all">全部</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-time="recent">最近</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-time="month">本月</button>
+            <button class="filter-option block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-darkmode-light transition-colors" data-time="year">今年</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="favorites-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {{ range .RegularPages }}
+          {{ partial "components/favorite-card" . }}
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

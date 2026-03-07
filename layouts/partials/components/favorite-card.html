@@ -1,0 +1,32 @@
+<div class="favorite-card bg-body dark:bg-darkmode-body rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2" 
+     data-category="{{ .Params.category }}" 
+     data-date="{{ .Params.date }}">
+  <div class="card-image relative overflow-hidden h-48">
+    {{ if .Params.image }}
+      <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+    {{ else }}
+      <div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+        <i class="fa-solid fa-image text-4xl text-gray-400"></i>
+      </div>
+    {{ end }}
+    <span class="category-badge absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-full text-white bg-primary">
+      {{ .Params.category }}
+    </span>
+  </div>
+  <div class="card-content p-4">
+    <h3 class="card-title text-lg font-semibold mb-2">
+      <a href="{{ .Params.link }}" target="_blank" rel="noopener" class="text-text dark:text-darkmode-text hover:text-primary dark:hover:text-darkmode-primary transition-colors">
+        {{ .Title }}
+      </a>
+    </h3>
+    <p class="card-description text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+      {{ .Description }}
+    </p>
+    <div class="card-meta text-xs text-gray-500 dark:text-gray-500">
+      <span class="card-date">
+        <i class="fa-regular fa-calendar mr-1"></i>
+        {{ .Params.date | time.Format "2006-01-02" }}
+      </span>
+    </div>
+  </div>
+</div>

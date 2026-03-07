@@ -17,9 +17,14 @@ url = "/categories"
 weight = 3
 
 [[main]]
+name = "收藏"
+url = "/favorites/"
+weight = 4
+
+[[main]]
 name = "关于"
 url = "/about"
-weight = 4
+weight = 5
 
 # footer menu
 [[footer]]

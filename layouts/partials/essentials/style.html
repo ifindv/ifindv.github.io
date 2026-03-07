@@ -80,3 +80,10 @@
   integrity="{{ $stylesLazy.Data.Integrity }}"
   media="print"
   onload="this.media='all'; this.onload=null;" />
+
+{{ if eq .Kind "section" }}
+  {{ if eq .Section "favorites" }}
+    {{ $favoritesCSS := resources.Get "css/favorites.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $favoritesCSS.RelPermalink }}" integrity="{{ $favoritesCSS.Data.Integrity }}" />
+  {{ end }}
+{{ end }}

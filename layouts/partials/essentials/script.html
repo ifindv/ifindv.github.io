@@ -1,6 +1,7 @@
-<!-- JS Plugins + Main script -->
+<!-- main script -->
 {{ $scripts := slice }}
 {{ $scriptsLazy := slice }}
+
 {{ range site.Params.plugins.js }}
   {{ if findRE "^http" .link }}
     <script
@@ -16,6 +17,12 @@
   {{ end }}
 {{ end }}
 
+{{ if eq .Kind "section" }}
+  {{ if eq .Section "favorites" }}
+    {{ $favoritesJS := resources.Get "js/favorites.js" | minify | fingerprint }}
+    <script src="{{ $favoritesJS.RelPermalink }}" integrity="{{ $favoritesJS.Data.Integrity }}"></script>
+  {{ end }}
+{{ end }}
 
 <!-- main script -->
 {{ $scripts = $scripts | append (resources.Get "js/main.js") }}

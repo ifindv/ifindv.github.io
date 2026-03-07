@@ -1,0 +1,122 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandFromCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.favorite-card {
+  animation: fadeInUp 0.6s ease-out backwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.favorite-card:hover .card-image img {
+  transform: scale(1.1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.favorite-card:hover .card-title a {
+  color: var(--primary);
+}
+
+.dark .favorite-card:hover .card-title a {
+  color: var(--darkmode-primary);
+}
+
+.category-badge {
+  background-color: var(--primary);
+}
+
+[data-category="Movie"] .category-badge {
+  background-color: #3b82f6;
+}
+
+[data-category="Music"] .category-badge {
+  background-color: #8b5cf6;
+}
+
+[data-category="Game"] .category-badge {
+  background-color: #10b981;
+}
+
+[data-category="Travel"] .category-badge {
+  background-color: #f59e0b;
+}
+
+[data-category="Reading"] .category-badge {
+  background-color: #ef4444;
+}
+
+[data-category="Misc"] .category-badge {
+  background-color: #6b7280;
+}
+
+.filter-dropdown:hover .filter-options,
+.filter-dropdown:focus-within .filter-options,
+.group:hover .filter-options,
+.group:focus-within .filter-options {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.filter-option.active {
+  background-color: white !important;
+  color: black !important;
+  font-weight: 600;
+  border: 1px solid var(--primary);
+}
+
+.dark .filter-option.active {
+  background-color: white !important;
+  color: black !important;
+  font-weight: 600;
+  border: 1px solid var(--darkmode-primary);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-dropdown {
+    width: 100%;
+  }
+  
+  .filter-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .filter-options {
+    left: 0;
+    right: 0;
+  }
+}
