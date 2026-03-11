@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentTimeRange = 'all';
   
   function filterFavorites(category, timeRange) {
+    console.log('Filtering favorites:', { category, timeRange });
     const cards = document.querySelectorAll('.favorite-card');
     const now = new Date();
     
@@ -47,24 +48,50 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (categoryFilter) {
       const categoryOptions = categoryFilter.querySelectorAll('.filter-option');
+      const categoryDropdown = categoryFilter.querySelector('.filter-options');
+      
       categoryOptions.forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
           categoryOptions.forEach(opt => opt.classList.remove('active'));
           this.classList.add('active');
           currentCategory = this.dataset.category;
+          
+          console.log('Category selected:', currentCategory);
           filterFavorites(currentCategory, currentTimeRange);
+          
+          // Close the dropdown after selection
+          if (categoryDropdown) {
+            categoryDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+            categoryDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+          }
         });
       });
     }
     
     if (timeFilter) {
       const timeOptions = timeFilter.querySelectorAll('.filter-option');
+      const timeDropdown = timeFilter.querySelector('.filter-options');
+      
       timeOptions.forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
           timeOptions.forEach(opt => opt.classList.remove('active'));
           this.classList.add('active');
           currentTimeRange = this.dataset.time;
+          
+          console.log('Time range selected:', currentTimeRange);
           filterFavorites(currentCategory, currentTimeRange);
+          
+          // Close the dropdown after selection
+          if (timeDropdown) {
+            timeDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+            timeDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+          }
         });
       });
     }

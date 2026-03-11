@@ -44,4 +44,9 @@
       </div>
     </div>
   </section>
+  
+  {{ $favoritesJS := resources.Get "js/favorites.js" }}
+  {{ if $favoritesJS }}
+    <script src="{{ $favoritesJS.RelPermalink }}"></script>
+  {{ end }}
 {{ end }}
