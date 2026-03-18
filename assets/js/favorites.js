@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
   let currentCategory = 'all';
   let currentTimeRange = 'all';
+  let categoryMenuOpen = false;
+  let timeMenuOpen = false;
   
   function filterFavorites(category, timeRange) {
     console.log('Filtering favorites:', { category, timeRange });
@@ -49,6 +51,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (categoryFilter) {
       const categoryOptions = categoryFilter.querySelectorAll('.filter-option');
       const categoryDropdown = categoryFilter.querySelector('.filter-options');
+
+      // Add hover event handlers
+      categoryFilter.addEventListener('mouseenter', function() {
+        if (!categoryMenuOpen) {
+          categoryDropdown.style.opacity = '1';
+          categoryDropdown.style.visibility = 'visible';
+          categoryDropdown.style.transform = 'scale(1)';
+        }
+      });
+
+      categoryFilter.addEventListener('mouseleave', function() {
+        if (!categoryMenuOpen) {
+          categoryDropdown.style.opacity = '0';
+          categoryDropdown.style.visibility = 'hidden';
+          categoryDropdown.style.transform = 'scale(0.95)';
+        }
+      });
       
       categoryOptions.forEach(option => {
         option.addEventListener('click', function(e) {
@@ -64,8 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // Close the dropdown after selection
           if (categoryDropdown) {
-            categoryDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
-            categoryDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+            categoryMenuOpen = true;
+            categoryDropdown.style.opacity = '0';
+            categoryDropdown.style.visibility = 'hidden';
+            categoryDropdown.style.transform = 'scale(0.95)';
+            // Reset the flag after a delay to allow hover to work again
+            setTimeout(() => {
+              categoryMenuOpen = false;
+            }, 500);
           }
         });
       });
@@ -74,6 +99,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (timeFilter) {
       const timeOptions = timeFilter.querySelectorAll('.filter-option');
       const timeDropdown = timeFilter.querySelector('.filter-options');
+
+      // Add hover event handlers
+      timeFilter.addEventListener('mouseenter', function() {
+        if (!timeMenuOpen) {
+          timeDropdown.style.opacity = '1';
+          timeDropdown.style.visibility = 'visible';
+          timeDropdown.style.transform = 'scale(1)';
+        }
+      });
+
+      timeFilter.addEventListener('mouseleave', function() {
+        if (!timeMenuOpen) {
+          timeDropdown.style.opacity = '0';
+          timeDropdown.style.visibility = 'hidden';
+          timeDropdown.style.transform = 'scale(0.95)';
+        }
+      });
       
       timeOptions.forEach(option => {
         option.addEventListener('click', function(e) {
@@ -89,8 +131,14 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // Close the dropdown after selection
           if (timeDropdown) {
-            timeDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
-            timeDropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+            timeMenuOpen = true;
+            timeDropdown.style.opacity = '0';
+            timeDropdown.style.visibility = 'hidden';
+            timeDropdown.style.transform = 'scale(0.95)';
+            // Reset the flag after a delay to allow hover to work again
+            setTimeout(() => {
+              timeMenuOpen = false;
+            }, 500);
           }
         });
       });
