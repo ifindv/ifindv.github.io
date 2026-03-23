@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find . -name *.json -type f)",
+      "Bash(find . -name *.md -type f)",
+      "Bash(ls -la *.md)"
+    ]
+  }
+}
