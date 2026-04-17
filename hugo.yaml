@@ -1,0 +1,56 @@
+baseURL: https://ifindv.github.io/
+languageCode: en-us
+title: ifindv's Blog
+theme: blowfish
+
+language:
+  languageName: English
+  weight: 1
+
+params:
+  title: ifindv
+  description: "技术博客"
+  author: ifindv
+  
+  # 默认主题设置 (Blowfish 支持亮色和暗色)
+  defaultTheme: auto
+  
+  # 导航栏设置
+  navbar:
+    align: r
+    logo: true
+    logoName: true
+    links:
+      - name: Posts
+        pageRef: /posts
+        icon: blog
+      - name: Categories
+        pageRef: /categories
+        icon: category
+      - name: Tags
+        pageRef: /tags
+        icon: tag
+
+  # Blowfish 特定设置
+  blowfish:
+    # 复制按钮
+    highlightCopyButton: true
+    # 文章列表样式
+    listPageStyle: wide
+
+  # 页脚设置
+  footer:
+    copyright: true
+    poweredBy: true
+
+# 启用搜索
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# 激活搜索功能
+markup:
+  highlight:
+    noClasses: false
