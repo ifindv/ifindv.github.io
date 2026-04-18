@@ -62,7 +62,7 @@ params:
     showMoreLink: true
     showMoreLinkDest: "/posts/"
 
-  defaultBackgroundImage: "/img/bg.jpg"
+  defaultBackgroundImage: "/img/iceland.jpg"
 
   article:
     showDate: true
