@@ -2,33 +2,25 @@ baseURL: https://ifindv.github.io/
 languageCode: zh-cn
 title: 我的技术博客
 theme: blowfish
+defaultContentLanguage: zh-cn
 
-author:
-  name: ifindv
-  email: your.email@example.com
+enableRobotsTXT: true
+summaryLength: 30
+hasCJKLanguage: true
 
-params:
-  description: "技术分享与个人思考"
-  subtitle: "探索技术，记录成长"
-  defaultTheme: auto
-  title: "ifindv"
-  navbar:
-    align: "r"
-    logo: true
-    logoName: true
-    links:
-      - name: "首页"
-        pageRef: "/"
-      - name: "文章"
-        pageRef: "/posts"
-      - name: "关于"
-        pageRef: "/about"
-  footer:
-    copyright: true
-    poweredBy: true
-  blowfish:
-    highlightCopyButton: true
-    listPageStyle: "wide"
+enableEmoji: true
+
+pagination:
+  pagerSize: 10
+
+imaging:
+  anchor: center
+
+taxonomies:
+  tag: tags
+  category: categories
+  author: authors
+  series: series
 
 outputs:
   home:
@@ -36,6 +28,61 @@ outputs:
     - RSS
     - JSON
 
-markup:
-  highlight:
-    noClasses: false
+author:
+  name: ifindv
+  email: your.email@example.com
+
+params:
+  description: "技术分享与个人思考"
+  defaultAppearance: "auto"
+  autoSwitchAppearance: true
+  enableSearch: true
+  enableCodeCopy: true
+  mainSections: ["posts"]
+
+  colorScheme: "blowfish"
+
+  header:
+    layout: "fixed"
+
+  footer:
+    showCopyright: true
+    showThemeAttribution: true
+    showAppearanceSwitcher: true
+    showScrollToTop: true
+
+  homepage:
+    layout: "profile"
+    showRecent: true
+    showRecentItems: 5
+    cardView: true
+
+  article:
+    showDate: true
+    showAuthor: true
+    showHero: true
+    heroStyle: "big"
+    showBreadcrumbs: true
+    showReadingTime: true
+    showTableOfContents: true
+    showRelatedContent: true
+    relatedContentLimit: 9
+    showHeadingAnchors: true
+    showPagination: true
+    showTaxonomies: true
+
+  list:
+    showHero: true
+    heroStyle: "background"
+    showSummary: true
+    showTableOfContents: true
+    cardView: true
+
+  taxonomy:
+    showHero: true
+    heroStyle: "background"
+    showTermCount: true
+
+  markup:
+    highlight:
+      noClasses: false
