@@ -1,0 +1,6 @@
+{{ if .Params.enableSearch | default false }}
+{{ $fuse := resources.Get "lib/fuse/fuse.min.js" }}
+{{ $search := resources.Get "js/search.js" }}
+{{ $searchCombined := slice $fuse $search | resources.Concat "js/search-bundle.js" | resources.Minify }}
+<script defer src="{{ $searchCombined.RelPermalink }}"></script>
+{{ end }}
