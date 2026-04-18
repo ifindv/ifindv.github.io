@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>关于 on 我的技术博客</title>
-    <link>https://username.github.io/about/</link>
+    <link>https://ifindv.github.io/about/</link>
     <description>Recent content in 关于 on 我的技术博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2026 </copyright>
-    <lastBuildDate></lastBuildDate><atom:link href="https://username.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate></lastBuildDate><atom:link href="https://ifindv.github.io/about/index.xml" rel="self" type="application/rss+xml" />
     
   </channel>
 </rss>
