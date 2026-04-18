@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>我的技术博客</title><link>https://ifindv.github.io/</link><description>Recent content on 我的技术博客</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>© 2026</copyright><lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello World</title><link>https://ifindv.github.io/posts/hello-world/</link><pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/posts/hello-world/</guid><description>&lt;p&gt;欢迎来到我的技术博客！这是一个使用 Hugo 和 Blowfish 主题构建的博客。&lt;/p&gt;
+
+&lt;h2 class="relative group"&gt;关于这个博客
+ &lt;div id="关于这个博客" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b3%e4%ba%8e%e8%bf%99%e4%b8%aa%e5%8d%9a%e5%ae%a2" aria-label="锚点"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h2&gt;
+&lt;p&gt;这里会分享技术相关的文章和思考。&lt;/p&gt;
+
+&lt;h2 class="relative group"&gt;目录
+ &lt;div id="目录" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%9b%ae%e5%bd%95" aria-label="锚点"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; Hugo 安装配置&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; Blowfish 主题设置&lt;/li&gt;
+&lt;li&gt;&lt;input disabled="" type="checkbox"&gt; GitHub Pages 部署&lt;/li&gt;
+&lt;li&gt;&lt;input disabled="" type="checkbox"&gt; 自定义主题样式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;敬请期待更多内容！&lt;/p&gt;</description></item></channel></rss>
