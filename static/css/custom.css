@@ -1,0 +1,5 @@
+/* Header avatar - make it stand out against dark bg */
+.main-menu img.rounded-full {
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
