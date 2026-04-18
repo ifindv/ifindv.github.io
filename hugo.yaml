@@ -1,6 +1,6 @@
 baseURL: https://ifindv.github.io/
 languageCode: zh-cn
-title: 我的技术博客
+title: ifindv's Blog
 theme: blowfish
 defaultContentLanguage: zh-cn
 
@@ -34,7 +34,7 @@ author:
 
 params:
   description: "技术分享与个人思考"
-  defaultAppearance: "auto"
+  defaultAppearance: "dark"
   autoSwitchAppearance: true
   enableSearch: true
   enableCodeCopy: true
@@ -52,10 +52,14 @@ params:
     showScrollToTop: true
 
   homepage:
-    layout: "profile"
+    layout: "background"
     showRecent: true
-    showRecentItems: 5
+    showRecentItems: 6
     cardView: true
+    showMoreLink: true
+    showMoreLinkDest: "/posts/"
+
+  defaultBackgroundImage: "/img/iceland.jpg"
 
   article:
     showDate: true
@@ -77,6 +81,7 @@ params:
     showSummary: true
     showTableOfContents: true
     cardView: true
+    showCards: true
 
   taxonomy:
     showHero: true
