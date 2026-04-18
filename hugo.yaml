@@ -34,6 +34,9 @@ author:
 
 params:
   description: "技术分享与个人思考"
+  author:
+    name: "ifindv"
+    image: "/img/avatar.jpg"
   defaultAppearance: "dark"
   autoSwitchAppearance: true
   enableSearch: true

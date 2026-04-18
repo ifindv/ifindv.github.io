@@ -1,0 +1,33 @@
+﻿{{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
+<div class="flex author">
+  {{ with .Site.Params.Author.image }}
+    {{ $authorImage := "" }}
+    {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+      {{ $authorImage = resources.GetRemote . }}
+    {{ else if resources.Get . }}
+      {{ $authorImage = resources.Get . }}
+    {{ end }}
+    {{ if $authorImage }}
+      {{ $final := $authorImage }}
+      {{ $squareImage := $authorImage }}
+      {{ if not (or $disableImageOptimization (eq $authorImage.MediaType.SubType "svg")) }}
+        {{ $final = $authorImage.Fill "192x192" }}
+        {{ $shortSide := int (math.Min $authorImage.Width $authorImage.Height) }}
+        {{ $squareImage = $authorImage.Crop (printf "%dx%d" $shortSide $shortSide ) }}
+      {{ end }}
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="{{ $.Site.Params.Author.name | default " Author" }}"
+        src="{{ $final.RelPermalink }}"
+        data-zoom-src="{{ $squareImage.RelPermalink }}">
+    {{ end }}
+  {{ end }}
+  <div class="flex flex-col">
+    {{ with .Site.Params.Author.name }}<div class="font-bold text-xl !mb-0">{{ . }}</div>{{ end }}
+    {{ with .Site.Params.Author.headline }}<div class="text-sm text-neutral-500 dark:text-neutral-400">{{ . }}</div>{{ end }}
+    {{ with .Site.Params.Author.bio }}<div class="text-sm text-neutral-500 dark:text-neutral-400">{{ . }}</div>{{ end }}
+  </div>
+</div>
+
