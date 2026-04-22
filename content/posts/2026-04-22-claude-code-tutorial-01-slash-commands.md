@@ -117,58 +117,88 @@ author: "ifindv"
 | `/pr-comments` | 在v2.1.91中移除 — 直接要求Claude查看PR评论 |
 | `/vim` | 在v2.1.92中移除 — 使用/config → 编辑器模式 |
 
-### 最近更新
+### 版本更新
 
-- `/fork`重命名为`/branch`，保留`/fork`作为别名（v2.1.77）
+<details>
+<summary>v2.1.112</summary>
+
+- 自动模式不再需要Max订阅者在Opus 4.7上使用`--enable-auto-mode`标志
+
+</details>
+
+<details>
+<summary>v2.1.111</summary>
+
+- `/effort`获得交互式箭头键滑块和`high`与`max`之间的新`xhigh`级别；Opus 4.7计划的默认努力提高到`xhigh`
+- `/ultrareview`新增，用于基于云的多代理代码审查
+- `/less-permission-prompts`新增，通过在`.claude/settings.json`中的允许列表减少权限提示
+
+</details>
+
+<details>
+<summary>v2.1.110</summary>
+
+- `/tui`命令新增，用于无闪烁全屏TUI渲染
+- `/focus`命令新增，用于焦点视图切换；`Ctrl+O`现在仅切换详细记录
+
+</details>
+
+<details>
+<summary>v2.1.108</summary>
+
+- `/recap`命令新增，手动触发会话上下文回顾
+- `/undo`新增，作为`/rewind`的别名
+
+</details>
+
+<details>
+<summary>v2.1.105</summary>
+
+- `/proactive`新增，作为`/loop`的别名
+
+</details>
+
+<details>
+<summary>v2.1.101</summary>
+
+- `/team-onboarding`新增，用于自动生成队友入门指南
+
+</details>
+
+<details>
+<summary>v2.1.92-1.91</summary>
+
+- `/vim`在v2.1.92中移除 — 使用/config → 编辑器模式
+- `/pr-comments`在v2.1.91中移除 — 直接要求Claude查看PR评论
+
+</details>
+
+<details>
+<summary>v2.1.77-1.73</summary>
+
+- `/fork`重命名为`/branch`，保留`/fork`作为别名
 - `/output-style`已弃用（v2.1.73）
 - `/review`已弃用，转而使用`code-review`插件
-- `/effort`命令新增，需要Opus 4.7的`max`级别（最初仅限Opus 4.6）
+
+</details>
+
+<details>
+<summary>其他新增</summary>
+
+- `/effort`命令新增，支持`max`级别（仅限Opus 4.7）
 - `/voice`命令新增，用于按住说话语音听写
 - `/schedule`命令新增，用于创建/管理计划任务
 - `/color`命令新增，用于提示栏自定义
-- `/pr-comments`在v2.1.91中移除 — 直接要求Claude查看PR评论
-- `/vim`在v2.1.92中移除 — 改用/config → 编辑器模式
 - `/ultraplan`新增，用于基于浏览器的计划审查和执行
 - `/powerup`新增，用于交互式功能课程
 - `/sandbox`新增，用于切换沙箱模式
 - `/model`选择器现在显示人类可读的标签（如"Sonnet 4.6"）而不是原始模型ID
 - `/resume`支持`/continue`别名
-- MCP提示可用作`/mcp__<server>__<prompt>`命令（见[MCP提示作为命令](#mcp提示作为命令)）
-- `/team-onboarding`新增，用于自动生成队友入门指南（v2.1.101）
-- `/tui`命令新增，用于无闪烁全屏TUI渲染（v2.1.110）
-- `/focus`命令新增，用于焦点视图切换；`Ctrl+O`现在仅切换详细记录（v2.1.110）
-- `/recap`命令新增，手动触发会话上下文回顾（v2.1.108）
-- `/undo`新增，作为`/rewind`的别名（v2.1.108）
-- `/proactive`新增，作为`/loop`的别名（v2.1.105）
-- `/effort`获得交互式箭头键滑块和`high`与`max`之间的新`xhigh`级别；Opus 4.7计划的默认努力提高到`xhigh`（v2.1.111）
-- `/ultrareview`新增，用于基于云的多代理代码审查（v2.1.111）
-- `/less-permission-prompts`新增，通过在`.claude/settings.json`中的允许列表减少权限提示（v2.1.111）
-- 自动模式不再需要Max订阅者在Opus 4.7上使用`--enable-auto-mode`标志（v2.1.112）
+- MCP提示可用作`/mcp__<server>__<prompt>`命令
 
-### `/team-onboarding` — 队友入门指南
+</details>
 
-> **v2.1.101新增**
-
-使用`/team-onboarding`从项目的本地Claude Code使用生成队友入门指南。该命令检查你的`CLAUDE.md`、已安装的技能、子代理、钩子和最近的工作流，然后生成帮助新开发者快速入门的入门文档。
-
-这是一个内置命令 — 无需安装。
-
-**使用：**
-
-```bash
-claude /team-onboarding
-```
-
-生成的指南总结：
-- [`CLAUDE.md`](../02-memory/README.md)中的项目目的和关键约定
-- 可用的[技能](../03-skills/README.md)及其自动调用时机
-- 配置的[子代理](../04-subagents/README.md)及其职责
-- 在常见事件上运行的[钩子](../06-hooks/README.md)
-- 新手应该知道的常见工作流
-
-**可用性：** 随Claude Code v2.1.101（2026年4月11日）发布。
-
-### 自定义命令（现为技能）
+### 自定义命令
 
 自定义斜杠命令已**合并到技能中**。两种方法都创建可用`/command-name`调用的命令：
 
@@ -179,21 +209,23 @@ claude /team-onboarding
 
 如果技能和命令共享相同名称，**技能优先**。例如，当同时存在`.claude/commands/review.md`和`.claude/skills/review/SKILL.md`时，使用技能版本。
 
-### 迁移路径
+### 迁移指南
 
 你现有的`.claude/commands/`文件无需更改即可继续工作。要迁移到技能：
 
 **之前（命令）：**
-```
+
+```bash
 .claude/commands/optimize.md
 ```
 
 **之后（技能）：**
-```
+
+```bash
 .claude/skills/optimize/SKILL.md
 ```
 
-### 为什么选择技能？
+### 技能优势
 
 技能相比传统命令提供额外功能：
 
@@ -203,7 +235,7 @@ claude /team-onboarding
 - **子代理执行**：在具有`context: fork`的隔离上下文中运行技能
 - **渐进式披露**：仅在需要时加载附加文件
 
-### 创建自定义命令作为技能
+### 创建技能
 
 创建包含`SKILL.md`文件的目录：
 
@@ -228,7 +260,7 @@ description: 此命令的功能以及何时使用它
 3. 第三步
 ```
 
-### Frontmatter参考
+### Frontmatter 字段
 
 | 字段 | 用途 | 默认 |
 |-------|------|------|
@@ -243,7 +275,7 @@ description: 此命令的功能以及何时使用它
 | `agent` | 使用`context: fork`时的代理类型 | `general-purpose` |
 | `hooks` | 技能范围钩子（PreToolUse、PostToolUse、Stop） | 无 |
 
-### 参数
+### 参数处理
 
 命令可以接收参数：
 
@@ -273,7 +305,7 @@ description: 带优先级审查PR
 
 使用：`/review-pr 456 high` → `$0`="456", `$1`="high"
 
-### 使用Shell命令进行动态上下文
+### 动态上下文
 
 使用`!`command``在提示之前执行bash命令：
 
@@ -321,7 +353,7 @@ allowed-tools: Bash(git *)
 /commit-commands:commit
 ```
 
-### MCP提示作为命令
+### MCP 命令
 
 MCP服务器可以将提示公开为斜杠命令：
 
@@ -336,7 +368,7 @@ MCP服务器可以将提示公开为斜杠命令：
 /mcp__jira__create_issue "Bug title" high
 ```
 
-### MCP权限语法
+### MCP 权限
 
 在权限中控制MCP服务器访问：
 
@@ -344,42 +376,13 @@ MCP服务器可以将提示公开为斜杠命令：
 - `mcp__github__*` - 通配符访问所有工具
 - `mcp__github__get_issue` - 特定工具访问
 
-### 命令架构
+### 架构
 
-```mermaid
-graph TD
-    A["用户输入: /command-name"] --> B{"命令类型?"}
-    B -->|内置| C["执行内置"]
-    B -->|技能| D["加载SKILL.md"]
-    B -->|插件| E["加载插件命令"]
-    B -->|MCP| F["执行MCP提示"]
+![Claude Code命令架构](/img/claude-code-command-architecture.png)
 
-    D --> G["解析frontmatter"]
-    G --> H["替换变量"]
-    H --> I["执行Shell命令"]
-    I --> J["发送给Claude"]
-    J --> K["返回结果"]
-```
+### 生命周期
 
-### 命令生命周期
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Claude as Claude Code
-    participant FS as 文件系统
-    participant CLI as Shell/Bash
-
-    User->>Claude: 输入 /optimize
-    Claude->>FS: 搜索 .claude/skills/ 和 .claude/commands/
-    FS-->>Claude: 返回 optimize/SKILL.md
-    Claude->>Claude: 解析frontmatter
-    Claude->>CLI: 执行 !`command` 替换
-    CLI-->>Claude: 命令输出
-    Claude->>Claude: 替换 $ARGUMENTS
-    Claude->>User: 处理提示
-    Claude->>User: 返回结果
-```
+![Claude Code命令生命周期](/img/claude-code-command-lifecycle.png)
 
 ## 实用示例
 
