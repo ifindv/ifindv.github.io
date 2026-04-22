@@ -371,63 +371,203 @@ MCP服务器可以将提示公开为斜杠命令：
 
 ## 实用示例
 
-### 示例1：代码优化命令
+### 代码优化
 
-分析代码的性能问题、内存泄漏和优化机会。
+展示 `.claude/skills/optimize/SKILL.md` 的配置内容：
 
-**使用：**
+```yaml
+---
+description: Analyze code for performance issues and suggest optimizations
+---
 
-```
-/optimize
-[粘贴你的代码]
-```
+# Code Optimization
 
-### 示例2：Pull Request准备命令
+Review the provided code for the following issues in order of priority:
 
-引导完成PR准备检查清单，包括linting、测试和提交格式。
+1. **Performance bottlenecks** - identify O(n²) operations, inefficient loops
+2. **Memory leaks** - find unreleased resources, circular references
+3. **Algorithm improvements** - suggest better algorithms or data structures
+4. **Caching opportunities** - identify repeated computations
+5. **Concurrency issues** - find race conditions or threading problems
 
-**使用：**
+Format your response with:
+- Issue severity (Critical/High/Medium/Low)
+- Location in code
+- Explanation
+- Recommended fix with code example
 
-```
-/pr
-```
-
-### 示例3：API文档生成器
-
-从源代码生成全面的API文档。
-
-**使用：**
-
-```
-/generate-api-docs
+---
+**Last Updated**: April 9, 2026
 ```
 
-### 示例4：带上下文的Git提交
+### PR准备
 
-使用存储库的动态上下文创建git提交。
+展示 `.claude/skills/pr/SKILL.md` 的配置内容：
 
-**使用：**
+```yaml
+---
+description: Clean up code, stage changes, and prepare a pull request
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(npm test:*), Bash(npm run lint:*)
+---
 
+# Pull Request Preparation Checklist
+
+Before creating a PR, execute these steps:
+
+1. Run linting: `prettier --write .`
+2. Run tests: `npm test`
+3. Review git diff: `git diff HEAD`
+4. Stage changes: `git add .`
+5. Create commit message following conventional commits:
+   - `fix:` for bug fixes
+   - `feat:` for new features
+   - `docs:` for documentation
+   - `refactor:` for code restructuring
+   - `test:` for test additions
+   - `chore:` for maintenance
+
+6. Generate PR summary including:
+   - What changed
+   - Why it changed
+   - Testing performed
+   - Potential impacts
+
+---
+**Last Updated**: April 9, 2026
 ```
-/commit [可选消息]
+
+### API文档生成器
+
+展示 `.claude/skills/generate-api-docs/SKILL.md` 的配置内容：
+
+```yaml
+---
+description: Create comprehensive API documentation from source code
+---
+
+# API Documentation Generator
+
+Generate API documentation by:
+
+1. Scanning all files in `/src/api/`
+2. Extracting function signatures and JSDoc comments
+3. Organizing by endpoint/module
+4. Creating markdown with examples
+5. Including request/response schemas
+6. Adding error documentation
+
+Output format:
+- Markdown file in `/docs/api.md`
+- Include curl examples for all endpoints
+- Add TypeScript types
+
+---
+**Last Updated**: April 9, 2026
 ```
 
-### 示例5：暂存、提交和推送
+### 带上下文的Git提交
 
-暂存所有更改，创建提交，并带有安全检查地推送到远程。
+展示 `.claude/skills/commit/SKILL.md` 的配置内容：
 
-**使用：**
+```yaml
+---
+description: Create git commit with dynamic context from repository
+allowed-tools: Bash(git add:*), Bash(git commit:*), Bash(git status:*), Bash(git diff:*), Bash(git log:*)
+---
 
+# Git Commit with Context
+
+Create a git commit with relevant repository context.
+
+## Steps
+
+1. Run in parallel to gather context:
+   - `git status` - show working tree status
+   - `git diff` - show both staged and unstaged changes
+   - `git log -1 --oneline` - show recent commit message
+
+2. Analyze all staged and newly added changes
+
+3. Draft a concise commit message:
+   - Summarize the nature of the changes (eg. new feature, enhancement to an existing feature, bug fix, refactoring, test, docs, etc.)
+   - Ensure the message accurately reflects the changes and their purpose (i.e. "add" means a wholly new feature, "update" means an enhancement to an existing feature, "fix" means a bug fix, etc.)
+   - Do not commit files that likely contain secrets (.env, credentials.json, etc). Warn the user if they specifically request to commit those files
+   - Draft a concise (1-2 sentences) commit message that focuses on the "why" rather than the "what"
+   - Ensure it accurately reflects the changes and their purpose
+
+4. Run sequentially:
+   - Add relevant untracked files
+   - Create commit with message
+   - Run git status after commit to verify success
+
+---
+**Last Updated**: April 9, 2026
 ```
-/push-all
+
+### 暂存、提交和推送
+
+展示 `.claude/skills/push-all/SKILL.md` 的配置内容：
+
+```yaml
+---
+description: Stage all changes, create commit, and push to remote (use with caution)
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git diff:*), Bash(git log:*), Bash(git pull:*)
+---
+
+# Commit and Push Everything
+
+⚠️ **CAUTION**: Stage ALL changes, commit, and push to remote. Use only when confident all changes belong together.
+
+## Workflow
+
+### 1. Analyze Changes
+Run in parallel:
+- `git status` - Show modified/added/deleted/untracked files
+- `git diff --stat` - Show change statistics
+- `git log -1 --oneline` - Show recent commit for message style
+
+### 2. Safety Checks
+
+**❌ STOP and WARN if detected:**
+- Secrets: `.env*`, `*.key`, `*.pem`, `credentials.json`, `secrets.yaml`, `id_rsa`, `*.p12`, `*.pfx`, `*.cer`
+- API Keys: Any `*_API_KEY`, `*_SECRET`, `*_TOKEN` variables with real values (not placeholders like `your-api-key`, `xxx`, `placeholder`)
+- Large files: `>10MB` without Git LFS
+- Build artifacts: `node_modules/`, `dist/`, `build/`, `__pycache__/`, `*.pyc`, `.venv/`
+- Temp files: `.DS_Store`, `thumbs.db`, `*.swp`, `*.tmp`
+
+**✅ Verify:**
+- `.gitignore` properly configured
+- No merge conflicts
+- Correct branch (warn if main/master)
+- API keys are placeholders only
+
+### 3. Request Confirmation
+
+Present summary and wait for explicit "yes" before proceeding.
+
+### 4. Execute (After Confirmation)
+
+Run sequentially:
+```bash
+git add .
+git status  # Verify staging
 ```
 
-**安全检查：**
+### 5. Generate Commit Message
 
-- 秘密：`.env*`、`*.key`、`*.pem`、`credentials.json`
-- API密钥：检测真实密钥与占位符
-- 大文件：`>10MB`且无Git LFS
-- 构建工件：`node_modules/`、`dist/`、`__pycache__/`
+Analyze changes and create conventional commit.
+
+### 6. Commit and Push
+
+```bash
+git commit -m "[Generated commit message]"
+git push  # If fails: git pull --rebase && git push
+git log -1 --oneline --decorate  # Verify
+```
+
+---
+**Last Updated**: April 9, 2026
+```
 
 ## 最佳实践
 
