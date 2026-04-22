@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ifindv's Blog</title><link>https://ifindv.github.io/</link><description>Recent content on ifindv's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>© 2026 ifindv</copyright><lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello World</title><link>https://ifindv.github.io/posts/hello-world/</link><pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/posts/hello-world/</guid><description>&lt;p&gt;欢迎来到我的技术博客！这是一个使用 Hugo 和 Blowfish 主题构建的博客。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ifindv's Blog</title><link>https://ifindv.github.io/</link><description>Recent content on ifindv's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>© 2026 ifindv</copyright><lastBuildDate>Wed, 22 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://ifindv.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Claude Code 教程系列：斜杠命令（Slash Commands）</title><link>https://ifindv.github.io/posts/2026-04-22-claude-code-tutorial-01-slash-commands/</link><pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/posts/2026-04-22-claude-code-tutorial-01-slash-commands/</guid><description>&lt;h1 class="relative group"&gt;Claude Code 教程系列：斜杠命令（Slash Commands）
+ &lt;div id="claude-code-教程系列斜杠命令slash-commands" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#claude-code-%e6%95%99%e7%a8%8b%e7%b3%bb%e5%88%97%e6%96%9c%e6%9d%a0%e5%91%bd%e4%bb%a4slash-commands" aria-label="锚点"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;p&gt;斜杠命令（Slash Commands）是Claude Code中最基础的快捷方式，通过&lt;code&gt;/命令名&lt;/code&gt;的语法快速调用预定义功能。无论是内置命令还是自定义命令，都能让你在开发过程中更高效地与Claude交互。&lt;/p&gt;</description></item><item><title>Hello World</title><link>https://ifindv.github.io/posts/hello-world/</link><pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate><guid>https://ifindv.github.io/posts/hello-world/</guid><description>&lt;p&gt;欢迎来到我的技术博客！这是一个使用 Hugo 和 Blowfish 主题构建的博客。&lt;/p&gt;
 
 &lt;h2 class="relative group"&gt;关于这个博客
  &lt;div id="关于这个博客" class="anchor"&gt;&lt;/div&gt;
