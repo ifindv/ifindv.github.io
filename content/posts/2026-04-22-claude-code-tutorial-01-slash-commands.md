@@ -373,8 +373,6 @@ MCP服务器可以将提示公开为斜杠命令：
 
 ### 代码优化
 
-展示 `.claude/skills/optimize/SKILL.md` 的配置内容：
-
 ```yaml
 ---
 description: Analyze code for performance issues and suggest optimizations
@@ -401,8 +399,6 @@ Format your response with:
 ```
 
 ### PR准备
-
-展示 `.claude/skills/pr/SKILL.md` 的配置内容：
 
 ```yaml
 ---
@@ -436,9 +432,7 @@ Before creating a PR, execute these steps:
 **Last Updated**: April 9, 2026
 ```
 
-### API文档生成器
-
-展示 `.claude/skills/generate-api-docs/SKILL.md` 的配置内容：
+### API文档生成
 
 ```yaml
 ---
@@ -465,9 +459,7 @@ Output format:
 **Last Updated**: April 9, 2026
 ```
 
-### 带上下文的Git提交
-
-展示 `.claude/skills/commit/SKILL.md` 的配置内容：
+### 代码提交
 
 ```yaml
 ---
@@ -504,9 +496,7 @@ Create a git commit with relevant repository context.
 **Last Updated**: April 9, 2026
 ```
 
-### 暂存、提交和推送
-
-展示 `.claude/skills/push-all/SKILL.md` 的配置内容：
+### 代码推送
 
 ```yaml
 ---
@@ -553,20 +543,90 @@ git add .
 git status  # Verify staging
 ```
 
-### 5. Generate Commit Message
+### 文档重构
 
-Analyze changes and create conventional commit.
+```
+---
+name: Documentation Refactor
+description: Restructure project documentation for clarity and accessibility
+tags: documentation, refactoring, organization
+---
+# Documentation Refactor
 
-### 6. Commit and Push
+Refactor project documentation structure adapted to project type:
 
-```bash
-git commit -m "[Generated commit message]"
-git push  # If fails: git pull --rebase && git push
-git log -1 --oneline --decorate  # Verify
+1. **Analyze project**: Identify type (library/API/web app/CLI/microservices), architecture, and user personas
+2. **Centralize docs**: Move technical documentation to `docs/` with proper cross-references
+3. **Root README.md**: Streamline as entry point with overview, quickstart, modules/components summary, license, contacts
+4. **Component docs**: Add module/package/service-level README files with setup and testing instructions
+5. **Organize `docs/`** by relevant categories:
+   - Architecture, API Reference, Database, Design, Troubleshooting, Deployment, Contributing (adapt to project needs)
+6. **Create guides** (select applicable):
+   - User Guide: End-user documentation for applications
+   - API Documentation: Endpoints, authentication, examples for APIs
+   - Development Guide: Setup, testing, contribution workflow
+   - Deployment Guide: Production deployment for services/apps
+7. **Use Mermaid** for all diagrams (architecture, flows, schemas)
+
+Keep docs concise, scannable, and contextual to project type.
 ```
 
+### CI/CD
+
+```bash
 ---
-**Last Updated**: April 9, 2026
+name: Setup CI/CD Pipeline
+description: Implement pre-commit hooks and GitHub Actions for quality assurance
+tags: ci-cd, devops, automation
+---
+# Setup CI/CD Pipeline
+
+Implement comprehensive DevOps quality gates adapted to project type:
+
+1. **Analyze project**: Detect language(s), framework, build system, and existing tooling
+2. **Configure pre-commit hooks** with language-specific tools:
+   - Formatting: Prettier/Black/gofmt/rustfmt/etc.
+   - Linting: ESLint/Ruff/golangci-lint/Clippy/etc.
+   - Security: Bandit/gosec/cargo-audit/npm audit/etc.
+   - Type checking: TypeScript/mypy/flow (if applicable)
+   - Tests: Run relevant test suites
+3. **Create GitHub Actions workflows** (.github/workflows/):
+   - Mirror pre-commit checks on push/PR
+   - Multi-version/platform matrix (if applicable)
+   - Build and test verification
+   - Deployment steps (if needed)
+4. **Verify pipeline**: Test locally, create test PR, confirm all checks pass
+
+Use free/open-source tools. Respect existing configs. Keep execution fast.
+```
+
+### 单元测试扩展
+
+```
+---
+name: Expand Unit Tests
+description: Increase test coverage by targeting untested branches and edge cases
+tags: testing, coverage, unit-tests
+---
+# Expand Unit Tests
+
+Expand existing unit tests adapted to project's testing framework:
+
+1. **Analyze coverage**: Run coverage report to identify untested branches, edge cases, and low-coverage areas
+2. **Identify gaps**: Review code for logical branches, error paths, boundary conditions, null/empty inputs
+3. **Write tests** using project's framework:
+   - Jest/Vitest/Mocha (JavaScript/TypeScript)
+   - pytest/unittest (Python)
+   - Go testing/testify (Go)
+   - Rust test framework (Rust)
+4. **Target specific scenarios**:
+   - Error handling and exceptions
+   - Boundary values (min/max, empty, null)
+   - Edge cases and corner cases
+   - State transitions and side effects
+5. **Verify improvement**: Run coverage again, confirm measurable increase
+
+Present new test code blocks only. Follow existing test patterns and naming conventions.
 ```
 
 ## 最佳实践
@@ -589,10 +649,13 @@ git log -1 --oneline --decorate  # Verify
 - 假设Claude知道当前项目状态
 - 忘记添加工具权限配置（`allowed-tools`）
 
+---
+
 ## 参考链接
 
 - [claude-howto](https://github.com/luongnv89/claude-howto)
 
----
 
-这是[Claude Code 教程系列](../claude-howto/)的第一篇文章。下一篇文章将介绍Claude Code的内存系统。
+```
+
+```
