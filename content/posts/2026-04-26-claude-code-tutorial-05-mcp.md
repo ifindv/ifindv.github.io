@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：MCP协议（Model Context Protocol）"
-date: 2026-04-26
 description: "Claude Code MCP协议详解与实用指南"
+date: 2026-04-26
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：MCP协议（Model Context Protocol）
 
 MCP（Model Context Protocol）是Claude访问外部工具、API和实时数据源的标准方式。与Memory不同，MCP提供对变化数据的实时访问。
 
@@ -227,7 +228,7 @@ WHERE created_at > NOW() - INTERVAL '1 day'
 💰 每日销售额$12,450
 ```
 
-### 礥例4：文件系统MCP操作
+### 示例4：文件系统MCP操作
 
 **配置：**
 

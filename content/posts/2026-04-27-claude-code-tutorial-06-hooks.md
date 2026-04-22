@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：钩子（Hooks）"
-date: 2026-04-27
 description: "Claude Code 钩子系统详解与实用指南"
+date: 2026-04-27
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：钩子（Hooks）
 
 钩子是响应Claude Code会话中特定事件而自动执行的脚本。它们实现自动化、验证、权限管理和自定义工作流。
 

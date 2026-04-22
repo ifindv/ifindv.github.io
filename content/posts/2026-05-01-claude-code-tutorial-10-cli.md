@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：CLI参考（CLI Reference）"
-date: 2026-05-01
 description: "Claude Code CLI参考详解与实用指南"
+date: 2026-05-01
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：CLI参考（CLI Reference）
 
 Claude Code命令行界面（CLI）提供了强大的命令行工具，用于自动化、CI/CD集成和高级工作流程。
 

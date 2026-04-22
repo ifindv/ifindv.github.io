@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：高级功能（Advanced Features）"
-date: 2026-04-30
 description: "Claude Code 高级功能详解与实用指南"
+date: 2026-04-30
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：高级功能（Advanced Features）
 
 高级功能扩展了Claude Code的核心能力，包括规划、推理、自动化和控制机制。这些功能为复杂的开发任务、代码审查、自动化和多会话管理提供了复杂的工作流程。
 

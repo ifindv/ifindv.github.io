@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：斜杠命令（Slash Commands）"
-date: 2026-04-22
 description: "Claude Code 斜杠命令功能详解与实用指南"
+date: 2026-04-22
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：斜杠命令（Slash Commands）
 
 斜杠命令（Slash Commands）是Claude Code中最基础的快捷方式，通过`/命令名`的语法快速调用预定义功能。无论是内置命令还是自定义命令，都能让你在开发过程中更高效地与Claude交互。
 
@@ -15,183 +16,431 @@ tags: ["Claude Code", "AI", "教程"]
 
 斜杠命令是用户手动触发的快捷方式，位于`.claude/skills/`或`.claude/commands/`目录中。Claude Code提供了60+个内置命令，同时支持创建自定义命令来扩展功能。
 
-### 内置命令示例
+### 内置命令参考
+
+内置命令是常见操作的快捷方式。共有**60+个内置命令**和**5个捆绑技能**可用。在Claude Code中输入`/`查看完整列表，或输入`/`后跟任何字母进行过滤。
 
 | 命令 | 用途 |
 |------|------|
-| `/help` | 显示帮助信息 |
-| `/clear` | 清除对话 |
-| `/model` | 选择模型 |
-| `/status` | 显示版本和账户状态 |
-| `/cost` | 显示token使用统计 |
-| `/context` | 可视化上下文使用情况 |
+| `/add-dir <path>` | 添加工作目录 |
 | `/agents` | 管理代理配置 |
+| `/branch [name]` | 将对话分支到新会话（别名：`/fork`）。注意：`/fork`在v2.1.77中重命名为`/branch` |
+| `/btw <question>` | 不添加到历史的旁注问题 |
+| `/chrome` | 配置Chrome浏览器集成 |
+| `/clear` | 清除对话（别名：`/reset`、`/new`） |
+| `/color [color\|default]` | 设置提示栏颜色 |
+| `/compact [instructions]` | 使用可选聚焦指令压缩对话 |
+| `/config` | 打开设置（别名：`/settings`） |
+| `/context` | 以彩色网格可视化上下文使用情况 |
+| `/copy [N]` | 将助手响应复制到剪贴板；`w`写入文件 |
+| `/cost` | 显示token使用统计 |
+| `/desktop` | 在桌面应用中继续（别名：`/app`） |
+| `/diff` | 未提交更改的交互式diff查看器 |
+| `/doctor` | 诊断安装健康状态 |
+| `/effort [low\|medium\|high\|xhigh\|max\|auto]` | 通过交互式箭头键滑块设置努力级别。级别：`low` → `medium` → `high` → `xhigh`（v2.1.111新增）→ `max`。Opus 4.7默认为`xhigh`；`max`仅限Opus 4.7 |
+| `/exit` | 退出REPL（别名：`/quit`） |
+| `/export [filename]` | 将当前对话导出到文件或剪贴板 |
+| `/extra-usage` | 配置速率限制的额外使用 |
+| `/fast [on\|off]` | 切换快速模式 |
+| `/feedback` | 提交反馈（别名：`/bug`） |
+| `/focus` | 切换焦点视图（v2.1.110新增；替换`Ctrl+O`用于焦点切换） |
+| `/help` | 显示帮助 |
+| `/hooks` | 查看钩子配置 |
+| `/ide` | 管理IDE集成 |
+| `/init` | 初始化`CLAUDE.md`。设置`CLAUDE_CODE_NEW_INIT=1`以启用交互式流程 |
+| `/insights` | 生成会话分析报告 |
+| `/install-github-app` | 设置GitHub Actions应用 |
+| `/install-slack-app` | 安装Slack应用 |
+| `/keybindings` | 打开键绑定配置 |
+| `/less-permission-prompts` | 分析最近的Bash/MCP工具调用并将优先级允许列表添加到`.claude/settings.json`以减少权限提示（v2.1.111新增） |
+| `/login` | 切换Anthropic账户 |
+| `/logout` | 退出Anthropic账户 |
+| `/mcp` | 管理MCP服务器和OAuth |
+| `/memory` | 编辑`CLAUDE.md`，切换自动内存 |
+| `/mobile` | 移动应用的二维码（别名：`/ios`、`/android`） |
+| `/model [model]` | 使用左右箭头选择模型以调整努力 |
+| `/passes` | 分享Claude Code免费周 |
+| `/permissions` | 查看/更新权限（别名：`/allowed-tools`） |
+| `/plan [description]` | 进入规划模式 |
+| `/plugin` | 管理插件 |
+| `/proactive` | `/loop`的别名（v2.1.105新增） |
+| `/powerup` | 通过带动画演示的交互式课程发现功能 |
+| `/privacy-settings` | 隐私设置（仅Pro/Max） |
+| `/release-notes` | 查看更新日志 |
+| `/recap` | 返回会话时显示会话回顾/摘要（v2.1.108新增） |
+| `/reload-plugins` | 重新加载活动插件 |
+| `/remote-control` | 从claude.ai远程控制（别名：`/rc`） |
+| `/remote-env` | 配置默认远程环境 |
+| `/rename [name]` | 重命名会话 |
+| `/resume [session]` | 恢复对话（别名：`/continue`） |
+| `/review` | **已弃用** — 安装`code-review`插件代替 |
+| `/rewind` | 回溯对话和/或代码（别名：`/checkpoint`） |
+| `/sandbox` | 切换沙箱模式 |
+| `/schedule [description]` | 创建/管理云端计划任务 |
+| `/security-review` | 分析分支的安全漏洞 |
+| `/skills` | 列出可用技能 |
+| `/stats` | 可视化每日使用情况、会话、连续天数 |
+| `/stickers` | 订购Claude Code贴纸 |
+| `/status` | 显示版本、模型、账户 |
+| `/statusline` | 配置状态栏 |
+| `/tasks` | 列出/管理后台任务 |
+| `/team-onboarding` | 从项目的Claude Code设置生成队友入门指南（v2.1.101新增） |
+| `/terminal-setup` | 配置终端键绑定 |
+| `/theme` | 更改颜色主题 |
+| `/tui` | 切换全屏TUI（文本用户界面）模式，无闪烁渲染（v2.1.110新增） |
+| `/ultraplan <prompt>` | 在ultraplan会话中起草计划，在浏览器中审查 |
+| `/ultrareview` | 基于云的多代理分析全面代码审查（v2.1.111新增） |
+| `/undo` | `/rewind`的别名（v2.1.108新增） |
+| `/upgrade` | 打开升级页面以获得更高计划层级 |
+| `/usage` | 显示计划使用限制和速率限制状态 |
+| `/voice` | 切换按住说话语音听写 |
 
-### 自定义命令结构
+### 捆绑技能
 
-自定义命令采用YAML frontmatter格式：
+这些技能随Claude Code一起提供，作为斜杠命令调用：
+
+| 技能 | 用途 |
+|------|------|
+| `/batch <instruction>` | 使用worktree编排大规模并行更改 |
+| `/claude-api` | 加载项目语言的Claude API参考 |
+| `/debug [description]` | 启用调试日志 |
+| `/loop [interval] <prompt>` | 在间隔上重复运行提示 |
+| `/simplify [focus]` | 审查更改文件的代码质量 |
+
+### 已弃用的命令
+
+| 命令 | 状态 |
+|------|------|
+| `/review` | 已弃用 — 由`code-review`插件替换 |
+| `/output-style` | 自v2.1.73起已弃用 |
+| `/fork` | 重命名为`/branch`（别名仍然有效，v2.1.77） |
+| `/pr-comments` | 在v2.1.91中移除 — 直接要求Claude查看PR评论 |
+| `/vim` | 在v2.1.92中移除 — 使用/config → 编辑器模式 |
+
+### 最近更新
+
+- `/fork`重命名为`/branch`，保留`/fork`作为别名（v2.1.77）
+- `/output-style`已弃用（v2.1.73）
+- `/review`已弃用，转而使用`code-review`插件
+- `/effort`命令新增，需要Opus 4.7的`max`级别（最初仅限Opus 4.6）
+- `/voice`命令新增，用于按住说话语音听写
+- `/schedule`命令新增，用于创建/管理计划任务
+- `/color`命令新增，用于提示栏自定义
+- `/pr-comments`在v2.1.91中移除 — 直接要求Claude查看PR评论
+- `/vim`在v2.1.92中移除 — 改用/config → 编辑器模式
+- `/ultraplan`新增，用于基于浏览器的计划审查和执行
+- `/powerup`新增，用于交互式功能课程
+- `/sandbox`新增，用于切换沙箱模式
+- `/model`选择器现在显示人类可读的标签（如"Sonnet 4.6"）而不是原始模型ID
+- `/resume`支持`/continue`别名
+- MCP提示可用作`/mcp__<server>__<prompt>`命令（见[MCP提示作为命令](#mcp提示作为命令)）
+- `/team-onboarding`新增，用于自动生成队友入门指南（v2.1.101）
+- `/tui`命令新增，用于无闪烁全屏TUI渲染（v2.1.110）
+- `/focus`命令新增，用于焦点视图切换；`Ctrl+O`现在仅切换详细记录（v2.1.110）
+- `/recap`命令新增，手动触发会话上下文回顾（v2.1.108）
+- `/undo`新增，作为`/rewind`的别名（v2.1.108）
+- `/proactive`新增，作为`/loop`的别名（v2.1.105）
+- `/effort`获得交互式箭头键滑块和`high`与`max`之间的新`xhigh`级别；Opus 4.7计划的默认努力提高到`xhigh`（v2.1.111）
+- `/ultrareview`新增，用于基于云的多代理代码审查（v2.1.111）
+- `/less-permission-prompts`新增，通过在`.claude/settings.json`中的允许列表减少权限提示（v2.1.111）
+- 自动模式不再需要Max订阅者在Opus 4.7上使用`--enable-auto-mode`标志（v2.1.112）
+
+### `/team-onboarding` — 队友入门指南
+
+> **v2.1.101新增**
+
+使用`/team-onboarding`从项目的本地Claude Code使用生成队友入门指南。该命令检查你的`CLAUDE.md`、已安装的技能、子代理、钩子和最近的工作流，然后生成帮助新开发者快速入门的入门文档。
+
+这是一个内置命令 — 无需安装。
+
+**使用：**
+
+```bash
+claude /team-onboarding
+```
+
+生成的指南总结：
+- [`CLAUDE.md`](../02-memory/README.md)中的项目目的和关键约定
+- 可用的[技能](../03-skills/README.md)及其自动调用时机
+- 配置的[子代理](../04-subagents/README.md)及其职责
+- 在常见事件上运行的[钩子](../06-hooks/README.md)
+- 新手应该知道的常见工作流
+
+**可用性：** 随Claude Code v2.1.101（2026年4月11日）发布。
+
+### 自定义命令（现为技能）
+
+自定义斜杠命令已**合并到技能中**。两种方法都创建可用`/command-name`调用的命令：
+
+| 方法 | 位置 | 状态 |
+|------|------|------|
+| **技能（推荐）** | `.claude/skills/<name>/SKILL.md` | 当前标准 |
+| **传统命令** | `.claude/commands/<name>.md` | 仍然工作 |
+
+如果技能和命令共享相同名称，**技能优先**。例如，当同时存在`.claude/commands/review.md`和`.claude/skills/review/SKILL.md`时，使用技能版本。
+
+### 迁移路径
+
+你现有的`.claude/commands/`文件无需更改即可继续工作。要迁移到技能：
+
+**之前（命令）：**
+```
+.claude/commands/optimize.md
+```
+
+**之后（技能）：**
+```
+.claude/skills/optimize/SKILL.md
+```
+
+### 为什么选择技能？
+
+技能相比传统命令提供额外功能：
+
+- **目录结构**：捆绑脚本、模板和参考文件
+- **自动调用**：Claude可以在相关时自动触发技能
+- **调用控制**：选择用户、Claude或两者都可以调用
+- **子代理执行**：在具有`context: fork`的隔离上下文中运行技能
+- **渐进式披露**：仅在需要时加载附加文件
+
+### 创建自定义命令作为技能
+
+创建包含`SKILL.md`文件的目录：
+
+```bash
+mkdir -p .claude/skills/my-command
+```
+
+**文件：**`.claude/skills/my-command/SKILL.md`
 
 ```yaml
 ---
-name: optimize
-description: 分析代码性能问题和优化机会。使用优化、性能、代码质量相关术语时自动触发。
+name: my-command
+description: 此命令的功能以及何时使用它
 ---
 
-# 代码优化
+# 我的命令
 
-分析代码中的性能问题、内存泄漏和优化机会。
+当调用此命令时，Claude应遵循的指令。
 
-1. 算法效率分析（Big O）
-2. 内存优化
-3. 数据库查询优化
-4. 缓存机会识别
+1. 第一步
+2. 第二步
+3. 第三步
 ```
 
-### 命令参数处理
+### Frontmatter参考
 
-命令可以接收和处理参数：
+| 字段 | 用途 | 默认 |
+|-------|------|------|
+| `name` | 命令名称（变为`/name`） | 目录名称 |
+| `description` | 简要描述（帮助Claude知道何时使用） | 第一段 |
+| `argument-hint` | 用于自动完成的预期参数 | 无 |
+| `allowed-tools` | 命令可以在无权限情况下使用的工具 | 继承 |
+| `model` | 要使用的特定模型 | 继承 |
+| `disable-model-invocation` | 如果为`true`，只有用户可以调用（不是Claude） | `false` |
+| `user-invocable` | 如果为`false`，从`/`菜单隐藏 | `true` |
+| `context` | 设置为`fork`以在隔离子代理中运行 | 无 |
+| `agent` | 使用`context: fork`时的代理类型 | `general-purpose` |
+| `hooks` | 技能范围钩子（PreToolUse、PostToolUse、Stop） | 无 |
 
-**所有参数：**
+### 参数
+
+命令可以接收参数：
+
+**使用`$ARGUMENTS`的所有参数：**
+
 ```yaml
 ---
 name: fix-issue
+description: 按编号修复GitHub问题
 ---
 
-修复GitHub issue #$ARGUMENTS，遵循我们的编码标准
+修复问题 #$ARGUMENTS，遵循我们的编码标准
 ```
+
 使用：`/fix-issue 123` → `$ARGUMENTS`变为"123"
 
-**位置参数：**
+**使用`$0`、`$1`等的位置参数：**
+
 ```yaml
 ---
 name: review-pr
+description: 带优先级审查PR
 ---
 
 以优先级$1审查PR #$0
 ```
+
 使用：`/review-pr 456 high` → `$0`="456", `$1`="high"
 
-### 动态上下文注入
+### 使用Shell命令进行动态上下文
 
-使用`!command`语法执行shell命令并注入输出：
+使用`!`command``在提示之前执行bash命令：
 
 ```yaml
 ---
 name: commit
-description: 使用git上下文创建提交
+description: 使用上下文创建git提交
 allowed-tools: Bash(git *)
 ---
 
 ## 上下文
-- 当前状态：!`git status`
-- 当前差异：!`git diff HEAD`
+
+- 当前git状态：!`git status`
+- 当前git diff：!`git diff HEAD`
 - 当前分支：!`git branch --show-current`
 - 最近提交：!`git log --oneline -5`
 
-基于上述更改创建单个git提交。
+## 你的任务
+
+基于上述更改，创建单个git提交。
 ```
 
 ### 文件引用
 
-使用`@`语法导入外部文件内容：
+使用`@`包含文件内容：
 
 ```markdown
-审查@src/auth.ts的实现
+审查@src/utils/helpers.js中的实现
 比较@src/old-version.js与@src/new-version.js
 ```
 
-### 调用控制
+### 插件命令
 
-| 字段 | 用户可调用 | Claude可调用 |
-|------|-----------|--------------|
-| (默认) | 是 | 是 |
-| `disable-model-invocation: true` | 是 | 否 |
-| `user-invocable: false` | 否 | 是 |
+插件可以提供自定义命令：
+
+```
+/plugin-name:command-name
+```
+
+或如果没有命名冲突，简单地使用`/command-name`。
+
+**示例：**
+```bash
+/frontend-design:frontend-design
+/commit-commands:commit
+```
+
+### MCP提示作为命令
+
+MCP服务器可以将提示公开为斜杠命令：
+
+```
+/mcp__<server-name>__<prompt-name> [arguments]
+```
+
+**示例：**
+```bash
+/mcp__github__list_prs
+/mcp__github__pr_review 456
+/mcp__jira__create_issue "Bug title" high
+```
+
+### MCP权限语法
+
+在权限中控制MCP服务器访问：
+
+- `mcp__github` - 访问整个GitHub MCP服务器
+- `mcp__github__*` - 通配符访问所有工具
+- `mcp__github__get_issue` - 特定工具访问
+
+### 命令架构
+
+```mermaid
+graph TD
+    A["用户输入: /command-name"] --> B{"命令类型?"}
+    B -->|内置| C["执行内置"]
+    B -->|技能| D["加载SKILL.md"]
+    B -->|插件| E["加载插件命令"]
+    B -->|MCP| F["执行MCP提示"]
+
+    D --> G["解析frontmatter"]
+    G --> H["替换变量"]
+    H --> I["执行Shell命令"]
+    I --> J["发送给Claude"]
+    J --> K["返回结果"]
+```
+
+### 命令生命周期
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant FS as 文件系统
+    participant CLI as Shell/Bash
+
+    User->>Claude: 输入 /optimize
+    Claude->>FS: 搜索 .claude/skills/ 和 .claude/commands/
+    FS-->>Claude: 返回 optimize/SKILL.md
+    Claude->>Claude: 解析frontmatter
+    Claude->>CLI: 执行 !`command` 替换
+    CLI-->>Claude: 命令输出
+    Claude->>Claude: 替换 $ARGUMENTS
+    Claude->>User: 处理提示
+    Claude->>User: 返回结果
+```
 
 ## 实用示例
 
 ### 示例1：代码优化命令
 
-```yaml
----
-name: optimize
-description: 分析代码性能问题。提及优化、性能、速度、效率时自动触发。
-allowed-tools: Read, Grep, Bash
----
+分析代码的性能问题、内存泄漏和优化机会。
 
-# 代码优化分析
-
-审查代码中的性能问题和优化机会：
-
-1. **算法复杂度** - 评估Big O复杂度
-2. **内存使用** - 检查内存泄漏和不必要的分配
-3. **数据库查询** - 识别N+1查询、缺少索引
-4. **缓存策略** - 推荐可缓存的数据
-5. **并发处理** - 建议异步操作的机会
-
-提供具体优化建议和代码示例。
+**使用：**
+```
+/optimize
+[粘贴你的代码]
 ```
 
 ### 示例2：Pull Request准备命令
 
-```yaml
----
-name: pr
-description: 引导完成PR的检查清单。提及PR、pull request、提交时自动触发。
----
+引导完成PR准备检查清单，包括linting、测试和提交格式。
 
-# Pull Request 准备清单
-
-在创建PR前完成以下检查：
-
-## 代码质量
-- [ ] 运行linting检查：`npm run lint`
-- [ ] 修复所有linting错误
-- [ ] 代码格式化：`npm run format`
-
-## 测试
-- [ ] 运行单元测试：`npm test`
-- [ ] 测试覆盖率达标（>80%）
-- [ ] 集成测试通过
-
-## 文档
-- [ ] 更新相关文档
-- [ ] 添加CHANGELOG条目
-- [ ] PR描述清晰说明更改
-
-## Git
-- [ ] 分支命名规范：`feature/描述`或`fix/描述`
-- [ ] 提交消息遵循规范
-- [ ] 无敏感信息泄露
+**使用：**
+```
+/pr
 ```
 
-### 示例3：Git提交命令
+### 示例3：API文档生成器
 
-```yaml
----
-name: commit
-description: 创建带上下文的git提交。提及git、commit、提交时自动触发
-disable-model-invocation: true
-allowed-tools: Bash(git *)
----
+从源代码生成全面的API文档。
 
-## Git上下文
-- 当前状态：!`git status`
-- 暂存更改：!`git diff --cached`
-- 分支信息：!`git branch --show-current`
-- 最近提交：!`git log --oneline -5`
-
-## 任务
-基于上述git状态，创建一个有意义的git提交。
-遵循项目的提交消息规范，清楚描述更改的目的。
+**使用：**
 ```
+/generate-api-docs
+```
+
+### 示例4：带上下文的Git提交
+
+使用存储库的动态上下文创建git提交。
+
+**使用：**
+```
+/commit [可选消息]
+```
+
+### 示例5：暂存、提交和推送
+
+暂存所有更改，创建提交，并带有安全检查地推送到远程。
+
+**使用：**
+```
+/push-all
+```
+
+**安全检查：**
+- 秘密：`.env*`、`*.key`、`*.pem`、`credentials.json`
+- API密钥：检测真实密钥与占位符
+- 大文件：`>10MB`且无Git LFS
+- 构建工件：`node_modules/`、`dist/`、`__pycache__/`
 
 ## 最佳实践
 
 ### Do's ✅
 - 使用清晰、动作导向的命令名称
 - 在`description`中包含触发条件关键词
-- 为命令添加具体的示例和使用说明
+- 为命令添加具体示例和使用说明
 - 使用`disable-model-invocation`防止意外执行副作用操作
 - 组织相关文件到命令目录中
 - 在生产环境前测试命令
@@ -206,9 +455,11 @@ allowed-tools: Bash(git *)
 
 ## 相关资源
 
-- [Claude Code斜杠命令官方文档](https://code.claude.com/docs/en/interactive-mode)
-- [Claude Code技能文档](https://code.claude.com/docs/en/skills)
-- [claude-howto教程源码](../claude-howto/01-slash-commands/)
+- [Claude Code官方交互模式文档](https://code.claude.com/docs/en/interactive-mode)
+- [斜杠命令](../claude-howto/01-slash-commands/)
+- [高级功能](../claude-howto/09-advanced-features/)
+- [内存指南](../claude-howto/02-memory/)
+- [技能指南](../claude-howto/03-skills/)
 
 ---
 这是[Claude Code 教程系列](../claude-howto/)的第一篇文章。下一篇文章将介绍Claude Code的内存系统。

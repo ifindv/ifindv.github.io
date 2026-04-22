@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：检查点与回溯（Checkpoints）"
+description: "Claude Code 检查点与回溯系统详解与实用指南"
 date: 2026-04-29
-description: "Claude Code 检查点与回溯功能详解与实用指南"
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：检查点与回溯（Checkpoints）
 
 检查点允许你保存对话状态并回溯到之前的点。这对于探索不同的方法、从错误中恢复或比较替代方案非常有用。
 

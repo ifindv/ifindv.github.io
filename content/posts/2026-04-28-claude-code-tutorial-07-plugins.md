@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：插件（Plugins）"
-date: 2026-04-28
 description: "Claude Code 插件系统详解与实用指南"
+date: 2026-04-28
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：插件（Plugins）
 
 Claude Code插件是捆绑的定制集合（斜杠命令、子代理、MCP服务器和钩子），可以通过单个命令安装。它们代表最高级别的扩展机制——将多个功能组合成连贯、可共享的包。
 
@@ -171,6 +172,68 @@ my-plugin/
 
 当插件包含`settings.json`时，其默认值在安装时应用。用户可以在自己的项目或用户配置中覆盖这些设置。
 
+## 持久插件数据（`${CLAUDE_PLUGIN_DATA}`）
+
+插件有访问持久状态目录的权限，通过`${CLAUDE_PLUGIN_DATA}`环境变量。该目录对每个插件是唯一的，并跨会话保持存在，适合缓存、数据库和其他持久状态：
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "command": "node ${CLAUDE_PLUGIN_DATA}/track-usage.js"
+      }
+    ]
+  }
+}
+```
+
+该目录在插件安装时自动创建。存储在此处的文件会一直存在，直到插件被卸载。
+
+### 后台监控器
+
+插件可以注册后台监控器，在会话开始或插件技能被调用时自动武装。在插件清单中添加顶级`monitors`键：
+
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "monitors": [
+    {
+      "command": "tail -f /var/log/app.log",
+      "trigger": "session_start"
+    }
+  ]
+}
+```
+
+`trigger`字段接受：
+- `"session_start"` — 会话开始时自动武装监控器
+- `"skill_invoke"` — 插件技能被调用时武装监控器
+
+监控器使用底层Monitor工具，将stdout行流式传输为Claude可以响应的事件。
+
+## 内联插件（`source: 'settings'`）
+
+插件可以在设置文件中定义为市场条目，使用`source: 'settings'`字段。这允许直接嵌入插件定义，而不需要单独的仓库或市场：
+
+```json
+{
+  "pluginMarketplaces": [
+    {
+      "name": "inline-tools",
+      "source": "settings",
+      "plugins": [
+        {
+          "name": "quick-lint",
+          "source": "./local-plugins/quick-lint"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## 独立与插件方法
 
 | 方法 | 命令名称 | 配置 | 最适合 |
@@ -315,6 +378,102 @@ documentation/
 | `extraKnownMarketplaces` | 添加除默认值之外的其他市场来源 |
 | `strictKnownMarketplaces` | 控制允许用户添加哪些市场 |
 | `deniedPlugins` | 管理阻止列表，防止安装特定插件 |
+
+### 插件市场定义架构
+
+插件市场在`.claude-plugin/marketplace.json`中定义：
+
+```json
+{
+  "name": "my-team-plugins",
+  "owner": "my-org",
+  "plugins": [
+    {
+      "name": "code-standards",
+      "source": "./plugins/code-standards",
+      "description": "强制执行团队编码标准",
+      "version": "1.2.0",
+      "author": "platform-team"
+    },
+    {
+      "name": "deploy-helper",
+      "source": {
+        "source": "github",
+        "repo": "my-org/deploy-helper",
+        "ref": "v2.0.0"
+      },
+      "description": "部署自动化工作流"
+    }
+  ]
+}
+```
+
+| 字段 | 必需 | 描述 |
+|------|------|------|
+| `name` | 是 | 市场名称（kebab-case） |
+| `owner` | 是 | 维护市场的组织或用户 |
+| `plugins` | 是 | 插件条目数组 |
+| `plugins[].name` | 是 | 插件名称（kebab-case） |
+| `plugins[].source` | 是 | 插件源（路径字符串或源对象） |
+| `plugins[].description` | 否 | 简要插件描述 |
+| `plugins[].version` | 否 | 语义版本字符串 |
+| `plugins[].author` | 否 | 插件作者名称 |
+
+### 插件源类型
+
+插件可以从多个位置获取：
+
+| 源 | 语法 | 示例 |
+|------|------|------|
+| **相对路径** | 字符串路径 | `"./plugins/my-plugin"` |
+| **GitHub** | `{ "source": "github", "repo": "owner/repo" }` | `{ "source": "github", "repo": "acme/lint-plugin", "ref": "v1.0" }` |
+| **Git URL** | `{ "source": "url", "url": "..." }` | `{ "source": "url", "url": "https://git.internal/plugin.git" }` |
+| **Git子目录** | `{ "source": "git-subdir", "url": "...", "path": "..." }` | `{ "source": "git-subdir", "url": "https://github.com/org/monorepo.git", "path": "packages/plugin" }` |
+| **npm** | `{ "source": "npm", "package": "..." }` | `{ "source": "npm", "package": "@acme/claude-plugin", "version": "^2.0" }` |
+| **pip** | `{ "source": "pip", "package": "..." }` | `{ "source": "pip", "package": "claude-data-plugin", "version": ">=1.0" }` |
+
+### 分发方法
+
+**GitHub（推荐）**：
+```bash
+# 用户添加你的市场
+/plugin marketplace add owner/repo-name
+```
+
+**其他git服务**（需要完整URL）：
+```bash
+/plugin marketplace add https://gitlab.com/org/marketplace-repo.git
+```
+
+**私有仓库**：通过git凭证助手或环境令牌支持。用户必须具有仓库的读取访问权限。
+
+**官方市场提交**：通过[claude.ai/settings/plugins/submit](https://claude.ai/settings/plugins/submit)或[platform.claude.com/plugins/submit](https://platform.claude.com/plugins/submit)将插件提交到Anthropic策划的市场以进行更广泛的分发。
+
+### 严格模式
+
+控制市场定义如何与本地`plugin.json`文件交互：
+
+| 设置 | 行为 |
+|------|------|
+| `strict: true`（默认） | 本地`plugin.json`是权威的；市场条目补充它 |
+| `strict: false` | 市场条目是完整的插件定义 |
+
+**组织限制**与`strictKnownMarketplaces`：
+
+| 值 | 效果 |
+|------|------|
+| 未设置 | 无限制 — 用户可以添加任何市场 |
+| 空数组`[]` | 锁定 — 不允许市场 |
+| 模式数组 | 允许列表 — 只有匹配的市场可以被添加 |
+
+```json
+{
+  "strictKnownMarketplaces": [
+    "my-org/*",
+    "github.com/trusted-vendor/*"
+  ]
+}
+```
 
 ## 插件CLI命令
 

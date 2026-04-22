@@ -1,11 +1,12 @@
 ---
 title: "Claude Code 教程系列：子代理（Subagents）"
-date: 2026-04-25
 description: "Claude Code 子代理系统详解与实用指南"
+date: 2026-04-25
+categories: ["教程"]
 tags: ["Claude Code", "AI", "教程"]
+featured: true
+author: "ifindv"
 ---
-
-# Claude Code 教程系列：子代理（Subagents）
 
 子代理是Claude Code可以委托任务给的专业化AI助手。每个子代理都有特定目的，使用与主对话分离的独立上下文窗口，并可以配置特定工具和自定义系统提示词。
 
