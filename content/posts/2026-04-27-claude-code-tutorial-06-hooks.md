@@ -33,6 +33,10 @@ author: "ifindv"
 - Plugin `hooks/hooks.json` - 插件范围钩子
 - Skill/Agent frontmatter - 组件生命周期钩子
 
+![钩子系统架构](/img/claude-code-hooks-architecture.png)
+
+*图：钩子系统的多层次配置架构，从全局配置到组件级钩子。*
+
 ### 基本配置结构
 
 ```json
@@ -142,6 +146,10 @@ Claude Code支持**26个钩子事件**：
 | **ConfigChange** | 配置文件更改时 | 是 (策略除外) | 对配置更新的反应 |
 | **SessionEnd** | 会话终止时 | 否 | 清理、最终日志记录 |
 
+![钩子事件类型](/img/claude-code-hooks-events.png)
+
+*图：主要的钩子事件类型及其关联关系，展示不同类别事件的触发时机。*
+
 ### 退出代码
 
 | 退出代码 | 含义 | 行为 |
@@ -149,6 +157,52 @@ Claude Code支持**26个钩子事件**：
 | **0** | 成功 | 继续，解析JSON stdout |
 | **2** | 阻塞错误 | 阻止操作，stderr显示为错误 |
 | **其他** | 非阻塞错误 | 继续，verbose模式中显示stderr |
+
+## 钩子执行流程
+
+钩子按照以下流程在事件发生时执行：
+
+```mermaid
+flowchart TB
+    A["事件触发"] --> B{找到匹配的钩子?}
+    B -->|否| C["继续执行"]
+    B -->|是| D["遍历所有匹配的钩子"]
+
+    D --> E{钩子类型?}
+    E -->|command| F["执行shell命令"]
+    E -->|http| G["POST到webhook端点"]
+    E -->|prompt| H["LLM评估提示"]
+    E -->|agent| I["创建子代理执行"]
+
+    F --> J{退出代码}
+    G --> K{HTTP响应}
+    H --> L{LLM决策}
+    I --> M{子代理结果}
+
+    J -->|0| N["解析JSON stdout"]
+    J -->|2| O["阻塞操作，显示错误"]
+    J -->|其他| P["继续，显示警告"]
+
+    K -->|200| N
+    K -->|其他| O
+
+    L -->|允许| Q["继续执行"]
+    L -->|阻止| O
+
+    M -->|成功| Q
+    M -->|失败| O
+
+    N --> Q
+    P --> Q
+    Q --> R["处理下一个钩子<br/>或继续执行"]
+
+    style A fill:#4dabf7,stroke:#1864ab
+    style F fill:#69db7c,stroke:#2b8a3e
+    style G fill:#ffd43b,stroke:#f08c00
+    style H fill:#ff6b6b,stroke:#c92a2a
+    style I fill:#da77f2,stroke:#862e9c
+    style O fill:#e03131,stroke:#a61e4d
+```
 
 ## 实用示例
 

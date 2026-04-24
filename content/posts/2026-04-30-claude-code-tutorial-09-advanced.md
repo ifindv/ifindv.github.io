@@ -23,6 +23,10 @@ author: "ifindv"
 - **会话管理**：管理工作会话
 - **交互功能**：键盘快捷键、多行输入、命令历史
 
+![高级功能概览](/img/claude-code-advanced-overview.png)
+
+*图：Claude Code的主要高级功能，包括规划模式、扩展思考、自动模式、后台任务等。*
+
 ## 规划模式
 
 ### 什么是规划模式？
@@ -62,6 +66,36 @@ claude --permission-mode plan
 - **审查和批准**：执行前批准或调整计划
 - **风险识别**：实施前识别潜在问题
 - **清晰的阶段**：有组织的实施阶段和里程碑
+
+## 规划模式工作流
+
+规划模式采用两阶段方法，先规划后实施：
+
+```mermaid
+flowchart TB
+    A["用户请求任务"] --> B{是规划模式?}
+    B -->|否| C["直接执行"]
+    B -->|是| D["进入规划阶段"]
+
+    D --> E["分析任务需求"]
+    E --> F["探索代码库"]
+    F --> G["识别关键文件"]
+    G --> H["创建实施计划"]
+
+    H --> I{用户批准计划?}
+    I -->|否| J["修改计划"]
+    J --> H
+    I -->|是| K["进入实施阶段"]
+
+    K --> L["按计划执行"]
+    L --> M["完成任务"]
+    C --> M
+
+    style D fill:#4dabf7,stroke:#1864ab
+    style H fill:#69db7c,stroke:#2b8a3e
+    style K fill:#ffd43b,stroke:#f08c00
+    style I fill:#ff6b6b,stroke:#c92a2a
+```
 
 ## 扩展思考
 
@@ -185,6 +219,10 @@ Claude：启动任务bg-1234
 | `dontAsk` | 只有预先批准的工具执行；所有其他都被拒绝 |
 
 使用`Shift+Tab`在CLI中循环模式。使用`--permission-mode`标志或`permissions.defaultMode`设置设置默认值。
+
+![权限模式对比](/img/claude-code-permission-modes.png)
+
+*图：六种权限模式及其使用场景，从最安全的default到最危险的bypassPermissions。*
 
 ### 激活方法
 

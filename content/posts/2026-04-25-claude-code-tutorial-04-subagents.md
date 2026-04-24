@@ -45,6 +45,10 @@ author: "ifindv"
 | 3 | **用户级子代理** | `~/.claude/agents/` | 所有项目 |
 | 4 (最低) | **插件代理** | 插件`agents/`目录 | 通过插件 |
 
+![子代理优先级层级](/img/claude-code-subagent-hierarchy.png)
+
+*图：子代理配置的优先级层级，高优先级的配置会覆盖低优先级的配置。*
+
 ### 内置子代理
 
 Claude Code包括几个始终可用的内置子代理：
@@ -57,6 +61,10 @@ Claude Code包括几个始终可用的内置子代理：
 | **Bash** | 继承 | 在独立上下文中执行终端命令 |
 | **statusline-setup** | Sonnet | 配置状态栏 |
 | **Claude Code Guide** | Haiku | 回答Claude Code功能问题 |
+
+![内置子代理类型](/img/claude-code-subagent-types.png)
+
+*图：Claude Code内置的6个子代理类型，每个都有特定的用途和模型配置。*
 
 ### Explore子代理的探索级别
 
@@ -204,6 +212,34 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 | `isolation` | 否 | 设置为`worktree`以给予子代理自己的git工作树 |
 
 ## 使用子代理
+
+子代理的调用流程如下：
+
+```mermaid
+flowchart TB
+    A["用户请求"] --> B{匹配子代理描述?}
+    B -->|是| C["Claude自动委托"]
+    B -->|否| D["主代理处理"]
+
+    C --> E{显式调用?}
+    E -->|@提及| F["强制调用指定子代理"]
+    E -->|否| G["自动选择匹配的子代理"]
+
+    F --> H["子代理创建"]
+    G --> H
+
+    H --> I["加载子代理配置"]
+    I --> J["执行任务"]
+    J --> K["返回结果给主代理"]
+
+    K --> L["主代理综合结果"]
+    L --> M["返回给用户"]
+
+    style A fill:#4dabf7,stroke:#1864ab
+    style C fill:#69db7c,stroke:#2b8a3e
+    style H fill:#ffd43b,stroke:#f08c00
+    style K fill:#ff6b6b,stroke:#c92a2a
+```
 
 ### 自动委托
 

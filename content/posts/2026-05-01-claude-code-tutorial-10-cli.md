@@ -34,6 +34,10 @@ Claude Code命令行界面（CLI）提供了强大的命令行工具，用于自
 | `--plugin-dir` | 加载插件目录 |
 | `--worktree` | 在git worktree中启动 |
 
+![CLI命令结构](/img/claude-code-cli-structure.png)
+
+*图：Claude Code CLI的主要命令和标志选项，展示命令层次结构和配置能力。*
+
 ## 会话管理
 
 ### 恢复会话
@@ -57,6 +61,41 @@ claude --resume auth-refactor --fork-session "替代方法"
 
 # 分支当前会话
 /fork
+```
+
+## 会话管理流程
+
+会话管理的基本流程如下：
+
+```mermaid
+flowchart TB
+    A["启动Claude Code"] --> B{选择启动方式}
+    B -->|claude| C["新建会话"]
+    B -->|claude -c| D["继续最近会话"]
+    B -->|claude -r 'name'| E["恢复指定会话"]
+
+    C --> F["交互模式"]
+    D --> F
+    E --> F
+
+    F --> G{会话操作}
+    G -->|/rename| H["命名当前会话"]
+    G -->|/fork| I["分支会话"]
+    G -->|Ctrl+D| J["退出并保存"]
+    G -->|继续使用| K["继续对话"]
+
+    H --> K
+    I --> K
+    J --> L["会话持久化"]
+
+    K -->{用户再次启动?}
+    K -->|是| D
+    K -->|否| L
+
+    style A fill:#4dabf7,stroke:#1864ab
+    style F fill:#69db7c,stroke:#2b8a3e
+    style I fill:#ffd43b,stroke:#f08c00
+    style L fill:#da77f2,stroke:#862e9c
 ```
 
 ## 权限模式
