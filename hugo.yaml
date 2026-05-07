@@ -41,6 +41,8 @@ params:
   autoSwitchAppearance: true
   enableSearch: true
   enableCodeCopy: true
+  smartTOC: true
+  smartTOCHideUnfocusedChildren: false
   mainSections: ["posts"]
 
   colorScheme: "blowfish"

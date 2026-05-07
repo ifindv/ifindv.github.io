@@ -3,3 +3,63 @@
   border: 2px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
+
+/* ===== TOC Sidebar Enhancement ===== */
+
+/* Smooth scroll for anchor jumps */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Active heading highlight — replaces default underline with left border + bg */
+.toc .active {
+  text-decoration-line: none !important;
+  border-inline-start: 2px solid rgba(var(--color-primary-500), 1);
+  background: linear-gradient(90deg, rgba(var(--color-primary-500), 0.05), transparent);
+  font-weight: 600;
+  border-radius: 0 4px 4px 0;
+  margin-inline-start: -10px;
+  padding-inline-start: 8px;
+}
+
+.dark .toc .active {
+  background: linear-gradient(90deg, rgba(var(--color-primary-500), 0.1), transparent);
+}
+
+/* H2 level — bold and prominent */
+#TableOfContents > ul > li > a {
+  font-weight: 600;
+  color: rgba(var(--color-neutral-800), 1);
+}
+
+.dark #TableOfContents > ul > li > a {
+  color: rgba(var(--color-neutral-200), 1);
+}
+
+/* H3 level — normal weight, smaller */
+#TableOfContents ul ul a {
+  font-weight: 400;
+  font-size: 0.9em;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.dark #TableOfContents ul ul a {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+/* Separator between major H2 sections */
+#TableOfContents > ul > li:not(:first-child) {
+  border-top: 1px solid rgba(var(--color-neutral-200), 1);
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+.dark #TableOfContents > ul > li:not(:first-child) {
+  border-top-color: rgba(var(--color-neutral-700), 1);
+}
+
+/* Compact list item spacing */
+#TableOfContents li {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
