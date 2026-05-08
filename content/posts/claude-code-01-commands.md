@@ -1,5 +1,5 @@
 ---
-title: "Claude Code教程系列：命令- commands"
+title: "claude code教程：commands"
 description: "claude code 命令详解"
 date: 2026-04-22
 categories: ["AI"]
@@ -9,7 +9,7 @@ author: "ifindv"
 ---
 命令(commands)是claude code中最基础的交互方式，用户通过  `/命令名`快速调用预定义功能。claude提供了超60+内置命令，也支持用户自定义。
 
-## 内置命令
+## 内置命令一览
 
 内置命令覆盖了绝大多数使用场景与功能。在claude中输入 `/`查看完整列表，或输入 `/`后跟任何字母进行过滤。
 
@@ -90,7 +90,7 @@ author: "ifindv"
 
 ## 自定义命令
 
-最新版本Claude Code已经将commands合并到skills中，具体细节可参考 [Claude Code教程系列：技能-skills](https://ifindv.github.io/posts/claude-code-tutorial-03-skills/)
+最新版本Claude Code已经将commands合并到skills中，具体细节可参考 [claude code教程：skills](https://ifindv.github.io/posts/claude-code-03-skills/)
 
 | 方法                   | 位置                               | 状态     |
 | ---------------------- | ---------------------------------- | -------- |
@@ -101,7 +101,7 @@ author: "ifindv"
 
 以下几个示例将从格式约束、内容结构上展示如何创建自定义命令。
 
-### 代码优化
+### 示例1：代码优化
 
 ```yaml
 ---
@@ -125,37 +125,7 @@ Format your response with:
 - Recommended fix with code example
 ```
 
-### PR准备
-
-```yaml
----
-description: Clean up code, stage changes, and prepare a pull request
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(npm test:*), Bash(npm run lint:*)
----
-
-# Pull Request Preparation Checklist
-
-Before creating a PR, execute these steps:
-
-1. Run linting: `prettier --write .`
-2. Run tests: `npm test`
-3. Review git diff: `git diff HEAD`
-4. Stage changes: `git add .`
-5. Create commit message following conventional commits:
-   - `fix:` for bug fixes
-   - `feat:` for new features
-   - `docs:` for documentation
-   - `refactor:` for code restructuring
-   - `test:` for test additions
-   - `chore:` for maintenance
-6. Generate PR summary including:
-   - What changed
-   - Why it changed
-   - Testing performed
-   - Potential impacts
-```
-
-### API文档生成
+### 示例2：API文档生成
 
 ```yaml
 ---
@@ -179,7 +149,7 @@ Output format:
 - Add TypeScript types
 ```
 
-### 代码提交
+### 示例3：代码提交
 
 ```yaml
 ---
@@ -213,109 +183,6 @@ Create a git commit with relevant repository context.
    - Run git status after commit to verify success
 ```
 
-### 代码推送
-
-```yaml
----
-description: Stage all changes, create commit, and push to remote (use with caution)
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git diff:*), Bash(git log:*), Bash(git pull:*)
----
-
-# Commit and Push Everything
-
-CAUTION: Stage ALL changes, commit, and push to remote. Use only when confident all changes belong together.
-
-## Workflow
-
-### 1. Analyze Changes
-Run in parallel:
-- `git status` - Show modified/added/deleted/untracked files
-- `git diff --stat` - Show change statistics
-- `git log -1 --oneline` - Show recent commit for message style
-
-### 2. Safety Checks
-
-STOP and WARN if detected:
-- Secrets: `.env*`, `*.key`, `*.pem`, `credentials.json`, `secrets.yaml`, `id_rsa`, `*.p12`, `*.pfx`, `*.cer`
-- API Keys: Any `*_API_KEY`, `*_SECRET`, `*_TOKEN` variables with real values (not placeholders like `your-api-key`, `xxx`, `placeholder`)
-- Large files: >10MB without Git LFS
-- Build artifacts: `node_modules/`, `dist/`, `build/`, `__pycache__/`, `*.pyc`, `.venv/`
-- Temp files: `.DS_Store`, `thumbs.db`, `*.swp`, `*.tmp`
-
-Verify:
-- `.gitignore` properly configured
-- No merge conflicts
-- Correct branch (warn if main/master)
-- API keys are placeholders only
-
-### 3. Request Confirmation
-Present summary and wait for explicit "yes" before proceeding.
-
-### 4. Execute (After Confirmation)
-Run sequentially:
-  git add .
-  git status  # Verify staging
-```
-
-### 文档重构
-
-```yaml
----
-name: Documentation Refactor
-description: Restructure project documentation for clarity and accessibility
-tags: documentation, refactoring, organization
----
-
-# Documentation Refactor
-
-Refactor project documentation structure adapted to project type:
-
-1. **Analyze project**: Identify type (library/API/web app/CLI/microservices), architecture, and user personas
-2. **Centralize docs**: Move technical documentation to `docs/` with proper cross-references
-3. **Root README.md**: Streamline as entry point with overview, quickstart, modules/components summary, license, contacts
-4. **Component docs**: Add module/package/service-level README files with setup and testing instructions
-5. **Organize `docs/`** by relevant categories:
-   - Architecture, API Reference, Database, Design, Troubleshooting, Deployment, Contributing (adapt to project needs)
-6. **Create guides** (select applicable):
-   - User Guide: End-user documentation for applications
-   - API Documentation: Endpoints, authentication, examples for APIs
-   - Development Guide: Setup, testing, contribution workflow
-   - Deployment Guide: Production deployment for services/apps
-7. **Use Mermaid** for all diagrams (architecture, flows, schemas)
-
-Keep docs concise, scannable, and contextual to project type.
-```
-
-### CI/CD
-
-```yaml
----
-name: Setup CI/CD Pipeline
-description: Implement pre-commit hooks and GitHub Actions for quality assurance
-tags: ci-cd, devops, automation
----
-
-# Setup CI/CD Pipeline
-
-Implement comprehensive DevOps quality gates adapted to project type:
-
-1. **Analyze project**: Detect language(s), framework, build system, and existing tooling
-2. **Configure pre-commit hooks** with language-specific tools:
-   - Formatting: Prettier/Black/gofmt/rustfmt/etc.
-   - Linting: ESLint/Ruff/golangci-lint/Clippy/etc.
-   - Security: Bandit/gosec/cargo-audit/npm audit/etc.
-   - Type checking: TypeScript/mypy/flow (if applicable)
-   - Tests: Run relevant test suites
-3. **Create GitHub Actions workflows** (.github/workflows/):
-   - Mirror pre-commit checks on push/PR
-   - Multi-version/platform matrix (if applicable)
-   - Build and test verification
-   - Deployment steps (if needed)
-4. **Verify pipeline**: Test locally, create test PR, confirm all checks pass
-
-Use free/open-source tools. Respect existing configs. Keep execution fast.
-```
-
 ## 参考链接
 
-- [claude-howto](https://github.com/luongnv89/claude-howto)
+[claude-howto](https://github.com/luongnv89/claude-howto)
