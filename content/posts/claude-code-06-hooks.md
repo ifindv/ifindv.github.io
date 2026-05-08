@@ -1,13 +1,12 @@
 ---
-title: "Claude Code 教程系列：钩子（Hooks）"
-description: "Claude Code 钩子系统详解与实用指南"
+title: "claude code 教程：hooks"
+description: "claude code 钩子详解"
 date: 2026-04-27
-categories: ["教程"]
-tags: ["Claude Code", "AI", "教程"]
+categories: ["AI"]
+tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-
 钩子是响应Claude Code会话中特定事件而自动执行的脚本。它们实现自动化、验证、权限管理和自定义工作流。
 
 ## 核心概念
@@ -17,6 +16,7 @@ author: "ifindv"
 钩子是在Claude Code中发生特定事件时自动执行的自动化操作（shell命令、HTTP webhooks、LLM提示或子代理评估）。它们通过JSON输入接收信息，并通过退出代码和JSON输出传达结果。
 
 **关键特性：**
+
 - 事件驱动的自动化
 - 基于JSON的输入/输出
 - 支持command、prompt、http和agent钩子类型
@@ -60,12 +60,12 @@ author: "ifindv"
 
 ### 模式匹配
 
-| 模式 | 描述 | 示例 |
-|------|------|------|
-| 精确字符串 | 匹配特定工具 | `"Write"` |
-| 正则表达式 | 匹配多个工具 | `"Edit\|Write"` |
-| 通配符 | 匹配所有工具 | `"*"` 或 `""` |
-| MCP工具 | 服务器和工具模式 | `"mcp__memory__.*"` |
+| 模式       | 描述             | 示例                  |
+| ---------- | ---------------- | --------------------- |
+| 精确字符串 | 匹配特定工具     | `"Write"`           |
+| 正则表达式 | 匹配多个工具     | `"Edit\|Write"`      |
+| 通配符     | 匹配所有工具     | `"*"` 或 `""`     |
+| MCP工具    | 服务器和工具模式 | `"mcp__memory__.*"` |
 
 ## 钩子类型
 
@@ -101,7 +101,7 @@ Claude Code支持四种钩子类型：
 
 ### Prompt Hooks
 
-LLM评估的提示，其中钩子内容是Claude评估的提示。主要用于`Stop`和`SubagentStop`事件，用于智能任务完成检查。
+LLM评估的提示，其中钩子内容是Claude评估的提示。主要用于 `Stop`和 `SubagentStop`事件，用于智能任务完成检查。
 
 ```json
 {
@@ -129,22 +129,22 @@ LLM评估提示并返回结构化决策。
 
 Claude Code支持**26个钩子事件**：
 
-| 事件 | 触发时机 | 可阻塞 | 常见用途 |
-|------|----------|--------|----------|
-| **SessionStart** | 会话开始/恢复/清除/压缩 | 否 | 环境设置 |
-| **InstructionsLoaded** | CLAUDE.md或规则文件加载后 | 否 | 修改/过滤指令 |
-| **UserPromptSubmit** | 用户提交提示时 | 是 | 验证提示 |
-| **PreToolUse** | 工具执行前 | 是 (允许/拒绝/询问) | 验证、修改输入 |
-| **PermissionRequest** | 显示权限对话框时 | 是 | 自动批准/拒绝 |
-| **PermissionDenied** | 用户拒绝权限提示时 | 否 | 日志记录、分析、策略执行 |
-| **PostToolUse** | 工具成功后 | 否 | 添加上下文、反馈 |
-| **PostToolUseFailure** | 工具执行失败时 | 否 | 错误处理、日志记录 |
-| **SubagentStart** | 子代理生成时 | 否 | 子代理设置 |
-| **SubagentStop** | 子代理完成时 | 是 | 子代理验证 |
-| **Stop** | Claude完成响应时 | 是 | 任务完成检查 |
-| **TaskCompleted** | 任务标记为完成时 | 是 | 任务后操作 |
-| **ConfigChange** | 配置文件更改时 | 是 (策略除外) | 对配置更新的反应 |
-| **SessionEnd** | 会话终止时 | 否 | 清理、最终日志记录 |
+| 事件                         | 触发时机                  | 可阻塞              | 常见用途                 |
+| ---------------------------- | ------------------------- | ------------------- | ------------------------ |
+| **SessionStart**       | 会话开始/恢复/清除/压缩   | 否                  | 环境设置                 |
+| **InstructionsLoaded** | CLAUDE.md或规则文件加载后 | 否                  | 修改/过滤指令            |
+| **UserPromptSubmit**   | 用户提交提示时            | 是                  | 验证提示                 |
+| **PreToolUse**         | 工具执行前                | 是 (允许/拒绝/询问) | 验证、修改输入           |
+| **PermissionRequest**  | 显示权限对话框时          | 是                  | 自动批准/拒绝            |
+| **PermissionDenied**   | 用户拒绝权限提示时        | 否                  | 日志记录、分析、策略执行 |
+| **PostToolUse**        | 工具成功后                | 否                  | 添加上下文、反馈         |
+| **PostToolUseFailure** | 工具执行失败时            | 否                  | 错误处理、日志记录       |
+| **SubagentStart**      | 子代理生成时              | 否                  | 子代理设置               |
+| **SubagentStop**       | 子代理完成时              | 是                  | 子代理验证               |
+| **Stop**               | Claude完成响应时          | 是                  | 任务完成检查             |
+| **TaskCompleted**      | 任务标记为完成时          | 是                  | 任务后操作               |
+| **ConfigChange**       | 配置文件更改时            | 是 (策略除外)       | 对配置更新的反应         |
+| **SessionEnd**         | 会话终止时                | 否                  | 清理、最终日志记录       |
 
 ![钩子事件类型](/img/claude-code-hooks-events.png)
 
@@ -152,10 +152,10 @@ Claude Code支持**26个钩子事件**：
 
 ### 退出代码
 
-| 退出代码 | 含义 | 行为 |
-|----------|------|------|
-| **0** | 成功 | 继续，解析JSON stdout |
-| **2** | 阻塞错误 | 阻止操作，stderr显示为错误 |
+| 退出代码       | 含义       | 行为                          |
+| -------------- | ---------- | ----------------------------- |
+| **0**    | 成功       | 继续，解析JSON stdout         |
+| **2**    | 阻塞错误   | 阻止操作，stderr显示为错误    |
 | **其他** | 非阻塞错误 | 继续，verbose模式中显示stderr |
 
 ## 钩子执行流程
@@ -223,18 +223,18 @@ BLOCKED_PATTERNS = [
 
 def main():
     input_data = json.load(sys.stdin)
-    
+  
     tool_name = input_data.get("tool_name", "")
     if tool_name != "Bash":
         sys.exit(0)
-    
+  
     command = input_data.get("tool_input", {}).get("command", "")
-    
+  
     for pattern, message in BLOCKED_PATTERNS:
         if re.search(pattern, command):
             print(message, file=sys.stderr)
             sys.exit(2)  # 退出代码2 = 阻塞错误
-    
+  
     sys.exit(0)
 
 if __name__ == "__main__":
@@ -242,6 +242,7 @@ if __name__ == "__main__":
 ```
 
 **配置：**
+
 ```json
 {
   "hooks": {
@@ -277,20 +278,20 @@ SECRET_PATTERNS = [
 
 def main():
     input_data = json.load(sys.stdin)
-    
+  
     tool_name = input_data.get("tool_name", "")
     if tool_name not in ["Write", "Edit"]:
         sys.exit(0)
-    
+  
     tool_input = input_data.get("tool_input", {})
     content = tool_input.get("content", "") or tool_input.get("new_string", "")
     file_path = tool_input.get("file_path", "")
-    
+  
     warnings = []
     for pattern, message in SECRET_PATTERNS:
         if re.search(pattern, content, re.IGNORECASE):
             warnings.append(message)
-    
+  
     if warnings:
         output = {
             "hookSpecificOutput": {
@@ -299,7 +300,7 @@ def main():
             }
         }
         print(json.dumps(output))
-    
+  
     sys.exit(0)
 
 if __name__ == "__main__":
@@ -356,7 +357,7 @@ BLOCKED_PATTERNS = [
 def main():
     input_data = json.load(sys.stdin)
     prompt = input_data.get("user_prompt", "") or input_data.get("prompt", "")
-    
+  
     for pattern, message in BLOCKED_PATTERNS:
         if re.search(pattern, prompt, re.IGNORECASE):
             output = {
@@ -365,7 +366,7 @@ def main():
             }
             print(json.dumps(output))
             sys.exit(0)
-    
+  
     sys.exit(0)
 
 if __name__ == "__main__":
@@ -394,13 +395,13 @@ if __name__ == "__main__":
 
 ### 环境变量
 
-| 变量 | 可用性 | 描述 |
-|------|--------|------|
-| `CLAUDE_PROJECT_DIR` | 所有钩子 | 项目根目录的绝对路径 |
-| `CLAUDE_ENV_FILE` | SessionStart, CwdChanged, FileChanged | 持久化环境变量的文件路径 |
-| `CLAUDE_CODE_REMOTE` | 所有钩子 | 如果在远程环境中运行则为"true" |
-| `${CLAUDE_PLUGIN_ROOT}` | 插件钩子 | 插件目录的路径 |
-| `${CLAUDE_PLUGIN_DATA}` | 插件钩子 | 插件数据目录的路径 |
+| 变量                      | 可用性                                | 描述                           |
+| ------------------------- | ------------------------------------- | ------------------------------ |
+| `CLAUDE_PROJECT_DIR`    | 所有钩子                              | 项目根目录的绝对路径           |
+| `CLAUDE_ENV_FILE`       | SessionStart, CwdChanged, FileChanged | 持久化环境变量的文件路径       |
+| `CLAUDE_CODE_REMOTE`    | 所有钩子                              | 如果在远程环境中运行则为"true" |
+| `${CLAUDE_PLUGIN_ROOT}` | 插件钩子                              | 插件目录的路径                 |
+| `${CLAUDE_PLUGIN_DATA}` | 插件钩子                              | 插件数据目录的路径             |
 
 ## 组件级钩子
 
@@ -429,15 +430,17 @@ hooks:
 ### 安全考虑
 
 #### Do's ✅
+
 - 验证并清理所有输入
 - 引用shell变量：`"$VAR"`
 - 阻止路径遍历（`..`）
-- 使用`$CLAUDE_PROJECT_DIR`的绝对路径
+- 使用 `$CLAUDE_PROJECT_DIR`的绝对路径
 - 跳过敏感文件（`.env`、`.git/`、密钥）
 - 首先在隔离环境中测试钩子
-- 对HTTP hooks使用显式`allowedEnvVars`
+- 对HTTP hooks使用显式 `allowedEnvVars`
 
 #### Don'ts ❌
+
 - 不要盲目信任输入数据
 - 不要使用未引用的：`$VAR`
 - 不要允许任意路径
@@ -458,7 +461,7 @@ claude --debug
 
 ### 详细模式
 
-在Claude Code中使用`Ctrl+O`启用详细模式并查看钩子执行进度。
+在Claude Code中使用 `Ctrl+O`启用详细模式并查看钩子执行进度。
 
 ### 独立测试钩子
 
@@ -470,14 +473,6 @@ echo '{"tool_name": "Bash", "tool_input": {"command": "ls -la"}}' | python3 .cla
 echo $?
 ```
 
-## 相关资源
+## 参考链接
 
-- [Claude Code钩子官方文档](https://code.claude.com/docs/en/hooks)
-- [检查点和回溯](../claude-howto/08-checkpoints/) - 保存和恢复对话状态
-- [斜杠命令](../claude-howto/01-slash-commands/) - 创建自定义斜杠命令
-- [技能](../claude-howto/03-skills/) - 可复用的自主能力
-- [子代理](../claude-howto/04-subagents/) - 委托任务执行
-- [插件](../claude-howto/07-plugins/) - 捆绑的扩展包
-
----
-这是[Claude Code 教程系列](../claude-howto/)的第六篇文章。下一篇文章将介绍Claude Code的插件系统。
+[claude-howto](https://github.com/luongnv89/claude-howto)

@@ -7,9 +7,9 @@ tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-命令(commands)是claude code中最基础的交互方式，用户通过  `/命令名`快速调用预定义功能。claude提供了超60+内置命令，也支持用户自定义。
+commands提供了调用claude预定义能力的快捷方式。
 
-## 内置命令一览
+## 内置命令
 
 内置命令覆盖了绝大多数使用场景与功能。在claude中输入 `/`查看完整列表，或输入 `/`后跟任何字母进行过滤。
 

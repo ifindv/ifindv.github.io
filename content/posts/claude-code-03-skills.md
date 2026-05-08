@@ -1,9 +1,9 @@
 ---
-title: "Claude Code 教程系列：技能系统"
-description: "Claude Code 技能系统详解与实用指南"
+title: "claude code 教程：skills"
+description: "claude code 技能详解"
 date: 2026-04-24
 categories: ["AI"]
-tags: ["Claude Code"]
+tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
@@ -412,17 +412,6 @@ description: 基于Martin Fowler方法论的系统性代码重构。当用户要
 - 不要跳过description字段
 - 不要从不受信任的来源安装技能而不进行审计
 
-## 相关资源
+## 参考链接
 
-- [Claude Code技能系统官方文档](https://code.claude.com/docs/en/skills)
-- [Agent Skills架构博客](https://claude.com/blog/equipping-agents-for-the-real-world-with-agent-skills)
-- [技能存储库](https://github.com/luongnv89/skills) - 现成可用技能集合
-- [斜杠命令指南](../01-slash-commands/) - 用户发起的快捷方式
-- [子代理指南](../04-subagents/) - 委托的AI代理
-- [内存指南](../02-memory/) - 持久化上下文
-- [MCP (Model Context Protocol)](../05-mcp/) - 实时外部数据
-- [钩子指南](../06-hooks/) - 事件驱动的自动化
-
----
-
-这是[Claude Code 教程系列](../claude-howto/)的第三篇文章。下一篇文章将介绍Claude Code的子代理系统。
+[claude-howto](https://github.com/luongnv89/claude-howto)

@@ -1,13 +1,12 @@
 ---
-title: "Claude Code 教程系列：子代理（Subagents）"
-description: "Claude Code 子代理系统详解与实用指南"
+title: "claude code 教程：subagents"
+description: "Claude Code 子代理详解"
 date: 2026-04-25
-categories: ["教程"]
-tags: ["Claude Code", "AI", "教程"]
+categories: ["AI"]
+tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-
 子代理是Claude Code可以委托任务给的专业化AI助手。每个子代理都有特定目的，使用与主对话分离的独立上下文窗口，并可以配置特定工具和自定义系统提示词。
 
 ## 核心概念
@@ -26,24 +25,24 @@ author: "ifindv"
 
 ### 关键优势
 
-| 优势 | 描述 |
-|------|------|
-| **上下文保留** | 在独立上下文中操作，防止主对话污染 |
-| **专业化专业知识** | 针对特定领域进行微调，成功率更高 |
-| **可复用性** | 在不同项目中使用并与团队共享 |
-| **灵活权限** | 不同子代理类型具有不同的工具访问级别 |
-| **可扩展性** | 多个代理同时处理不同方面 |
+| 优势                     | 描述                                 |
+| ------------------------ | ------------------------------------ |
+| **上下文保留**     | 在独立上下文中操作，防止主对话污染   |
+| **专业化专业知识** | 针对特定领域进行微调，成功率更高     |
+| **可复用性**       | 在不同项目中使用并与团队共享         |
+| **灵活权限**       | 不同子代理类型具有不同的工具访问级别 |
+| **可扩展性**       | 多个代理同时处理不同方面             |
 
 ### 文件位置
 
 子代理文件可以存储在具有不同作用域的多个位置：
 
-| 优先级 | 类型 | 位置 | 作用域 |
-|--------|------|------|--------|
-| 1 (最高) | **CLI定义** | 通过`--agents`标志（JSON） | 仅会话 |
-| 2 | **项目级子代理** | `.claude/agents/` | 当前项目 |
-| 3 | **用户级子代理** | `~/.claude/agents/` | 所有项目 |
-| 4 (最低) | **插件代理** | 插件`agents/`目录 | 通过插件 |
+| 优先级   | 类型                   | 位置                          | 作用域   |
+| -------- | ---------------------- | ----------------------------- | -------- |
+| 1 (最高) | **CLI定义**      | 通过 `--agents`标志（JSON） | 仅会话   |
+| 2        | **项目级子代理** | `.claude/agents/`           | 当前项目 |
+| 3        | **用户级子代理** | `~/.claude/agents/`         | 所有项目 |
+| 4 (最低) | **插件代理**     | 插件 `agents/`目录          | 通过插件 |
 
 ![子代理优先级层级](/img/claude-code-subagent-hierarchy.png)
 
@@ -53,14 +52,14 @@ author: "ifindv"
 
 Claude Code包括几个始终可用的内置子代理：
 
-| 代理 | 模型 | 目的 |
-|------|------|------|
-| **general-purpose** | 继承 | 复杂、多步骤任务 |
-| **Plan** | 继承 | 规划模式研究 |
-| **Explore** | Haiku | 只读代码库探索（quick/medium/very thorough） |
-| **Bash** | 继承 | 在独立上下文中执行终端命令 |
-| **statusline-setup** | Sonnet | 配置状态栏 |
-| **Claude Code Guide** | Haiku | 回答Claude Code功能问题 |
+| 代理                        | 模型   | 目的                                         |
+| --------------------------- | ------ | -------------------------------------------- |
+| **general-purpose**   | 继承   | 复杂、多步骤任务                             |
+| **Plan**              | 继承   | 规划模式研究                                 |
+| **Explore**           | Haiku  | 只读代码库探索（quick/medium/very thorough） |
+| **Bash**              | 继承   | 在独立上下文中执行终端命令                   |
+| **statusline-setup**  | Sonnet | 配置状态栏                                   |
+| **Claude Code Guide** | Haiku  | 回答Claude Code功能问题                      |
 
 ![内置子代理类型](/img/claude-code-subagent-types.png)
 
@@ -159,7 +158,7 @@ tools: Read, Edit, Bash, Grep, Glob
 
 ### 示例4：持久内存子代理
 
-使用`memory`字段为子代理提供跨对话持久化的目录：
+使用 `memory`字段为子代理提供跨对话持久化的目录：
 
 ```yaml
 ---
@@ -195,21 +194,21 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 
 ## 配置字段
 
-| 字段 | 必需 | 描述 |
-|------|------|------|
-| `name` | 是 | 唯一标识符（小写字母和连字符） |
-| `description` | 是 | 目的自然语言描述。包含"use PROACTIVELY"以鼓励自动调用 |
-| `tools` | 否 | 特定工具的逗号分隔列表。省略以继承所有工具。支持`Agent(agent_name)`语法以限制可生成子代理 |
-| `disallowedTools` | 否 | 子代理不得使用的工具的逗号分隔列表 |
-| `model` | 否 | 使用的模型：`sonnet`、`opus`、`haiku`、完整模型ID或`inherit` |
-| `permissionMode` | 否 | `default`、`acceptEdits`、`dontAsk`、`bypassPermissions`、`plan` |
-| `maxTurns` | 否 | 子代理可以采取的最大代理轮数 |
-| `skills` | 否 | 要预加载的技能的逗号分隔列表 |
-| `mcpServers` | 否 | 对子代理可用的MCP服务器 |
-| `memory` | 否 | 持久内存目录作用域：`user`、`project`或`local` |
-| `background` | 否 | 设置为`true`以始终将此子代理作为后台任务运行 |
-| `effort` | 否 | 推理努力级别：`low`、`medium`、`high`或`max` |
-| `isolation` | 否 | 设置为`worktree`以给予子代理自己的git工作树 |
+| 字段                | 必需 | 描述                                                                                         |
+| ------------------- | ---- | -------------------------------------------------------------------------------------------- |
+| `name`            | 是   | 唯一标识符（小写字母和连字符）                                                               |
+| `description`     | 是   | 目的自然语言描述。包含"use PROACTIVELY"以鼓励自动调用                                        |
+| `tools`           | 否   | 特定工具的逗号分隔列表。省略以继承所有工具。支持 `Agent(agent_name)`语法以限制可生成子代理 |
+| `disallowedTools` | 否   | 子代理不得使用的工具的逗号分隔列表                                                           |
+| `model`           | 否   | 使用的模型：`sonnet`、`opus`、`haiku`、完整模型ID或 `inherit`                        |
+| `permissionMode`  | 否   | `default`、`acceptEdits`、`dontAsk`、`bypassPermissions`、`plan`                   |
+| `maxTurns`        | 否   | 子代理可以采取的最大代理轮数                                                                 |
+| `skills`          | 否   | 要预加载的技能的逗号分隔列表                                                                 |
+| `mcpServers`      | 否   | 对子代理可用的MCP服务器                                                                      |
+| `memory`          | 否   | 持久内存目录作用域：`user`、`project`或 `local`                                        |
+| `background`      | 否   | 设置为 `true`以始终将此子代理作为后台任务运行                                              |
+| `effort`          | 否   | 推理努力级别：`low`、`medium`、`high`或 `max`                                        |
+| `isolation`       | 否   | 设置为 `worktree`以给予子代理自己的git工作树                                               |
 
 ## 使用子代理
 
@@ -244,11 +243,12 @@ flowchart TB
 ### 自动委托
 
 Claude根据以下内容主动委托任务：
+
 - 请求中的任务描述
-- 子代理配置中的`description`字段
+- 子代理配置中的 `description`字段
 - 当前上下文和可用工具
 
-为了鼓励主动使用，在`description`字段中包含"use PROACTIVELY"或"MUST BE USED"。
+为了鼓励主动使用，在 `description`字段中包含"use PROACTIVELY"或"MUST BE USED"。
 
 ### 显式调用
 
@@ -260,7 +260,7 @@ Claude根据以下内容主动委托任务：
 
 ### @-提及调用
 
-使用`@`前缀保证调用特定子代理（绕过自动委托启发式）：
+使用 `@`前缀保证调用特定子代理（绕过自动委托启发式）：
 
 ```
 > @"code-reviewer (agent)" 审查auth模块
@@ -281,14 +281,15 @@ Claude根据以下内容主动委托任务：
 
 ### 键盘快捷键
 
-| 快捷键 | 操作 |
-|--------|------|
-| `Ctrl+B` | 将当前运行的子代理任务后台化 |
+| 快捷键     | 操作                           |
+| ---------- | ------------------------------ |
+| `Ctrl+B` | 将当前运行的子代理任务后台化   |
 | `Ctrl+F` | 终止所有后台代理（按两次确认） |
 
 ## 最佳实践
 
 ### Do's ✅
+
 - 从Claude生成的代理开始——生成初始子代理，然后迭代自定义
 - 设计专注的子代理——单一、清晰的职责而不是一个做所有事情
 - 编写详细的提示词——包含具体指令、示例和约束
@@ -296,17 +297,13 @@ Claude根据以下内容主动委托任务：
 - 版本控制——将项目级子代理检入版本控制以进行团队协作
 
 ### Don'ts ❌
+
 - 不要创建具有相同角色的重叠子代理
 - 不要给子代理不必要的工具访问权限
 - 不要将子代理用于简单的单步骤任务
 - 不要在一个子代理的提示词中混合关注点
 - 不要忘记传递必要的上下文
 
-## 相关资源
+## 参考链接
 
-- [Claude Code子代理官方文档](https://code.claude.com/docs/en/sub-agents)
-- [Agent Teams（实验性）](https://code.claude.com/docs/en/agent-teams)
-- [claude-howto教程源码](../claude-howto/04-subagents/)
-
----
-这是[Claude Code 教程系列](../claude-howto/)的第四篇文章。下一篇文章将介绍Claude Code的MCP协议。
+[claude-howto](https://github.com/luongnv89/claude-howto)

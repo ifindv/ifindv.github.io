@@ -1,13 +1,12 @@
 ---
-title: "Claude Code 教程系列：高级功能（Advanced Features）"
-description: "Claude Code 高级功能详解与实用指南"
+title: "claude code 教程：advanced"
+description: "claude code 高级功能详解"
 date: 2026-04-30
-categories: ["教程"]
-tags: ["Claude Code", "AI", "教程"]
+categories: ["AI"]
+tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-
 高级功能扩展了Claude Code的核心能力，包括规划、推理、自动化和控制机制。这些功能为复杂的开发任务、代码审查、自动化和多会话管理提供了复杂的工作流程。
 
 ## 核心概念
@@ -32,22 +31,26 @@ author: "ifindv"
 ### 什么是规划模式？
 
 规划模式是一种两阶段方法：
+
 1. **规划阶段**：Claude分析任务并创建详细的实施计划
 2. **实施阶段**：批准后，Claude执行计划
 
 ### 激活规划模式
 
 **斜杠命令：**
+
 ```bash
 /plan 实现用户认证系统
 ```
 
 **CLI标志：**
+
 ```bash
 claude --permission-mode plan
 ```
 
 **设置为默认：**
+
 ```json
 {
   "permissions": {
@@ -57,6 +60,7 @@ claude --permission-mode plan
 ```
 
 **键盘快捷键：**
+
 - `Shift + Tab` - 切换权限模式（包括plan）
 - `Alt + M` - 切换权限模式（Windows/Linux）
 
@@ -102,6 +106,7 @@ flowchart TB
 ### 什么是扩展思考？
 
 扩展思考是一种深思熟虑的分步推理过程，Claude：
+
 - 分解复杂问题
 - 考虑多种方法
 - 评估权衡
@@ -110,18 +115,22 @@ flowchart TB
 ### 激活扩展思考
 
 **键盘快捷键：**
+
 - `Option + T` (macOS) / `Alt + T` (Windows/Linux) - 切换扩展思考
 
 **自动激活：**
+
 - 默认对所有模型启用（Opus 4.7、Sonnet 4.6、Haiku 4.5）
 - Opus 4.7：自适应推理与努力级别：`low` (○)、`medium` (◐)、`high` (●)、`xhigh`（Opus 4.7的新默认值）、`max`（仅Opus 4.7）
 
 **环境变量：**
+
 ```bash
 export MAX_THINKING_TOKENS=1024
 ```
 
 **努力级别**（仅Opus 4.7）：
+
 ```bash
 export CLAUDE_CODE_EFFORT_LEVEL=xhigh   # low, medium, high, xhigh（Opus 4.7上的默认值），或max（仅Opus 4.7）
 ```
@@ -156,14 +165,14 @@ claude --permission-mode auto
 
 自动模式默认阻止以下操作：
 
-| 阻止的操作 | 示例 |
-|------------|------|
-| Pipe到shell安装 | `curl \| bash` |
-| 向外发送敏感数据 | 通过网络发送API密钥、凭据 |
-| 生产部署 | 针对生产环境的部署命令 |
-| 大规模删除 | 在大目录上的`rm -rf` |
-| IAM更改 | 权限和角色修改 |
-| 强制推送到main | `git push --force origin main` |
+| 阻止的操作       | 示例                             |
+| ---------------- | -------------------------------- |
+| Pipe到shell安装  | `curl \| bash`                  |
+| 向外发送敏感数据 | 通过网络发送API密钥、凭据        |
+| 生产部署         | 针对生产环境的部署命令           |
+| 大规模删除       | 在大目录上的 `rm -rf`          |
+| IAM更改          | 权限和角色修改                   |
+| 强制推送到main   | `git push --force origin main` |
 
 ## 后台任务
 
@@ -172,6 +181,7 @@ claude --permission-mode auto
 ### 什么是后台任务？
 
 后台任务异步运行，而你可以继续工作：
+
 - 长测试套件
 - 构建过程
 - 数据库迁移
@@ -194,6 +204,7 @@ Claude：启动任务bg-1234
 ### 管理后台任务
 
 **列出活动任务：**
+
 ```
 用户：/task list
 
@@ -209,16 +220,16 @@ Claude：启动任务bg-1234
 
 ### 可用的权限模式
 
-| 模式 | 行为 |
-|------|------|
-| `default` | 只读文件；所有其他操作都会提示 |
-| `acceptEdits` | 读取和编辑文件；命令需要提示 |
-| `plan` | 只读文件（研究模式，无编辑） |
-| `auto` | 所有操作都有后台安全分类器检查（研究预览） |
-| `bypassPermissions` | 所有操作，无权限检查（危险） |
-| `dontAsk` | 只有预先批准的工具执行；所有其他都被拒绝 |
+| 模式                  | 行为                                       |
+| --------------------- | ------------------------------------------ |
+| `default`           | 只读文件；所有其他操作都会提示             |
+| `acceptEdits`       | 读取和编辑文件；命令需要提示               |
+| `plan`              | 只读文件（研究模式，无编辑）               |
+| `auto`              | 所有操作都有后台安全分类器检查（研究预览） |
+| `bypassPermissions` | 所有操作，无权限检查（危险）               |
+| `dontAsk`           | 只有预先批准的工具执行；所有其他都被拒绝   |
 
-使用`Shift+Tab`在CLI中循环模式。使用`--permission-mode`标志或`permissions.defaultMode`设置设置默认值。
+使用 `Shift+Tab`在CLI中循环模式。使用 `--permission-mode`标志或 `permissions.defaultMode`设置设置默认值。
 
 ![权限模式对比](/img/claude-code-permission-modes.png)
 
@@ -227,16 +238,19 @@ Claude：启动任务bg-1234
 ### 激活方法
 
 **键盘快捷键：**
+
 ```bash
 Shift + Tab  # 循环所有6种模式
 ```
 
 **斜杠命令：**
+
 ```bash
 /plan                  # 进入规划模式
 ```
 
 **CLI标志：**
+
 ```bash
 claude --permission-mode plan
 claude --permission-mode auto
@@ -263,6 +277,7 @@ cat error.log | claude -p "分析这些错误"
 ### CI/CD集成示例
 
 **GitHub Actions：**
+
 ```yaml
 # .github/workflows/code-review.yml
 name: AI代码审查
@@ -311,27 +326,30 @@ jobs:
 
 ### 会话管理命令
 
-| 命令 | 描述 |
-|------|------|
-| `/resume` | 按ID或名称恢复对话 |
-| `/rename` | 命名当前会话 |
-| `/fork` | 将当前会话分支到新分支 |
-| `claude -c` | 继续最近的对话 |
-| `claude -r "session"` | 按名称或ID恢复会话 |
+| 命令                    | 描述                   |
+| ----------------------- | ---------------------- |
+| `/resume`             | 按ID或名称恢复对话     |
+| `/rename`             | 命名当前会话           |
+| `/fork`               | 将当前会话分支到新分支 |
+| `claude -c`           | 继续最近的对话         |
+| `claude -r "session"` | 按名称或ID恢复会话     |
 
 ### 恢复会话
 
 **继续上次对话：**
+
 ```bash
 claude -c
 ```
 
 **按名称恢复会话：**
+
 ```bash
 claude -r "auth-refactor" "完成此PR"
 ```
 
 **重命名当前会话**（在REPL内）：
+
 ```
 /rename auth-refactor
 ```
@@ -345,6 +363,7 @@ claude -r "auth-refactor" "完成此PR"
 ```
 
 或从CLI：
+
 ```bash
 claude --resume auth-refactor --fork-session "尝试OAuth"
 ```
@@ -353,24 +372,24 @@ claude --resume auth-refactor --fork-session "尝试OAuth"
 
 ### 键盘快捷键
 
-| 快捷键 | 描述 |
-|--------|------|
-| `Ctrl+C` | 取消当前输入/生成 |
-| `Ctrl+D` | 退出Claude Code |
-| `Ctrl+G` | 在外部编辑器中编辑计划 |
-| `Ctrl+L` | 清除终端屏幕 |
-| `Ctrl+O` | 切换详细输出（查看推理） |
-| `Ctrl+R` | 反向搜索历史 |
-| `Ctrl+T` | 切换任务列表视图 |
-| `Ctrl+B` | 后台运行任务 |
-| `Esc+Esc` | 回溯代码/对话 |
-| `Shift+Tab` / `Alt+M` | 切换权限模式 |
-| `Option+P` / `Alt+P` | 切换模型 |
-| `Option+T` / `Alt+T` | 切换扩展思考 |
+| 快捷键                    | 描述                     |
+| ------------------------- | ------------------------ |
+| `Ctrl+C`                | 取消当前输入/生成        |
+| `Ctrl+D`                | 退出Claude Code          |
+| `Ctrl+G`                | 在外部编辑器中编辑计划   |
+| `Ctrl+L`                | 清除终端屏幕             |
+| `Ctrl+O`                | 切换详细输出（查看推理） |
+| `Ctrl+R`                | 反向搜索历史             |
+| `Ctrl+T`                | 切换任务列表视图         |
+| `Ctrl+B`                | 后台运行任务             |
+| `Esc+Esc`               | 回溯代码/对话            |
+| `Shift+Tab` / `Alt+M` | 切换权限模式             |
+| `Option+P` / `Alt+P`  | 切换模型                 |
+| `Option+T` / `Alt+T`  | 切换扩展思考             |
 
 ### 自定义键绑定
 
-运行`/keybindings`以编辑`~/.claude/keybindings.json`：
+运行 `/keybindings`以编辑 `~/.claude/keybindings.json`：
 
 ```json
 {
@@ -388,15 +407,16 @@ claude --resume auth-refactor --fork-session "尝试OAuth"
 }
 ```
 
-将绑定设置为`null`以取消默认快捷键。
+将绑定设置为 `null`以取消默认快捷键。
 
 ### Vim模式
 
 启用Vi/Vim键绑定进行文本编辑：
 
 **激活：**
-- 使用`/vim`命令或`/config`启用
-- 使用`Esc`切换NORMAL，`i/a/o`切换INSERT
+
+- 使用 `/vim`命令或 `/config`启用
+- 使用 `Esc`切换NORMAL，`i/a/o`切换INSERT
 
 ## 语音听写
 
@@ -410,12 +430,12 @@ claude --resume auth-refactor --fork-session "尝试OAuth"
 
 ### 特性
 
-| 特性 | 描述 |
-|------|------|
-| **按住说话** | 按住键录制，释放以发送 |
-| **20种语言** | 语音转文字支持20种语言 |
-| **自定义键绑定** | 通过`/keybindings`配置按住说话键 |
-| **账户要求** | 需要Claude.ai账户进行STT处理 |
+| 特性                   | 描述                                |
+| ---------------------- | ----------------------------------- |
+| **按住说话**     | 按住键录制，释放以发送              |
+| **20种语言**     | 语音转文字支持20种语言              |
+| **自定义键绑定** | 通过 `/keybindings`配置按住说话键 |
+| **账户要求**     | 需要Claude.ai账户进行STT处理        |
 
 ## 远程控制
 
@@ -450,54 +470,50 @@ claude remote-control --name "Auth Refactor"
 
 ### 远程控制与Claude Code on the Web
 
-| 方面 | 远程控制 | Claude Code on Web |
-|------|---------------|-------------------|
-| **执行** | 在你的机器上运行 | 在Anthropic云上运行 |
-| **本地工具** | 完全访问本地MCP服务器、文件和CLI | 无本地依赖 |
-| **用例** | 从另一台设备继续本地工作 | 从任何浏览器开始新工作 |
+| 方面               | 远程控制                         | Claude Code on Web     |
+| ------------------ | -------------------------------- | ---------------------- |
+| **执行**     | 在你的机器上运行                 | 在Anthropic云上运行    |
+| **本地工具** | 完全访问本地MCP服务器、文件和CLI | 无本地依赖             |
+| **用例**     | 从另一台设备继续本地工作         | 从任何浏览器开始新工作 |
 
 ## 最佳实践
 
 ### 规划模式
+
 - ✅ 用于复杂的多步骤任务
 - ✅ 在批准前审查计划
 - ✅ 根据需要修改计划
 - ❌ 不要用于简单任务
 
 ### 扩展思考
+
 - ✅ 用于架构决策
 - ✅ 用于复杂问题解决
 - ✅ 审查思考过程
 - ❌ 不要用于简单查询
 
 ### 后台任务
+
 - ✅ 用于长时间运行的操作
 - ✅ 监控任务进度
 - ✅ 优雅地处理任务失败
 - ❌ 不要启动太多并发任务
 
 ### 权限
-- ✅ 使用`plan`进行代码审查（只读）
-- ✅ 使用`default`进行交互式开发
-- ✅ 使用`acceptEdits`进行自动化工作流
-- ✅ 使用`auto`进行带安全护栏的自主工作
-- ❌ 除非绝对必要，否则不要使用`bypassPermissions`
+
+- ✅ 使用 `plan`进行代码审查（只读）
+- ✅ 使用 `default`进行交互式开发
+- ✅ 使用 `acceptEdits`进行自动化工作流
+- ✅ 使用 `auto`进行带安全护栏的自主工作
+- ❌ 除非绝对必要，否则不要使用 `bypassPermissions`
 
 ### 会话
+
 - ✅ 为不同任务使用单独的会话
 - ✅ 保存重要的会话状态
 - ✅ 清理旧会话
 - ❌ 不要在一个会话中混合不相关的工作
 
-## 相关资源
+## 参考链接
 
-- [Claude Code官方交互模式文档](https://code.claude.com/docs/en/interactive-mode)
-- [检查点指南](../claude-howto/08-checkpoints/) - 会话管理和回溯
-- [CLI参考](https://code.claude.com/docs/en/cli-reference)
-- [斜杠命令](../claude-howto/01-slash-commands/) - 命令参考
-- [内存指南](../claude-howto/02-memory/) - 持久化上下文
-- [技能指南](../claude-howto/03-skills/) - 自主能力
-- [子代理指南](../claude-howto/04-subagents/) - 委托任务执行
-
----
-这是[Claude Code 教程系列](../claude-howto/)的第九篇文章。下一篇文章将介绍Claude Code的CLI参考。
+[claude-howto](https://github.com/luongnv89/claude-howto)
