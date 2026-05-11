@@ -7,7 +7,9 @@ tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-技能系统将领域知识、工作流程、最佳实践打包成可复用的组件，当与任务相关时由claude自动调用。
+skills将领域知识、工作流程、最佳实践打包成可复用的组件。
+
+<!--more-->
 
 ## 核心概念
 
