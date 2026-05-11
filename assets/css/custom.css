@@ -63,3 +63,19 @@ html {
   padding-top: 2px;
   padding-bottom: 2px;
 }
+
+/* ===== Card Border Enhancement (Light Mode) ===== */
+
+/* 浅色模式下卡片边框加深 + 添加轻微阴影，让卡片从背景中凸显 */
+.article-link--card,
+.article-link--related,
+.article-link--simple {
+  border-color: rgba(var(--color-neutral-400), 1);
+}
+
+.dark .article-link--card,
+.dark .article-link--related,
+.dark .article-link--simple {
+  border-color: rgba(var(--color-neutral-600), 1);
+}
+
