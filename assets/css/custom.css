@@ -18,8 +18,8 @@ html {
   background: linear-gradient(90deg, rgba(var(--color-primary-500), 0.05), transparent);
   font-weight: 600;
   border-radius: 0 4px 4px 0;
-  margin-inline-start: -10px;
-  padding-inline-start: 8px;
+  margin-inline-start: calc(-0.75rem - 1px);
+  padding-inline-start: calc(0.75rem - 2px);
 }
 
 .dark .toc .active {
@@ -62,6 +62,19 @@ html {
 #TableOfContents li {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+/* ===== TOC Card Full Border ===== */
+
+/* 让右侧 TOC 面板四边都有边框，而非仅左侧 */
+.toc {
+  border: 1px dotted rgba(var(--color-neutral-300), 1);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.dark .toc {
+  border-color: rgba(var(--color-neutral-600), 1);
 }
 
 /* ===== Card Border Enhancement (Light Mode) ===== */

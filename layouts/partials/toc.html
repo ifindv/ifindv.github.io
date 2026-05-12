@@ -1,0 +1,23 @@
+<details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    {{ i18n "article.table_of_contents" }}
+  </summary>
+  <div
+    class="min-w-[220px] py-2">
+    {{ .TableOfContents | emojify }}
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    {{ i18n "article.table_of_contents" }}
+  </summary>
+  <div
+    class="py-2">
+    {{ .TableOfContents | emojify }}
+  </div>
+</details>
