@@ -1,0 +1,14 @@
+{{- if eq .Type "mermaid" }}
+  {{- if not (.Page.Scratch.Get "mermaid-fenced-loaded") }}
+    {{- .Page.Scratch.Set "mermaid-fenced-loaded" true }}
+    {{- $mermaidLib := resources.Get "lib/mermaid/mermaid.min.js" -}}
+    {{- $mermaidConfig := resources.Get "js/mermaid.js" -}}
+    {{- $mermaidConfig := $mermaidConfig | resources.Minify -}}
+    {{- $mermaidJS := slice $mermaidLib $mermaidConfig | resources.Concat "js/mermaid-fenced.bundle.js" -}}
+    {{- $fingerprint := $mermaidJS | resources.Fingerprint -}}
+    <script defer type="text/javascript" src="{{ $fingerprint.RelPermalink }}" integrity="{{ $fingerprint.Data.Integrity }}"></script>
+  {{- end -}}
+  <pre class="not-prose mermaid">{{ .Inner | safeHTML }}</pre>
+{{- else -}}
+  {{- highlight .Inner .Type -}}
+{{- end -}}
