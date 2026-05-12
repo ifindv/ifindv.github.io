@@ -1,19 +1,21 @@
 ---
 title: "claude code 教程：MCP"
-description: "Claude Code MCP协议详解"
+description: "claude code MCP协议详解"
 date: 2026-04-26
 categories: ["AI"]
 tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-MCP（Model Context Protocol）是Claude访问外部工具、API和实时数据源的标准方式。与Memory不同，MCP提供对变化数据的实时访问。
+MCP（Model Context Protocol）是claude访问外部工具、API和实时数据源的标准方式。
+
+<!--more-->
 
 ## 核心概念
 
-### 什么是MCP？
+### MCP
 
-MCP是Claude与外部服务交互的标准化协议。它的关键特性包括：
+MCP是claude与外部服务交互的标准化协议。它的关键特性包括：
 
 - 对外部服务的实时访问
 - 实时数据同步
@@ -42,7 +44,7 @@ graph TB
 
 ### MCP生态系统
 
-Claude可以通过MCP连接到多种外部服务：
+claude可以通过MCP连接到多种外部服务：
 
 - **Filesystem** - 文件操作
 - **GitHub** - 代码仓库管理
@@ -62,7 +64,7 @@ Claude可以通过MCP连接到多种外部服务：
 
 ### OAuth 2.0认证
 
-Claude Code支持需要OAuth 2.0的MCP服务器。当连接到启用OAuth的服务器时，Claude Code处理整个认证流程：
+claude code支持需要OAuth 2.0的MCP服务器。当连接到启用OAuth的服务器时，claude code处理整个认证流程：
 
 ```bash
 # 连接到启用OAuth的MCP服务器（交互流程）
@@ -311,7 +313,7 @@ graph TD
 
 ## MCP工具搜索
 
-当MCP工具描述超过上下文窗口的10%时，Claude Code自动启用工具搜索，以便有效地选择正确的工具，而不会使模型上下文不堪重负。
+当MCP工具描述超过上下文窗口的10%时，claude code自动启用工具搜索，以便有效地选择正确的工具，而不会使模型上下文不堪重负。
 
 | 设置                   | 值               | 描述                                |
 | ---------------------- | ---------------- | ----------------------------------- |
@@ -346,52 +348,6 @@ claude mcp reset-project-choices
 # 从Claude Desktop导入
 claude mcp add-from-claude-desktop
 ```
-
-## 最佳实践
-
-### 安全考虑
-
-### Do's ✅
-
-- 对所有凭据使用环境变量
-- 定期轮换令牌和API密钥（建议每月）
-- 尽可能使用只读令牌
-- 将MCP服务器访问范围限制为最小所需
-- 监控MCP服务器使用情况和访问日志
-- 对外部服务尽可能使用OAuth
-- 实施MCP请求的速率限制
-- 在生产使用前测试MCP连接
-- 记录所有活动的MCP连接
-- 保持MCP服务器包更新
-
-### Don'ts ❌
-
-- 不要在配置文件中硬编码凭据
-- 不要将令牌或机密提交到git
-- 不要在团队聊天或电子邮件中共享令牌
-- 不要为团队项目使用个人令牌
-- 不要授予不必要的权限
-- 不要忽略身份验证错误
-- 不要公开暴露MCP端点
-- 不要以root/管理员权限运行MCP服务器
-- 不要在日志中缓存敏感数据
-- 不要禁用身份验证机制
-
-### 配置最佳实践
-
-1. **版本控制**：将 `.mcp.json`保持在git中，但对机密使用环境变量
-2. **最小权限**：为每个MCP服务器授予所需的最小权限
-3. **隔离**：尽可能在不同的进程中运行不同的MCP服务器
-4. **监控**：记录所有MCP请求和错误以进行审计跟踪
-5. **测试**：在部署到生产环境之前测试所有MCP配置
-
-### 性能提示
-
-- 在应用程序级别缓存频繁访问的数据
-- 使用特定的MCP查询以减少数据传输
-- 监控MCP操作的响应时间
-- 考虑对外部API实施速率限制
-- 在执行多个操作时使用批处理
 
 ## 参考链接
 
