@@ -93,6 +93,11 @@ params:
     heroStyle: "background"
     showTermCount: true
 
+  term:
+    showHero: true
+    heroStyle: "background"
+    cardView: true
+
   markup:
     highlight:
       noClasses: false
