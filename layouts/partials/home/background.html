@@ -1,4 +1,16 @@
 {{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
+
+{{/* build all image URLs for randomization */}}
+{{ $allURLs := slice }}
+{{ range site.Store.Get "allBackgroundImages" }}
+  {{ $url := .RelPermalink }}
+  {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
+    {{ $size := site.Store.Get "backgroundImageWidth" }}
+    {{ $url = (.Resize $size).RelPermalink }}
+  {{ end }}
+  {{ $allURLs = $allURLs | append $url }}
+{{ end }}
+
 <article class="prose dark:prose-invert max-w-full">
   <div class="relative">
     <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
@@ -34,7 +46,8 @@
               class="nozoom mt-0 mr-0 mb-0 ml-0 h-[1000px] w-full object-cover"
               src="{{ $homepageImage.RelPermalink }}"
               role="presentation"
-              {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+              {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}
+              {{ if $allURLs }}data-random-bgs="{{ $allURLs | jsonify }}"{{ end }}>
             <div
               class="from-neutral absolute inset-0 h-[1000px] bg-gradient-to-t to-transparent mix-blend-normal dark:from-neutral-800"></div>
             <div
@@ -88,4 +101,22 @@
     data-blur-id="background-blur"
     data-image-id="background-image"
     {{ if $homepageImage }}data-image-url="{{ $homepageImage.RelPermalink }}"{{ end }}></script>
+{{ end }}
+
+{{ if $allURLs }}
+<script>
+(function() {
+  var imgs = document.querySelectorAll('[data-random-bgs]');
+  if (!imgs.length) return;
+  imgs.forEach(function(img) {
+    var urls = JSON.parse(img.getAttribute('data-random-bgs'));
+    if (urls && urls.length > 1) {
+      var idx = Math.floor(Math.random() * urls.length);
+      img.src = urls[idx];
+      var blur = document.getElementById('background-blur');
+      if (blur) blur.setAttribute('data-image-url', urls[idx]);
+    }
+  });
+})();
+</script>
 {{ end }}

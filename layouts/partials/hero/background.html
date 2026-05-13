@@ -44,6 +44,19 @@
   {{ end }}
 {{ end }}
 
+{{/* randomize: build all image URLs */}}
+{{ $allURLs := slice }}
+{{ if $useDefault }}
+  {{ range site.Store.Get "allBackgroundImages" }}
+    {{ $url := .RelPermalink }}
+    {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
+      {{ $size := site.Store.Get "backgroundImageWidth" }}
+      {{ $url = (.Resize $size).RelPermalink }}
+    {{ end }}
+    {{ $allURLs = $allURLs | append $url }}
+  {{ end }}
+{{ end }}
+
 {{ $scope := .Scratch.Get "scope" }}
 {{ $shouldBlur := $.Params.layoutBackgroundBlur | default (or
   (and ($.Site.Params.article.layoutBackgroundBlur | default true) (eq $scope "single"))
@@ -78,7 +91,8 @@
       decoding="async"
       fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover"
-      {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+      {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}
+      {{ if $allURLs }}data-random-bgs="{{ $allURLs | jsonify }}"{{ end }}>
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -100,3 +114,22 @@
       data-image-url="{{ . }}"></script>
   {{ end }}
 {{- end -}}
+
+{{ if $allURLs }}
+<script>
+(function() {
+  var imgs = document.querySelectorAll('[data-random-bgs]');
+  if (!imgs.length) return;
+  imgs.forEach(function(img) {
+    var urls = JSON.parse(img.getAttribute('data-random-bgs'));
+    if (urls && urls.length > 1) {
+      var idx = Math.floor(Math.random() * urls.length);
+      img.src = urls[idx];
+      // also update the blur script data attribute
+      var blur = document.getElementById('background-blur');
+      if (blur) blur.setAttribute('data-image-url', urls[idx]);
+    }
+  });
+})();
+</script>
+{{ end }}
