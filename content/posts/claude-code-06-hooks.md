@@ -7,13 +7,15 @@ tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-钩子是响应Claude Code会话中特定事件而自动执行的脚本。它们实现自动化、验证、权限管理和自定义工作流。
+钩子是 claude code 会话里特定事件触发自动运行的脚本，可实现自动化、校验、权限管控、自定义工作流。
+
+<!--more-->
 
 ## 核心概念
 
-### 什么是钩子？
+### 钩子
 
-钩子是在Claude Code中发生特定事件时自动执行的自动化操作（shell命令、HTTP webhooks、LLM提示或子代理评估）。它们通过JSON输入接收信息，并通过退出代码和JSON输出传达结果。
+钩子是在claude code中发生特定事件时自动执行的自动化操作（shell命令、HTTP webhooks、LLM提示或子代理评估）。它们通过JSON输入接收信息，并通过退出代码和JSON输出传达结果。
 
 **关键特性：**
 
@@ -69,7 +71,7 @@ author: "ifindv"
 
 ## 钩子类型
 
-Claude Code支持四种钩子类型：
+claude code支持四种钩子类型：
 
 ### Command Hooks
 
@@ -101,12 +103,12 @@ Claude Code支持四种钩子类型：
 
 ### Prompt Hooks
 
-LLM评估的提示，其中钩子内容是Claude评估的提示。主要用于 `Stop`和 `SubagentStop`事件，用于智能任务完成检查。
+LLM评估的提示，其中钩子内容是claude评估的提示。主要用于 `Stop`和 `SubagentStop`事件，用于智能任务完成检查。
 
 ```json
 {
   "type": "prompt",
-  "prompt": "评估Claude是否完成了所有请求的任务。",
+  "prompt": "评估claude是否完成了所有请求的任务。",
   "timeout": 30
 }
 ```
@@ -127,7 +129,7 @@ LLM评估提示并返回结构化决策。
 
 ## 钩子事件
 
-Claude Code支持**26个钩子事件**：
+claude code支持**26个钩子事件**：
 
 | 事件                         | 触发时机                  | 可阻塞              | 常见用途                 |
 | ---------------------------- | ------------------------- | ------------------- | ------------------------ |
@@ -339,60 +341,6 @@ esac
 exit 0
 ```
 
-### 示例4：提示验证器（UserPromptSubmit）
-
-**文件：**`.claude/hooks/validate-prompt.py`
-
-```python
-#!/usr/bin/env python3
-import json
-import sys
-import re
-
-BLOCKED_PATTERNS = [
-    (r"delete\s+(all\s+)?database", "危险：数据库删除"),
-    (r"rm\s+-rf\s+/", "危险：根目录删除"),
-]
-
-def main():
-    input_data = json.load(sys.stdin)
-    prompt = input_data.get("user_prompt", "") or input_data.get("prompt", "")
-  
-    for pattern, message in BLOCKED_PATTERNS:
-        if re.search(pattern, prompt, re.IGNORECASE):
-            output = {
-                "decision": "block",
-                "reason": f"已阻止：{message}"
-            }
-            print(json.dumps(output))
-            sys.exit(0)
-  
-    sys.exit(0)
-
-if __name__ == "__main__":
-    main()
-```
-
-### 示例5：智能停止钩子（基于Prompt）
-
-```json
-{
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "审查Claude是否完成了所有请求的任务。检查：1) 所有文件是否已创建/修改？2) 是否有未解决的错误？如果不完整，说明缺少什么。",
-            "timeout": 30
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
 ### 环境变量
 
 | 变量                      | 可用性                                | 描述                           |
@@ -427,33 +375,11 @@ hooks:
 
 ## 最佳实践
 
-### 安全考虑
-
-#### Do's ✅
-
-- 验证并清理所有输入
-- 引用shell变量：`"$VAR"`
-- 阻止路径遍历（`..`）
-- 使用 `$CLAUDE_PROJECT_DIR`的绝对路径
-- 跳过敏感文件（`.env`、`.git/`、密钥）
-- 首先在隔离环境中测试钩子
-- 对HTTP hooks使用显式 `allowedEnvVars`
-
-#### Don'ts ❌
-
-- 不要盲目信任输入数据
-- 不要使用未引用的：`$VAR`
-- 不要允许任意路径
-- 不要硬编码路径
-- 不要处理所有文件
-- 不要部署未经测试的钩子
-- 不要将所有env变量暴露给webhooks
-
 ### 调试
 
 ### 启用调试模式
 
-使用debug标志运行Claude以获取详细的钩子日志：
+使用debug标志运行claude以获取详细的钩子日志：
 
 ```bash
 claude --debug
@@ -461,7 +387,7 @@ claude --debug
 
 ### 详细模式
 
-在Claude Code中使用 `Ctrl+O`启用详细模式并查看钩子执行进度。
+在claude code中使用 `Ctrl+O`启用详细模式并查看钩子执行进度。
 
 ### 独立测试钩子
 
