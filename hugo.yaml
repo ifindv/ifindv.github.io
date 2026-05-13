@@ -64,7 +64,7 @@ params:
     showMoreLink: true
     showMoreLinkDest: "/posts/"
 
-  defaultBackgroundImage: "/media/blog-bg.jpg"
+  defaultBackgroundImage: "/media/6.jpg"
 
   article:
     showDate: true
