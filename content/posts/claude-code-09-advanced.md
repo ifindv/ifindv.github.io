@@ -7,7 +7,7 @@ tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-高级功能扩展了claude code的核心能力，包括规划、推理、自动化和控制机制。这些功能为复杂的开发任务、代码审查、自动化和多会话管理提供了复杂的工作流程。
+高级功能扩展了claude code的核心能力，包括规划、推理、自动化和控制机制，让claude能够应对更为复杂的工作流。
 
 <!--more-->
 
