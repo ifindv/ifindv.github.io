@@ -66,14 +66,14 @@ html {
 
 /* ===== TOC Sidebar — viewport-aware height ===== */
 
-/* 让 sticky 容器从 top=140px 延伸到接近底部 */
-.toc {
+/* TOC 外层容器撑满视口高度，sticky 在内部生效 */
+.toc-wrapper {
   min-height: calc(100vh - 155px);
   display: flex;
   flex-direction: column;
 }
 
-/* TOC 内部滚动区域填满父容器，超出可滚动 */
+/* TOC 内部滚动区域，超出可滚动 */
 #TOCView.toc-right {
   max-height: calc(100vh - 155px);
   flex: 1;
