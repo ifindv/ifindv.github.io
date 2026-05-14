@@ -75,7 +75,7 @@ params:
     showReadingTime: true
     showTableOfContents: true
     showRelatedContent: true
-    relatedContentLimit: 9
+    relatedContentLimit: 3
     showHeadingAnchors: true
     showPagination: true
     showTaxonomies: true
