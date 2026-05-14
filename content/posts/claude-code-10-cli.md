@@ -87,9 +87,9 @@ flowchart TB
     I --> K
     J --> L["会话持久化"]
 
-    K -->{用户再次启动?}
-    K -->|是| D
-    K -->|否| L
+    K --> N{用户再次启动?}
+    N -->|是| D
+    N -->|否| L
 
     style A fill:#4dabf7,stroke:#1864ab
     style F fill:#69db7c,stroke:#2b8a3e
