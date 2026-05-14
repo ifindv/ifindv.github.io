@@ -66,9 +66,10 @@ html {
 
 /* ===== TOC Sidebar — viewport-aware height ===== */
 
-/* 限制右侧目录高度为视口 3/4，超出滚动；底部渐变提示还有更多内容 */
+/* 限制右侧目录高度，上下沿完整显示在视口内
+   sticky top=140px，留 40px 底部余量，超出可滚动 */
 .toc-right {
-  max-height: 75vh;
+  max-height: calc(100vh - 180px);
   -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
 }
