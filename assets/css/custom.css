@@ -84,7 +84,7 @@ html {
 .article-link--related,
 .article-link--simple {
   border-color: rgba(var(--color-neutral-300), 1);
-  background-color: rgba(255, 255, 255, 0.88);
+  background-color: rgba(255, 255, 255, 0.72);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1),
               box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1),
@@ -95,7 +95,7 @@ html {
 .dark .article-link--related,
 .dark .article-link--simple {
   border-color: rgba(var(--color-neutral-700), 1);
-  background-color: rgba(30, 30, 36, 0.9);
+  background-color: rgba(30, 30, 36, 0.75);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
