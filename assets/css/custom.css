@@ -64,6 +64,15 @@ html {
   padding-bottom: 2px;
 }
 
+/* ===== TOC Sidebar — viewport-aware height ===== */
+
+/* 限制右侧目录高度为视口 3/4，超出滚动；底部渐变提示还有更多内容 */
+.toc-right {
+  max-height: 75vh;
+  -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+}
+
 /* ===== TOC Card Full Border ===== */
 
 /* 让右侧 TOC 面板四边都有边框，而非仅左侧 */
