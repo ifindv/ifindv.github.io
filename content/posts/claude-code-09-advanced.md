@@ -7,7 +7,9 @@ tags: ["claude code"]
 featured: true
 author: "ifindv"
 ---
-高级功能扩展了Claude Code的核心能力，包括规划、推理、自动化和控制机制。这些功能为复杂的开发任务、代码审查、自动化和多会话管理提供了复杂的工作流程。
+高级功能扩展了claude code的核心能力，包括规划、推理、自动化和控制机制。这些功能为复杂的开发任务、代码审查、自动化和多会话管理提供了复杂的工作流程。
+
+<!--more-->
 
 ## 核心概念
 
@@ -24,7 +26,7 @@ author: "ifindv"
 
 ![高级功能概览](/img/claude-code-advanced-overview.png)
 
-*图：Claude Code的主要高级功能，包括规划模式、扩展思考、自动模式、后台任务等。*
+*图：claude code的主要高级功能，包括规划模式、扩展思考、自动模式、后台任务等。*
 
 ## 规划模式
 
@@ -258,7 +260,7 @@ claude --permission-mode auto
 
 ## 无头模式
 
-打印模式（`claude -p`）允许Claude Code在没有交互输入的情况下运行，非常适合自动化和CI/CD。
+打印模式（`claude -p`）允许claude code在没有交互输入的情况下运行，非常适合自动化和CI/CD。
 
 ### 运行打印模式（非交互）
 
@@ -290,7 +292,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 安装Claude Code
+      - name: 安装claude code
         run: npm install -g @anthropic-ai/claude-code
 
       - name: 运行Claude代码审查
@@ -322,7 +324,7 @@ jobs:
 
 ## 会话管理
 
-有效地管理多个Claude Code会话。
+有效地管理多个claude code会话。
 
 ### 会话管理命令
 
@@ -375,7 +377,7 @@ claude --resume auth-refactor --fork-session "尝试OAuth"
 | 快捷键                    | 描述                     |
 | ------------------------- | ------------------------ |
 | `Ctrl+C`                | 取消当前输入/生成        |
-| `Ctrl+D`                | 退出Claude Code          |
+| `Ctrl+D`                | 退出claude code          |
 | `Ctrl+G`                | 在外部编辑器中编辑计划   |
 | `Ctrl+L`                | 清除终端屏幕             |
 | `Ctrl+O`                | 切换详细输出（查看推理） |
@@ -439,7 +441,7 @@ claude --resume auth-refactor --fork-session "尝试OAuth"
 
 ## 远程控制
 
-远程控制让你可以从手机、平板或任何浏览器继续本地运行的Claude Code会话。你的本地会话在你的机器上保持运行——没有任何内容移动到云端。
+远程控制让你可以从手机、平板或任何浏览器继续本地运行的claude code会话。你的本地会话在你的机器上保持运行——没有任何内容移动到云端。
 
 ### 启动远程控制
 
@@ -468,9 +470,9 @@ claude remote-control --name "Auth Refactor"
 2. **二维码** — 启动后按空格键显示可扫描的二维码
 3. **按名称查找** — 在claude.ai/code或Claude移动应用（iOS/Android）中浏览你的会话
 
-### 远程控制与Claude Code on the Web
+### 远程控制与claude code on the Web
 
-| 方面               | 远程控制                         | Claude Code on Web     |
+| 方面               | 远程控制                         | claude code on Web     |
 | ------------------ | -------------------------------- | ---------------------- |
 | **执行**     | 在你的机器上运行                 | 在Anthropic云上运行    |
 | **本地工具** | 完全访问本地MCP服务器、文件和CLI | 无本地依赖             |
