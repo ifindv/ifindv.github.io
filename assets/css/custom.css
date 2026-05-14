@@ -67,11 +67,11 @@ html {
 /* ===== TOC Sidebar — viewport-aware height ===== */
 
 /* 限制右侧目录高度，上下沿完整显示在视口内
-   sticky top=140px，留 40px 底部余量，超出可滚动 */
-.toc-right {
-  max-height: calc(100vh - 180px);
-  -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+   sticky top=140px，让下边沿接近底部，留 15px 底边距 */
+#TOCView.toc-right {
+  max-height: calc(100vh - 155px);
+  -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
 }
 
 /* ===== TOC Card Full Border ===== */
