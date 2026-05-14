@@ -83,6 +83,21 @@
           el = el.parentElement
         }
       }
+
+      /* 活动链接超出 TOC 可视区域时，滚动 TOC 容器使其可见 */
+      const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+      if (activeLink) {
+        const tocView = document.getElementById('TOCView')
+        if (tocView) {
+          const lr = activeLink.getBoundingClientRect()
+          const cr = tocView.getBoundingClientRect()
+          if (lr.top < cr.top) {
+            tocView.scrollTop -= cr.top - lr.top
+          } else if (lr.bottom > cr.bottom) {
+            tocView.scrollTop += lr.bottom - cr.bottom
+          }
+        }
+      }
     }
 
     function initTOC() {
