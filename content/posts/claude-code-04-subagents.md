@@ -46,10 +46,6 @@ author: "ifindv"
 | 3        | **用户级子代理** | `~/.claude/agents/`         | 所有项目 |
 | 4 (最低) | **插件代理**     | 插件 `agents/`目录          | 通过插件 |
 
-![子代理优先级层级](/img/claude-code-subagent-hierarchy.png)
-
-*图：子代理配置的优先级层级，高优先级的配置会覆盖低优先级的配置。*
-
 ### 内置子代理
 
 claude code包括几个始终可用的内置子代理：
@@ -62,10 +58,6 @@ claude code包括几个始终可用的内置子代理：
 | **Bash**              | 继承   | 在独立上下文中执行终端命令                   |
 | **statusline-setup**  | Sonnet | 配置状态栏                                   |
 | **claude code Guide** | Haiku  | 回答claude code功能问题                      |
-
-![内置子代理类型](/img/claude-code-subagent-types.png)
-
-*图：claude code内置的6个子代理类型，每个都有特定的用途和模型配置。*
 
 ### Explore子代理的探索级别
 
@@ -313,11 +305,11 @@ claude根据以下内容主动委托任务：
 
 ### 内存作用域
 
-| 作用域 | 目录 | 用途 |
-|--------|------|------|
-| `user` | `~/.claude/agent-memory/<name>/` | 跨项目的个人笔记和偏好 |
-| `project` | `.claude/agent-memory/<name>/` | 项目特定的团队共享知识 |
-| `local` | `.claude/agent-memory-local/<name>/` | 本地项目知识，不入版本控制 |
+| 作用域      | 目录                                   | 用途                       |
+| ----------- | -------------------------------------- | -------------------------- |
+| `user`    | `~/.claude/agent-memory/<name>/`     | 跨项目的个人笔记和偏好     |
+| `project` | `.claude/agent-memory/<name>/`       | 项目特定的团队共享知识     |
+| `local`   | `.claude/agent-memory-local/<name>/` | 本地项目知识，不入版本控制 |
 
 ### 工作原理
 
