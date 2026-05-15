@@ -73,6 +73,89 @@ claude code包括几个始终可用的内置子代理：
 - **"medium"** - 中等探索，平衡速度和全面性，默认方法
 - **"very thorough"** - 跨多个位置和命名约定的全面分析，可能需要更长时间
 
+## 架构
+
+### 高层架构
+
+主代理作为协调者，将任务委派给不同的专业子代理，子代理在独立上下文中执行后返回结果，由主代理综合后反馈给用户。
+
+```mermaid
+graph TB
+    User["用户"]
+    Main["主代理<br/>(协调者)"]
+    Reviewer["代码审查<br/>子代理"]
+    Tester["测试工程师<br/>子代理"]
+    Docs["文档编写<br/>子代理"]
+
+    User -->|请求| Main
+    Main -->|委派| Reviewer
+    Main -->|委派| Tester
+    Main -->|委派| Docs
+    Reviewer -->|返回结果| Main
+    Tester -->|返回结果| Main
+    Docs -->|返回结果| Main
+    Main -->|综合| User
+```
+
+### 子代理生命周期
+
+```mermaid
+sequenceDiagram
+    participant User as 用户
+    participant MainAgent as 主代理
+    participant SubAgent as 子代理
+    participant Context as 独立上下文窗口
+
+    User->>MainAgent: "构建新的认证功能"
+    MainAgent->>MainAgent: 分析任务
+    MainAgent->>SubAgent: "审查这段代码"
+    SubAgent->>Context: 初始化干净上下文
+    Context->>SubAgent: 加载子代理指令
+    SubAgent->>SubAgent: 执行审查
+    SubAgent-->>MainAgent: 返回发现
+    MainAgent->>MainAgent: 整合结果
+    MainAgent-->>User: 提供综合反馈
+```
+
+### 上下文管理
+
+每个子代理获得独立的上下文窗口，避免主对话被污染，且只有相关上下文传递给子代理。
+
+```mermaid
+graph TB
+    A["主代理上下文<br/>50,000 tokens"]
+    B["子代理 1 上下文<br/>20,000 tokens"]
+    C["子代理 2 上下文<br/>20,000 tokens"]
+    D["子代理 3 上下文<br/>20,000 tokens"]
+
+    A -->|干净状态| B
+    A -->|干净状态| C
+    A -->|干净状态| D
+
+    B -->|仅返回结果| A
+    C -->|仅返回结果| A
+    D -->|仅返回结果| A
+
+    style A fill:#e1f5fe
+    style B fill:#fff9c4
+    style C fill:#fff9c4
+    style D fill:#fff9c4
+```
+
+**关键要点**：
+
+- 每个子代理获得**全新上下文窗口**，不包含主对话历史
+- 只有**相关上下文**传递给子代理
+- 结果被**提炼后**返回主代理
+- 有效防止长时间项目的**上下文令牌耗尽**
+
+**关键行为**：
+
+- **禁止嵌套生成** — 子代理不能生成其他子代理
+- **后台权限** — 后台子代理自动拒绝任何未预先批准的权限请求
+- **转录存储** — 子代理对话记录保存在 `~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl`
+- **自动压缩** — 子代理上下文在约 95% 容量时自动压缩（可通过 `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` 环境变量覆盖）
+
 ## 实用示例
 
 ### 示例1：创建代码审查子代理
@@ -223,6 +306,86 @@ claude根据以下内容主动委托任务：
 | ---------- | ------------------------------ |
 | `Ctrl+B` | 将当前运行的子代理任务后台化   |
 | `Ctrl+F` | 终止所有后台代理（按两次确认） |
+
+## 子代理持久化内存
+
+`memory` 字段赋予子代理跨会话持久化的内存目录，让子代理能够在不同会话间积累知识、存储笔记和上下文。
+
+### 内存作用域
+
+| 作用域 | 目录 | 用途 |
+|--------|------|------|
+| `user` | `~/.claude/agent-memory/<name>/` | 跨项目的个人笔记和偏好 |
+| `project` | `.claude/agent-memory/<name>/` | 项目特定的团队共享知识 |
+| `local` | `.claude/agent-memory-local/<name>/` | 本地项目知识，不入版本控制 |
+
+### 工作原理
+
+- 内存目录中 `MEMORY.md` 的前 200 行自动加载到子代理的系统提示词中
+- `Read`、`Write`、`Edit` 工具自动对子代理开放，用于管理内存文件
+- 子代理可根据需要在其内存目录中创建额外文件
+
+### 配置示例
+
+```yaml
+---
+name: researcher
+memory: user
+---
+
+你是一名研究助手。使用你的内存目录存储研究发现，
+追踪跨会话的进度，并随时间积累知识。
+
+在每个会话开始时检查 MEMORY.md 文件以恢复之前的上下文。
+```
+
+```mermaid
+graph LR
+    A["子代理<br/>会话 1"] -->|写入| M["MEMORY.md<br/>(持久化)"]
+    M -->|加载到| B["子代理<br/>会话 2"]
+    B -->|更新| M
+    M -->|加载到| C["子代理<br/>会话 3"]
+
+    style A fill:#e1f5fe,stroke:#333,color:#333
+    style B fill:#e1f5fe,stroke:#333,color:#333
+    style C fill:#e1f5fe,stroke:#333,color:#333
+    style M fill:#f3e5f5,stroke:#333,color:#333
+```
+
+## Worktree 隔离
+
+`isolation: worktree` 设置为子代理分配独立的 git worktree，使其能独立修改文件而不影响主工作树。
+
+### 配置
+
+```yaml
+---
+name: feature-builder
+isolation: worktree
+description: 在隔离的 git worktree 中实现功能
+tools: Read, Write, Edit, Bash, Grep, Glob
+---
+```
+
+### 工作原理
+
+```mermaid
+graph TB
+    Main["主工作树"] -->|创建| Sub["子代理<br/>隔离 Worktree"]
+    Sub -->|修改| WT["独立 Git<br/>Worktree + 分支"]
+    WT -->|无变更| Clean["自动清理"]
+    WT -->|有变更| Return["返回 worktree<br/>路径和分支"]
+
+    style Main fill:#e1f5fe,stroke:#333,color:#333
+    style Sub fill:#f3e5f5,stroke:#333,color:#333
+    style WT fill:#e8f5e9,stroke:#333,color:#333
+    style Clean fill:#fff3e0,stroke:#333,color:#333
+    style Return fill:#fff3e0,stroke:#333,color:#333
+```
+
+- 子代理在其独立的 git worktree 和单独分支上操作
+- 如果子代理未做任何更改，worktree 自动清理
+- 如果存在更改，worktree 路径和分支名返回给主代理进行审查或合并
 
 ## 参考链接
 
