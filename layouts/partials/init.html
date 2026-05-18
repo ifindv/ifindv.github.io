@@ -38,9 +38,9 @@
 {{ if $defaultBackgroundImage }}
   {{ $allBgImages = $allBgImages | append $defaultBackgroundImage }}
 {{ end }}
-{{ range $i := seq 1 5 }}
+{{ range $i := seq 1 11 }}
   {{ $img := resources.Get (printf "media/%d.jpg" $i) }}
-  {{ if $img }}
+  {{ if and $img (ne $i 6) }}
     {{ $allBgImages = $allBgImages | append $img }}
   {{ end }}
 {{ end }}
