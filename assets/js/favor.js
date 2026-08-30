@@ -224,14 +224,6 @@
     });
   }
 
-  const themeBtn = document.getElementById('favor-theme-toggle');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-    });
-  }
-
   // ============ 调试钩子:?open=<id> 自动打开弹窗(用于截图测试) ============
   const debugOpen = new URLSearchParams(location.search).get('open');
   if (debugOpen) {

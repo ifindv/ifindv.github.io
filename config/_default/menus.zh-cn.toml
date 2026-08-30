@@ -1,0 +1,12 @@
+# -- Main Menu --
+# 顶部导航菜单,在每页头部显示
+
+[[main]]
+  name = "博客"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "收藏"
+  pageRef = "favor"
+  weight = 20

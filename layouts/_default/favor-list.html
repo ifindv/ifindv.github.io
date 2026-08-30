@@ -20,10 +20,6 @@
         <option value="rating-desc">评分 ↓</option>
         <option value="title-asc">标题 A-Z</option>
       </select>
-      <button id="favor-theme-toggle" class="favor-theme-toggle" title="切换主题" aria-label="切换主题">
-        <span class="theme-light dark:hidden">🌙</span>
-        <span class="theme-dark hidden dark:inline">☀️</span>
-      </button>
     </div>
   </section>
 
@@ -33,11 +29,6 @@
     <div class="favor-empty-icon">🔍</div>
     <p>没有匹配的收藏</p>
   </div>
-
-  {{/* 底部 */}}
-  <footer class="favor-footer">
-    <p>收藏会持续更新 · 数据由 <code>content/favor/</code> 下的 Markdown 维护</p>
-  </footer>
 
   {{/* 详情弹窗 */}}
   {{ partial "favor/modal.html" . }}

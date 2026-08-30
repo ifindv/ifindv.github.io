@@ -70,8 +70,7 @@
   align-items: center;
   gap: 0.5rem;
 }
-.favor-sort-select,
-.favor-theme-toggle {
+.favor-sort-select {
   padding: 0.5rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
@@ -80,18 +79,9 @@
   background: rgba(0, 0, 0, 0.06);
   color: rgba(80, 80, 80, 1);
 }
-.dark .favor-sort-select,
-.dark .favor-theme-toggle {
+.dark .favor-sort-select {
   background: rgba(255, 255, 255, 0.08);
   color: rgba(200, 200, 200, 1);
-}
-.favor-theme-toggle {
-  width: 2.25rem;
-  height: 2.25rem;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* === Grid === */
@@ -431,13 +421,4 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* === Footer hint === */
-.favor-footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 2rem 1rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: rgba(120, 120, 120, 1);
-}
-.dark .favor-footer { border-top-color: rgba(255, 255, 255, 0.08); }
-.favor-footer code { font-size: 0.75rem; padding: 0.1rem 0.3rem; background: rgba(0,0,0,0.05); border-radius: 4px; }
+/* === Modal === */
