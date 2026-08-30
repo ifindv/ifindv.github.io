@@ -1,0 +1,15 @@
+{{/*
+  layouts/favor/partials/footer-scripts.html
+  注入 favor.css 和 favor.js
+*/}}
+{{ $css := resources.Get "css/favor.css" }}
+{{ if $css }}
+  {{ $css = $css | resources.Minify | resources.Fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+{{ end }}
+
+{{ $js := resources.Get "js/favor.js" }}
+{{ if $js }}
+  {{ $js = $js | resources.Minify | resources.Fingerprint "sha512" }}
+  <script type="text/javascript" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}
