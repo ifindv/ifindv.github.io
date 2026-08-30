@@ -3,8 +3,8 @@
 
 [[main]]
   identifier = "favor"
-  name = "收藏"
   pageRef = "favor"
+  name = ""
   title = "收藏 · Favor"
   pre = "star"
   weight = 20
