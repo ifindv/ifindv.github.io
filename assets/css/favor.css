@@ -422,31 +422,14 @@
 }
 
 /* === Modal === */
-
 /* ============================================
-   Nav 图标统一 - 与主题 FA 图标视觉对齐
+   收藏图标 - 与主题 nav 图标对齐
    ============================================ */
 
-/* 统一所有 nav 图标的 SVG 视觉尺寸 */
-nav.flex svg,
-button.bf-icon-color-hover svg {
-  width: 1.125rem !important;
-  height: 1.125rem !important;
-}
-
-/* favor star 是 fill 风格 (无 stroke),强制填充色 */
+/* 强制 star 图标尺寸跟主题 fa-w-16 一致 (16px) */
 nav a[href="/favor/"] svg {
+  width: 1em !important;
+  height: 1em !important;
   fill: currentColor !important;
   stroke: none !important;
-}
-
-/* nav 三个图标的间距:从 gap-x-5 加大 */
-nav.flex.items-center.gap-x-5 {
-  gap: 1.4rem !important;
-}
-
-/* favor 图标 hover 微放大 */
-nav a[href="/favor/"]:hover svg {
-  transform: scale(1.1);
-  transition: transform 0.15s ease;
 }
