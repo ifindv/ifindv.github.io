@@ -12,6 +12,12 @@
   --color-trip-b: #3b82f6;
 }
 
+/* hero spacer 之后,卡片网格再向下推一段,
+   视觉起点与 /posts/ 列表(经 header + meta 后的卡片位置)对齐。*/
+#favor-grid {
+  margin-top: 7rem;
+}
+
 /* ========== Wrapper:定位锚 + 类型/评分伪元素 ========== */
 .favor-card-wrapper {
   position: relative; /* 锚定 ::after 绝对定位 */
