@@ -1,24 +1,19 @@
 {{/*
   layouts/_default/favor-list.html
-  收藏主页(电影/阅读/旅行):主题卡片 + 排序下拉 + 弹窗
+  收藏主页(电影/阅读/旅行):背景图 + 主题卡片 + 弹窗
   模板可被任意 section 复用,通过 {{ range .Pages }} 自动只渲染当前 section 的子页面。
+  卡片按日期倒序排序(Hugo 模板层完成,无需 JS)。
 */}}
 {{ define "main" }}
+{{ .Scratch.Set "scope" "list" }}
 <article class="favor-page">
 
-  {{/* 排序工具栏(过滤栏已移除 - 每页只展示一种类型) */}}
-  <div class="favor-toolbar">
-    <select id="favor-sort" class="favor-sort-select">
-      <option value="added-desc">最近添加</option>
-      <option value="added-asc">最早添加</option>
-      <option value="rating-desc">评分 ↓</option>
-      <option value="title-asc">标题 A-Z</option>
-    </select>
-  </div>
+  {{/* Hero 背景图(随机从 media 池选取) */}}
+  {{ partial "hero/background.html" . }}
 
-  {{/* 卡片网格 - 与博客 list.html 一致的响应式类 */}}
+  {{/* 卡片网格 - 与博客 list.html 一致的响应式类;按日期倒序 */}}
   <section id="favor-grid" class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-    {{ range .Pages }}
+    {{ range .Pages.ByDate.Reverse }}
       <div class="favor-card-wrapper"
            data-rating="{{ .Params.rating }}"
            data-rating-display="★ {{ .Params.rating }}"
@@ -36,7 +31,7 @@
     JS 按 id 取 innerHTML 注入弹窗。
   */}}
   <template id="favor-source">
-    {{ range .Pages }}
+    {{ range .Pages.ByDate.Reverse }}
       <article data-id="{{ .File.BaseFileName }}">{{ .Content }}</article>
     {{ end }}
   </template>

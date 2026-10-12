@@ -1,6 +1,6 @@
 /* ========== Favor 页样式 ==========
    卡片由主题 article-link/card.html 接管,
-   这里只保留:类型/评分伪元素 + 排序工具栏 + 弹窗 + 导航图标对齐
+   这里只保留:类型/评分伪元素 + 弹窗
    ====================================================================== */
 
 .favor-page {
@@ -36,27 +36,6 @@
 }
 .dark .favor-card-wrapper[data-rating]::after {
   background: rgba(0, 0, 0, 0.85);
-}
-
-/* ========== 排序工具栏(替代原过滤栏) ========== */
-.favor-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.favor-sort-select {
-  padding: 0.5rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  border: 0;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.06);
-  color: rgba(80, 80, 80, 1);
-}
-.dark .favor-sort-select {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(200, 200, 200, 1);
 }
 
 /* ========== Modal ========== */
@@ -280,7 +259,6 @@
 }
 
 /* ============================================
-   收藏图标已全部移除(/favor/ 拆分为 movies/books/trips),
-   新导航使用主题内置 FA solid 图标,与 search/moon 同款风格,
-   无需额外 CSS 即可统一尺寸。
+   排序工具栏已移除 - 卡片由 Hugo 服务端按日期倒序渲染,
+   JS 只负责弹窗交互。
    ============================================ */
