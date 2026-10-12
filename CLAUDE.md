@@ -32,7 +32,7 @@ hugo server -D
 - **Blog posts**: `content/posts/*.md` - markdown files with date-prefix naming convention
 - **Static files**: `static/` - copied directly to output
 - **Assets**: `assets/` - processed by Hugo pipelines
-  - `assets/media/blog-bg.jpg` - default background image
+  - `assets/media/{1..27}.{jpg,png}` - homepage background pool (26 random images; `6.jpg` is the default, see `hugo.yaml defaultBackgroundImage`); scanned dynamically by `layouts/partials/init.html`, so add/remove freely
   - `assets/css/custom.css` - custom styles
   - `assets/img/` - images
 

@@ -38,11 +38,10 @@
 {{ if $defaultBackgroundImage }}
   {{ $allBgImages = $allBgImages | append $defaultBackgroundImage }}
 {{ end }}
-{{ range $i := seq 1 31 }}
-  {{ $ext := cond (eq $i 25) "png" "jpg" }}
-  {{ $img := resources.Get (printf "media/%d.%s" $i $ext) }}
-  {{ if and $img (ne $i 6) }}
-    {{ $allBgImages = $allBgImages | append $img }}
+{{ range resources.Match "media/*.{jpg,jpeg,png,webp,gif}" }}
+  {{ $base := replace .Name (path.Ext .Name) "" }}
+  {{ if ne $base "6" }}
+    {{ $allBgImages = $allBgImages | append . }}
   {{ end }}
 {{ end }}
 {{ site.Store.Set "allBackgroundImages" $allBgImages }}
