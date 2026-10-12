@@ -5,7 +5,7 @@ date: 2026-05-08
 type: "movie"
 rating: 8.5
 summary: "诺兰拍出了'良心危机'的重量,Murphy 的眼神戏是教科书级别。"
-cover: "https://image.tmdb.org/t/p/w780/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"
+featureimage: "https://image.tmdb.org/t/p/w780/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"
 director: "Christopher Nolan"
 genre: "传记 / 历史"
 source: "影院"

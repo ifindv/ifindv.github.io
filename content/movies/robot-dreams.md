@@ -5,7 +5,7 @@ date: 2025-02-14
 type: "movie"
 rating: 8.7
 summary: "全程没有一句对白,看完沉默很久。"
-cover: "https://image.tmdb.org/t/p/w780/4zfTUGBftXMJ68XMtY1LF9pmm8k.jpg"
+featureimage: "https://image.tmdb.org/t/p/w780/4zfTUGBftXMJ68XMtY1LF9pmm8k.jpg"
 director: "Pablo Berger"
 genre: "动画 / 默片"
 source: "流媒体"

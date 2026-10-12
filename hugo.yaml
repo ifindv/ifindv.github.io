@@ -65,6 +65,8 @@ params:
     showMoreLinkDest: "/posts/"
 
   defaultBackgroundImage: "/media/6.jpg"
+  # 跳过构建期 resources.GetRemote,直接使用外链 URL(避免 Douban 等 CDN 限流导致 build fail)
+  hotlinkFeatureImage: true
 
   article:
     showDate: true

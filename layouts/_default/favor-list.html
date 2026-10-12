@@ -1,70 +1,47 @@
 {{/*
   layouts/_default/favor-list.html
-  收藏主页:Hero + 过滤栏 + 卡片网格
-  每篇收藏文章渲染成一个 <article data-favor> 隐藏元素,
-  JS 从 DOM 读取 data-* 属性 + body HTML,无需 JSON 注入。
+  收藏主页(电影/阅读/旅行):主题卡片 + 排序下拉 + 弹窗
+  模板可被任意 section 复用,通过 {{ range .Pages }} 自动只渲染当前 section 的子页面。
 */}}
 {{ define "main" }}
 <article class="favor-page">
 
-  {{/* 过滤栏直接置顶 */}}
-  <section class="favor-filter">
-    <button class="favor-filter-btn active" data-filter="all">全部 <span class="count">(<span data-filter-count="all">0</span>)</span></button>
-    <button class="favor-filter-btn" data-filter="movie">🎬 电影 <span class="count">(<span data-filter-count="movie">0</span>)</span></button>
-    <button class="favor-filter-btn" data-filter="book">📖 阅读 <span class="count">(<span data-filter-count="book">0</span>)</span></button>
-    <button class="favor-filter-btn" data-filter="trip">✈️ 旅行 <span class="count">(<span data-filter-count="trip">0</span>)</span></button>
-    <div class="favor-filter-right">
-      <select id="favor-sort" class="favor-sort-select">
-        <option value="added-desc">最近添加</option>
-        <option value="added-asc">最早添加</option>
-        <option value="rating-desc">评分 ↓</option>
-        <option value="title-asc">标题 A-Z</option>
-      </select>
-    </div>
-  </section>
-
-  {{/* 卡片网格容器(JS 渲染) */}}
-  <div id="favor-grid" class="favor-grid"></div>
-  <div id="favor-empty" class="favor-empty" hidden>
-    <div class="favor-empty-icon">🔍</div>
-    <p>没有匹配的收藏</p>
+  {{/* 排序工具栏(过滤栏已移除 - 每页只展示一种类型) */}}
+  <div class="favor-toolbar">
+    <select id="favor-sort" class="favor-sort-select">
+      <option value="added-desc">最近添加</option>
+      <option value="added-asc">最早添加</option>
+      <option value="rating-desc">评分 ↓</option>
+      <option value="title-asc">标题 A-Z</option>
+    </select>
   </div>
 
-  {{/* 详情弹窗 */}}
-  {{ partial "favor/modal.html" . }}
+  {{/* 卡片网格 - 与博客 list.html 一致的响应式类 */}}
+  <section id="favor-grid" class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+    {{ range .Pages }}
+      <div class="favor-card-wrapper"
+           data-rating="{{ .Params.rating }}"
+           data-rating-display="★ {{ .Params.rating }}"
+           data-date="{{ .Params.date.Format "2006-01-02" }}"
+           data-id="{{ .File.BaseFileName }}"
+           data-title="{{ .Title }}"
+           data-permalink="{{ .Permalink }}">
+        {{ partial "article-link/card.html" . }}
+      </div>
+    {{ end }}
+  </section>
 
   {{/*
-    每篇收藏渲染成隐藏的 <article data-favor> 元素。
-    所有元数据放在 data-* 属性,body 渲染成 HTML 子节点。
-    JS 从这些 DOM 节点读取 → 渲染卡片 + 弹窗详情。
-    这种方式:新增收藏 = 新建 .md 文件,无需改任何代码。
+    弹窗正文数据源:仅渲染本页所有页面的 .Content,
+    JS 按 id 取 innerHTML 注入弹窗。
   */}}
   <template id="favor-source">
-    {{ range where .Site.RegularPages "Section" "favor" }}
-      {{ if not .Params.draft }}
-        <article data-favor
-          data-id="{{ .File.BaseFileName }}"
-          data-type="{{ .Params.type }}"
-          data-title="{{ .Title }}"
-          data-subtitle="{{ .Params.subtitle }}"
-          data-rating="{{ .Params.rating }}"
-          data-date="{{ .Params.date.Format "2006-01-02" }}"
-          data-summary="{{ .Params.summary }}"
-          data-cover="{{ .Params.cover }}"
-          data-source="{{ .Params.source }}"
-          data-director="{{ .Params.director }}"
-          data-author="{{ .Params.author }}"
-          data-publisher="{{ .Params.publisher }}"
-          data-genre="{{ .Params.genre }}"
-          data-location="{{ .Params.location }}"
-          data-permalink="{{ .Permalink }}">
-          <div class="favor-source-body">{{ .Content }}</div>
-        </article>
-      {{ end }}
+    {{ range .Pages }}
+      <article data-id="{{ .File.BaseFileName }}">{{ .Content }}</article>
     {{ end }}
   </template>
 
-  {{/* 注入 favor.css 和 favor.js(主题 baseof 无 footer block,所以放在 main 末尾) */}}
+  {{ partial "favor/modal.html" . }}
   {{ partial "favor/footer-scripts.html" . }}
 </article>
 {{ end }}

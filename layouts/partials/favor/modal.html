@@ -1,6 +1,7 @@
 {{/*
-  layouts/favor/partials/modal.html
+  layouts/partials/favor/modal.html
   详情弹窗 - 静态结构,JS 负责内容注入
+  移除"上一项/下一项"导航 - 每页只展示一种类型,无跨项翻页意义
 */}}
 <div id="favor-modal" class="favor-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="favor-modal-title">
   <div class="favor-modal-panel">
@@ -25,13 +26,7 @@
     </div>
 
     <div class="favor-modal-body">
-      <div id="favor-modal-body" class="favor-md"></div>
-    </div>
-
-    <div class="favor-modal-nav">
-      <button id="favor-modal-prev">← 上一项</button>
-      <span id="favor-modal-position"></span>
-      <button id="favor-modal-next">下一项 →</button>
+      <div id="favor-modal-body" class="favor-md prose dark:prose-invert max-w-none"></div>
     </div>
 
   </div>

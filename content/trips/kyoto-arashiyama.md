@@ -5,7 +5,7 @@ date: 2026-04-02
 type: "trip"
 rating: 9.4
 summary: "清晨的渡月桥没什么人,竹林小径里只有水滴声。"
-cover: "https://images.unsplash.com/photo-1493997181344-712f2f19d87a?w=800&q=80"
+featureimage: "https://images.unsplash.com/photo-1493997181344-712f2f19d87a?w=800&q=80"
 source: "日本"
 location: "Japan · Kyoto"
 draft: false

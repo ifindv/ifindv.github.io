@@ -5,7 +5,7 @@ date: 2025-08-15
 type: "trip"
 rating: 9.5
 summary: "雪山倒映在湖面,湖水蓝得不真实。"
-cover: "https://images.unsplash.com/photo-1565967511849-76a60a516170?w=800&q=80"
+featureimage: "https://images.unsplash.com/photo-1565967511849-76a60a516170?w=800&q=80"
 source: "新疆"
 location: "China · Xinjiang"
 draft: false

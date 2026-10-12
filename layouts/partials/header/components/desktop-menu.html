@@ -102,7 +102,14 @@
       {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
       title="{{ .Title }}">
       {{ if .Pre }}
-        {{ partial "icon.html" .Pre }}
+        <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
+          {{ partial "icon.html" .Pre }}
+        </span>
+      {{ end }}
+      {{ if .Name }}
+        <span class="text-base font-medium break-normal">
+          {{ .Name | markdownify }}
+        </span>
       {{ end }}
     </a>
   {{ end }}

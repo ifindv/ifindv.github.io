@@ -5,7 +5,7 @@ date: 2026-07-15
 type: "movie"
 rating: 9.0
 summary: "维伦纽瓦的视觉史诗,Hans Zimmer 的配乐震撼到头皮发麻。"
-cover: "https://image.tmdb.org/t/p/w780/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg"
+featureimage: "https://image.tmdb.org/t/p/w780/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg"
 director: "Denis Villeneuve"
 genre: "科幻 / 史诗"
 source: "影院"

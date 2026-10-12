@@ -1,5 +1,6 @@
 /* ========== Favor 页样式 ==========
-   适配 Blowfish 主题(暗色默认),独立于主题变量即可工作
+   卡片由主题 article-link/card.html 接管,
+   这里只保留:类型/评分伪元素 + 排序工具栏 + 弹窗 + 导航图标对齐
    ====================================================================== */
 
 .favor-page {
@@ -11,64 +12,38 @@
   --color-trip-b: #3b82f6;
 }
 
-/* === Filter bar === */
-.favor-filter {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: rgba(250, 250, 250, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+/* ========== Wrapper:定位锚 + 类型/评分伪元素 ========== */
+.favor-card-wrapper {
+  position: relative; /* 锚定 ::after 绝对定位 */
 }
-.dark .favor-filter {
-  background: rgba(23, 23, 23, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-}
-.favor-filter-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 0;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.06);
-  color: rgba(80, 80, 80, 1);
-  transition: all 0.2s;
-}
-.dark .favor-filter-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(200, 200, 200, 1);
-}
-.favor-filter-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-.dark .favor-filter-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-.favor-filter-btn.active {
-  background: #fff;
-  color: #111;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-.dark .favor-filter-btn.active {
-  background: #262626;
+
+/* 评分角标 — 右上 */
+.favor-card-wrapper[data-rating]::after {
+  content: attr(data-rating-display);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 0.375rem;
+  font-variant-numeric: tabular-nums;
 }
-.favor-filter-btn .count {
-  margin-left: 0.25rem;
-  opacity: 0.6;
+.dark .favor-card-wrapper[data-rating]::after {
+  background: rgba(0, 0, 0, 0.85);
 }
-.favor-filter-right {
-  margin-left: auto;
+
+/* ========== 排序工具栏(替代原过滤栏) ========== */
+.favor-toolbar {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 .favor-sort-select {
   padding: 0.5rem 0.75rem;
@@ -84,132 +59,7 @@
   color: rgba(200, 200, 200, 1);
 }
 
-/* === Grid === */
-.favor-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-}
-.favor-card {
-  position: relative;
-  background: #fff;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.dark .favor-card {
-  background: #262626;
-  border-color: rgba(255, 255, 255, 0.08);
-}
-.favor-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
-}
-.dark .favor-card:hover {
-  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.5);
-}
-.favor-card-cover {
-  position: relative;
-  height: 10rem;
-  background: linear-gradient(135deg, #d4d4d4, #737373);
-  overflow: hidden;
-}
-.dark .favor-card-cover {
-  background: linear-gradient(135deg, #404040, #171717);
-}
-.favor-card-cover img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.favor-card:hover .favor-card-cover img {
-  transform: scale(1.05);
-}
-.favor-type-tag {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fff;
-  border-bottom-right-radius: 0.5rem;
-  z-index: 1;
-}
-.favor-type-movie { background: linear-gradient(135deg, var(--color-movie-a), var(--color-movie-b)); }
-.favor-type-book  { background: linear-gradient(135deg, var(--color-book-a),  var(--color-book-b)); }
-.favor-type-trip  { background: linear-gradient(135deg, var(--color-trip-a),  var(--color-trip-b)); }
-.favor-card-rating {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
-  border-radius: 0.375rem;
-  font-variant-numeric: tabular-nums;
-  z-index: 1;
-}
-.favor-card-body {
-  padding: 1rem;
-}
-.favor-card-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin: 0 0 0.25rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.favor-card-subtitle {
-  font-size: 0.875rem;
-  color: rgba(120, 120, 120, 1);
-  margin: 0 0 0.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.favor-card-note {
-  font-size: 0.875rem;
-  color: rgba(60, 60, 60, 1);
-  line-height: 1.6;
-  margin: 0 0 0.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.dark .favor-card-note { color: rgba(220, 220, 220, 1); }
-.favor-card-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  color: rgba(120, 120, 120, 0.85);
-}
-
-/* === Empty state === */
-.favor-empty {
-  max-width: 28rem;
-  margin: 0 auto;
-  text-align: center;
-  padding: 4rem 1rem;
-  color: rgba(120, 120, 120, 1);
-}
-.favor-empty-icon { font-size: 3rem; opacity: 0.3; margin-bottom: 0.75rem; }
-
-/* === Modal === */
+/* ========== Modal ========== */
 .favor-modal-overlay {
   position: fixed;
   inset: 0;
@@ -226,7 +76,10 @@
   transition: opacity 0.25s ease;
 }
 @media (min-width: 640px) {
-  .favor-modal-overlay { align-items: center; padding: 1rem; }
+  .favor-modal-overlay {
+    align-items: center;
+    padding: 1rem;
+  }
 }
 .favor-modal-overlay.open {
   opacity: 1;
@@ -245,7 +98,9 @@
   transform: translateY(1.25rem) scale(0.97);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.dark .favor-modal-panel { background: #171717; }
+.dark .favor-modal-panel {
+  background: #171717;
+}
 @media (min-width: 640px) {
   .favor-modal-panel {
     max-height: 90vh;
@@ -263,9 +118,13 @@
   overflow: hidden;
   flex-shrink: 0;
 }
-.dark .favor-modal-hero { background: linear-gradient(135deg, #404040, #171717); }
+.dark .favor-modal-hero {
+  background: linear-gradient(135deg, #404040, #171717);
+}
 @media (min-width: 640px) {
-  .favor-modal-hero { height: 18rem; }
+  .favor-modal-hero {
+    height: 18rem;
+  }
 }
 .favor-modal-hero img {
   position: absolute;
@@ -277,7 +136,7 @@
 .favor-modal-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2), transparent);
 }
 .favor-modal-close {
   position: absolute;
@@ -296,7 +155,9 @@
   justify-content: center;
   transition: background 0.2s;
 }
-.favor-modal-close:hover { background: rgba(0, 0, 0, 0.6); }
+.favor-modal-close:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
 .favor-modal-hero-text {
   position: absolute;
   bottom: 0;
@@ -321,16 +182,15 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
 }
-.dark .favor-modal-meta { border-bottom-color: rgba(255, 255, 255, 0.08); }
+.dark .favor-modal-meta {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
 .favor-modal-meta dl {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   font-size: 0.875rem;
   margin: 0;
-}
-@media (min-width: 640px) {
-  .favor-modal-meta dl { grid-template-columns: repeat(4, 1fr); }
 }
 .favor-modal-meta dt {
   font-size: 0.75rem;
@@ -347,17 +207,45 @@
   overflow-y: auto;
   flex: 1;
 }
-.favor-modal-body::-webkit-scrollbar { width: 8px; }
-.favor-modal-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
-.dark .favor-modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+.favor-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.favor-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+.dark .favor-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
 
-.favor-md { line-height: 1.7; color: rgba(40, 40, 40, 1); }
-.dark .favor-md { color: rgba(220, 220, 220, 1); }
-.favor-md p { margin: 0.75rem 0; }
-.favor-md h2 { font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.5rem; }
-.favor-md h3 { font-size: 1.125rem; font-weight: 700; margin: 1.25rem 0 0.5rem; }
-.favor-md ul { padding-left: 1.5rem; list-style: disc; margin: 0.75rem 0; }
-.favor-md li { margin: 0.25rem 0; }
+/*
+  .favor-md 叠在主题 prose 之上,
+  只覆盖"情感化"的部分(行高 / 引用块 italic / 段落间距)。
+*/
+.favor-md {
+  line-height: 1.7;
+}
+.favor-md p {
+  margin: 0.75rem 0;
+}
+.favor-md h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+}
+.favor-md h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.5rem;
+}
+.favor-md ul {
+  padding-left: 1.5rem;
+  list-style: disc;
+  margin: 0.75rem 0;
+}
+.favor-md li {
+  margin: 0.25rem 0;
+}
 .favor-md blockquote {
   border-left: 3px solid #a3a3a3;
   padding-left: 1rem;
@@ -365,71 +253,34 @@
   margin: 1rem 0;
   font-style: italic;
 }
-.dark .favor-md blockquote { border-color: #525252; color: #aaa; }
-.favor-md code {
-  background: rgba(0,0,0,0.06);
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-  font-size: 0.9em;
+.dark .favor-md blockquote {
+  border-color: #525252;
+  color: #aaa;
 }
-.dark .favor-md code { background: rgba(255,255,255,0.1); }
-.favor-md a { color: #2563eb; text-decoration: underline; }
-.dark .favor-md a { color: #60a5fa; }
-.favor-md strong { font-weight: 700; color: currentColor; }
-.favor-md em { font-style: italic; }
+.favor-md strong {
+  font-weight: 700;
+}
+.favor-md em {
+  font-style: italic;
+}
 
-.favor-modal-nav {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.02);
-}
-.dark .favor-modal-nav {
-  border-top-color: rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
-}
-.favor-modal-nav button {
-  font-size: 0.875rem;
-  color: rgba(80, 80, 80, 1);
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
-  transition: all 0.2s;
-}
-.dark .favor-modal-nav button { color: rgba(200, 200, 200, 1); }
-.favor-modal-nav button:hover:not(:disabled) {
-  color: #111;
-  background: rgba(0, 0, 0, 0.05);
-}
-.dark .favor-modal-nav button:hover:not(:disabled) {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-}
-.favor-modal-nav button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-.favor-modal-nav span {
+/* 类型角标 - 弹窗内(简化版,纯色块) */
+.favor-type-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
-  color: rgba(120, 120, 120, 1);
-  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: #fff;
+  border-bottom-right-radius: 0.5rem;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
 }
 
-/* === Modal === */
 /* ============================================
-   收藏图标 - 与主题 nav 图标对齐
+   收藏图标已全部移除(/favor/ 拆分为 movies/books/trips),
+   新导航使用主题内置 FA solid 图标,与 search/moon 同款风格,
+   无需额外 CSS 即可统一尺寸。
    ============================================ */
-
-/* 强制 star 图标尺寸跟主题 fa-w-16 一致 (16px) */
-nav a[href="/favor/"] svg {
-  width: 1em !important;
-  height: 1em !important;
-  fill: currentColor !important;
-  stroke: none !important;
-}

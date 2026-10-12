@@ -5,7 +5,7 @@ date: 2025-03-05
 type: "book"
 rating: 9.0
 summary: "软件工程领域的'字典',每隔一两年重读都有新东西。"
-cover: "https://img2.doubanio.com/view/subject/l/public/s1229240.jpg"
+featureimage: "https://img2.doubanio.com/view/subject/l/public/s1229240.jpg"
 author: "Steve McConnell"
 publisher: "电子工业出版社"
 source: "实体书"

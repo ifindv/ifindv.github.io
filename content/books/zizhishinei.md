@@ -5,7 +5,7 @@ date: 2026-06-20
 type: "book"
 rating: 9.3
 summary: "理解中国过去 30 年经济奇迹的入门必读。"
-cover: "https://img2.doubanio.com/view/subject/l/public/s34057491.jpg"
+featureimage: "https://img2.doubanio.com/view/subject/l/public/s34057491.jpg"
 author: "兰小欢"
 publisher: "上海人民出版社"
 source: "实体书"

@@ -5,7 +5,7 @@ date: 2025-01-18
 type: "trip"
 rating: 8.8
 summary: "骑摩托车上山的路让人心脏狂跳,但山顶的咖啡值回一切。"
-cover: "https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?w=800&q=80"
+featureimage: "https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?w=800&q=80"
 source: "泰国"
 location: "Thailand · Pai"
 draft: false

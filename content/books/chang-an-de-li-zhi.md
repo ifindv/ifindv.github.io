@@ -5,7 +5,7 @@ date: 2024-12-10
 type: "book"
 rating: 8.4
 summary: "一个唐朝打工人在 KPI 倒计时下绝处逢生。"
-cover: "https://img2.doubanio.com/view/subject/l/public/s34713734.jpg"
+featureimage: "https://img2.doubanio.com/view/subject/l/public/s34713734.jpg"
 author: "马伯庸"
 publisher: "湖南文艺出版社"
 source: "微信读书"

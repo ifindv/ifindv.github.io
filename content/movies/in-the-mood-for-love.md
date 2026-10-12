@@ -5,7 +5,7 @@ date: 2025-04-18
 type: "movie"
 rating: 9.2
 summary: "王家卫的克制美学教科书。走廊、楼梯、旗袍、雨夜。"
-cover: "https://image.tmdb.org/t/p/w780/iYypPT4bhqXfn1A6kasvpy4uVSo.jpg"
+featureimage: "https://image.tmdb.org/t/p/w780/iYypPT4bhqXfn1A6kasvpy4uVSo.jpg"
 director: "王家卫"
 genre: "爱情 / 文艺"
 source: "流媒体"

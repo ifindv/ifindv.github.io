@@ -5,7 +5,7 @@ date: 2025-07-12
 type: "book"
 rating: 8.6
 summary: "宏大叙事的天花板。虚构故事、认知革命、农业陷阱。"
-cover: "https://img2.doubanio.com/view/subject/l/public/s27814883.jpg"
+featureimage: "https://img2.doubanio.com/view/subject/l/public/s27814883.jpg"
 author: "Yuval Noah Harari"
 publisher: "中信出版社"
 source: "实体书"

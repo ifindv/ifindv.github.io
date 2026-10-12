@@ -5,7 +5,7 @@ date: 2025-12-22
 type: "movie"
 rating: 9.5
 summary: "杨德昌的家庭史诗,'我们读到的只是表面'。"
-cover: "https://image.tmdb.org/t/p/w780/8WMx49yZzeX0BoCLp0K3M4yZ4FP.jpg"
+featureimage: "https://image.tmdb.org/t/p/w780/8WMx49yZzeX0BoCLp0K3M4yZ4FP.jpg"
 director: "杨德昌"
 genre: "家庭 / 剧情"
 source: "重看"

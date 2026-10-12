@@ -5,7 +5,7 @@ date: 2025-11-30
 type: "book"
 rating: 9.0
 summary: "系统 1 / 系统 2 的框架,做产品决策时还在用。"
-cover: "https://img2.doubanio.com/view/subject/l/public/s2768378.jpg"
+featureimage: "https://img2.doubanio.com/view/subject/l/public/s2768378.jpg"
 author: "Daniel Kahneman"
 publisher: "中信出版社"
 source: "Kindle"

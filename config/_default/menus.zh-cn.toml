@@ -1,10 +1,33 @@
 # -- Main Menu --
 # 顶部导航菜单,在每页头部显示
+#
+# 风格约定:
+#   - 仅图标(无文字,name = "")与 search / moon / 主题切换图标风格一致
+#   - pre 使用 Font Awesome solid 风格:
+#     clapperboard (场记板,电影) ── 自定义于 assets/icons/
+#     book-open (展开的书,阅读) ── 自定义于 assets/icons/
+#     globe (地球,旅行) ── 主题内置
 
 [[main]]
-  identifier = "favor"
-  pageRef = "favor"
+  identifier = "movies"
+  url = "/movies/"
   name = ""
-  title = "收藏 · Favor"
-  pre = "star"
-  weight = 20
+  title = "电影 · Movies"
+  pre = "clapperboard"
+  weight = 30
+
+[[main]]
+  identifier = "books"
+  url = "/books/"
+  name = ""
+  title = "阅读 · Books"
+  pre = "book-open"
+  weight = 31
+
+[[main]]
+  identifier = "trips"
+  url = "/trips/"
+  name = ""
+  title = "旅行 · Trips"
+  pre = "globe"
+  weight = 32

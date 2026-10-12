@@ -5,7 +5,7 @@ date: 2025-11-08
 type: "trip"
 rating: 9.7
 summary: "辛格韦德利瀑布的彩虹、Geysir 的喷发、冰河湖的钻石冰。"
-cover: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=800&q=80"
+featureimage: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?w=800&q=80"
 source: "冰岛"
 location: "Iceland · Reykjavík"
 draft: false

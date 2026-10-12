@@ -5,7 +5,7 @@ date: 2025-09-30
 type: "movie"
 rating: 8.8
 summary: "雨、雪、雾的银幕美学,Roger Deakins 封神之作。"
-cover: "https://image.tmdb.org/t/p/w780/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg"
+featureimage: "https://image.tmdb.org/t/p/w780/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg"
 director: "Denis Villeneuve"
 genre: "科幻 / 黑色"
 source: "4K 蓝光"
