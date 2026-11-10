@@ -1,0 +1,7 @@
+{{- /* 截图外框：圆角 + 描边 + 投影。截图本身就是应用窗口内容，不再套一层假标题栏。 */ -}}
+{{- $img := .img -}}
+{{- $alt := .alt -}}
+{{- $loading := .loading | default "lazy" -}}
+<div class="tm-shot">
+  <img src="{{ $img.RelPermalink }}" alt="{{ $alt }}" loading="{{ $loading }}">
+</div>

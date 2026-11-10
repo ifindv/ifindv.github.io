@@ -1,0 +1,57 @@
+{{- /*
+  Termini 落地页 —— 独立文档，不套用博客的 baseof / 页头 / 页脚。
+  Hugo 的 base 模板查找会先命中 layouts/termini/baseof.html。
+*/ -}}
+{{- $store := "https://apps.microsoft.com/store/detail/9MZ5VWT9L6J6?cid=DevShareMCLPCS" -}}
+{{- $icon := resources.Get "img/termini/icon.png" -}}
+{{- $og := (resources.Get "img/termini/hero.png").Resize "1200x" -}}
+{{- $desc := .Params.description -}}
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Termini — 面向 SSH 与本地终端的桌面客户端</title>
+  <meta name="description" content="{{ $desc }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Termini">
+  <meta property="og:title" content="Termini — 面向 SSH 与本地终端的桌面客户端">
+  <meta property="og:description" content="{{ $desc }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ $og.Permalink }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Termini — 面向 SSH 与本地终端的桌面客户端">
+  <meta name="twitter:description" content="{{ $desc }}">
+  <meta name="twitter:image" content="{{ $og.Permalink }}">
+
+  <meta name="theme-color" content="#0b1220">
+  <link rel="icon" href="{{ ($icon.Resize "64x").RelPermalink }}">
+  <link rel="apple-touch-icon" href="{{ ($icon.Resize "180x").RelPermalink }}">
+
+  {{/* 语言与主题偏好必须在首屏绘制前落到 <html> 上，否则会闪一下默认值 */}}
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        r.setAttribute('data-lang', localStorage.getItem('termini-lang') || 'zh');
+        r.setAttribute('data-theme', localStorage.getItem('termini-theme') || 'dark');
+      } catch (e) {
+        r.setAttribute('data-lang', 'zh');
+        r.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <noscript><style>.tm-l-en{display:none!important}</style></noscript>
+
+  {{ $css := resources.Get "css/termini.css" | resources.Minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+</head>
+<body>
+  <div class="tm-noise" aria-hidden="true"></div>
+  {{ block "main" . }}{{ end }}
+  {{ $js := resources.Get "js/termini.js" | resources.Minify | fingerprint }}
+  <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+</body>
+</html>

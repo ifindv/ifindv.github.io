@@ -1,7 +1,5 @@
 {{ define "main" }}
-  {{/* Termini 产品落地页 —— /termini/
-       中英双语：每个文案渲染两个 span（.tm-l-zh / .tm-l-en），
-       可见性由 CSS 按 <html data-lang> 决定，语言偏好由 JS 记忆。 */}}
+  {{/* Termini 产品落地页 —— 独立文档，不套博客框架 */}}
 
   {{ $store := "https://apps.microsoft.com/store/detail/9MZ5VWT9L6J6?cid=DevShareMCLPCS" }}
   {{ $icon := resources.Get "img/termini/icon.png" }}
@@ -16,293 +14,318 @@
   {{ $settings := resources.Get "img/termini/settings.png" }}
   {{ $newmenu := resources.Get "img/termini/new-menu.png" }}
 
-  {{/* 语言偏好必须在正文解析前落到 <html> 上，否则会闪一下默认语言 */}}
-  <script>
-    (function () {
-      var r = document.documentElement;
-      r.classList.add('js');
-      try { r.setAttribute('data-lang', localStorage.getItem('termini-lang') || 'zh'); }
-      catch (e) { r.setAttribute('data-lang', 'zh'); }
-    })();
-  </script>
-  <noscript><style>.tm-l-en{display:none!important}</style></noscript>
+  {{ $check := `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>` }}
 
-  <div class="tm-page">
+  <!-- ================= 导航 ================= -->
+  <nav class="tm-nav" id="tm-nav">
+    <div class="tm-wrap tm-nav-inner">
+      <a class="tm-brand" href="/termini/">
+        <img src="{{ $icon.RelPermalink }}" alt="Termini">
+        <span>Termini</span>
+      </a>
 
-    <!-- ================= Hero ================= -->
-    <section class="tm-hero">
-      <div class="tm-topbar">
-        <div class="tm-lang" role="group" aria-label="Language">
+      <div class="tm-nav-links">
+        <a href="#features">{{ partial "termini/t.html" (dict "zh" "特性" "en" "Features") }}</a>
+        <a href="#screens">{{ partial "termini/t.html" (dict "zh" "界面" "en" "Screens") }}</a>
+        <a href="#privacy">{{ partial "termini/t.html" (dict "zh" "隐私" "en" "Privacy") }}</a>
+      </div>
+
+      <div class="tm-nav-tools">
+        <div class="tm-toggle" role="group" aria-label="Language">
           <button type="button" data-lang-set="zh" class="is-active">中文</button>
           <button type="button" data-lang-set="en">EN</button>
         </div>
-      </div>
-
-      <img class="tm-logo" src="{{ $icon.RelPermalink }}" alt="Termini" width="88" height="88">
-
-      <h1 class="tm-title">
-        {{ partial "termini/t.html" (dict "zh" "面向 SSH 与本地终端的桌面客户端" "en" "A desktop client for SSH and local shells") }}
-      </h1>
-
-      <p class="tm-sub">
-        {{ partial "termini/t.html" (dict
-          "zh" "所有会话都活在同一个窗口的标签页里——连接、传输、转发，都不离开这一块屏幕。"
-          "en" "Every session you open lives in a tab of one window — connections, transfers and tunnels without leaving the screen.") }}
-      </p>
-
-      <p class="tm-note">
-        {{ partial "termini/t.html" (dict
-          "zh" "基础功能免费使用。Pro 是可选的微软商店订阅，试用与续订都由商店处理。"
-          "en" "The base app is free to use. Pro is an optional Microsoft Store subscription; the trial and renewal are handled by the Store.") }}
-      </p>
-
-      <div class="tm-cta">
-        <a class="tm-btn tm-btn-primary" href="{{ $store }}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          {{ partial "termini/t.html" (dict "zh" "从 Microsoft Store 获取" "en" "Get it on Microsoft Store") }}
-        </a>
-        <a class="tm-btn tm-btn-ghost" href="#features">
-          {{ partial "termini/t.html" (dict "zh" "看看它能做什么" "en" "See what it does") }}
+        <button type="button" class="tm-icon-btn" data-theme-toggle aria-label="Toggle theme">
+          <svg class="tm-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="tm-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <a class="tm-btn tm-btn-primary tm-btn-sm" href="{{ $store }}" target="_blank" rel="noopener">
+          {{ partial "termini/t.html" (dict "zh" "下载" "en" "Download") }}
         </a>
       </div>
+    </div>
+  </nav>
 
-      <div class="tm-meta">
-        <span>🪟 Windows 10+</span>
-        <span>🍎 macOS</span>
-        <span>🐧 Linux</span>
-        <span>🔒 {{ partial "termini/t.html" (dict "zh" "无遥测，无云端账号" "en" "No telemetry, no cloud account") }}</span>
+  <!-- ================= Hero ================= -->
+  <header class="tm-wrap tm-hero">
+    <div class="tm-eyebrow">
+      <b>{{ partial "termini/t.html" (dict "zh" "Microsoft Store 已上架" "en" "Available on Microsoft Store") }}</b>
+      <span>·</span>
+      <span>{{ partial "termini/t.html" (dict "zh" "Windows / macOS / Linux" "en" "Windows / macOS / Linux") }}</span>
+    </div>
+
+    <h1>{{ partial "termini/t.html" (dict "zh" "面向 SSH 与本地终端的桌面客户端" "en" "A desktop client for SSH and local shells") }}</h1>
+
+    <p>{{ partial "termini/t.html" (dict
+      "zh" "所有会话都活在同一个窗口的标签页里——连接、传输、转发，都不离开这一块屏幕。"
+      "en" "Every session you open lives in a tab of one window — connections, transfers and tunnels without leaving the screen.") }}</p>
+
+    <div class="tm-hero-cta">
+      <a class="tm-btn tm-btn-primary" href="{{ $store }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        {{ partial "termini/t.html" (dict "zh" "从 Microsoft Store 获取" "en" "Get it on Microsoft Store") }}
+      </a>
+      <a class="tm-btn tm-btn-ghost" href="#features">
+        {{ partial "termini/t.html" (dict "zh" "看看它能做什么" "en" "See what it does") }}
+      </a>
+    </div>
+
+    <div class="tm-hero-meta">
+      <span>🔒 {{ partial "termini/t.html" (dict "zh" "无遥测，无云端账号" "en" "No telemetry, no cloud account") }}</span>
+      <span>💾 {{ partial "termini/t.html" (dict "zh" "数据只存在本机" "en" "Data stays on your machine") }}</span>
+      <span>🌐 {{ partial "termini/t.html" (dict "zh" "中英双语界面" "en" "English and Chinese UI") }}</span>
+    </div>
+
+    {{ partial "termini/window.html" (dict "img" ($hero.Resize "1200x") "alt" "Termini" "label" "Termini" "loading" "eager") }}
+  </header>
+
+  <!-- ================= 事实条 ================= -->
+  <section class="tm-wrap">
+    <div class="tm-facts">
+      <div class="tm-fact">
+        <b>{{ partial "termini/t.html" (dict "zh" "凭据系统级加密" "en" "System-level encryption") }}</b>
+        <span>{{ partial "termini/t.html" (dict "zh" "密码、私钥与口令走操作系统密钥库" "en" "Passwords, keys and passphrases in the OS keystore") }}</span>
+      </div>
+      <div class="tm-fact">
+        <b>{{ partial "termini/t.html" (dict "zh" "本地 SQLite 存储" "en" "Local SQLite storage") }}</b>
+        <span>{{ partial "termini/t.html" (dict "zh" "连接、分组、片段、转发规则都在本机" "en" "Connections, groups, snippets and tunnels on disk") }}</span>
+      </div>
+      <div class="tm-fact">
+        <b>{{ partial "termini/t.html" (dict "zh" "一键导出 / 导入" "en" "One-click export") }}</b>
+        <span>{{ partial "termini/t.html" (dict "zh" "整个连接库备份成 JSON" "en" "Back up the whole library as JSON") }}</span>
+      </div>
+      <div class="tm-fact">
+        <b>{{ partial "termini/t.html" (dict "zh" "三平台可用" "en" "Three platforms") }}</b>
+        <span>{{ partial "termini/t.html" (dict "zh" "Windows、macOS 与 Linux" "en" "Windows, macOS and Linux") }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 特性 ================= -->
+  <section class="tm-wrap tm-section" id="features">
+    <div class="tm-section-head">
+      <span class="tm-kicker">{{ partial "termini/t.html" (dict "zh" "特性" "en" "Features") }}</span>
+      <h2>{{ partial "termini/t.html" (dict "zh" "一个窗口，装下你打开的所有东西" "en" "One window for everything you open") }}</h2>
+      <p>{{ partial "termini/t.html" (dict
+        "zh" "连接、终端、文件传输和端口转发并排放在同一个界面里，而不是散落在好几个工具中。"
+        "en" "Connections, terminals, file transfer and port forwarding sit next to each other instead of in separate tools.") }}</p>
+    </div>
+
+    <!-- 大图展示行 -->
+    <div class="tm-showcase">
+      <div class="tm-showcase-copy">
+        <h3>{{ partial "termini/t.html" (dict "zh" "多标签会话，一屏之内" "en" "Multi-tab sessions, one screen") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "每个连接、串口与本地 shell 都是一个标签页。标签放不下时自动出现滚动指示，悬停即可展开当前标签。"
+          "en" "Every connection, serial port and local shell gets its own tab. When they overflow, scroll indicators appear and the active tab expands on hover.") }}</p>
+        <ul class="tm-points">
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "xterm.js 5 + WebGL 加速渲染" "en" "xterm.js 5 with WebGL-accelerated rendering") }}</span></li>
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "终端内搜索：区分大小写、全词匹配、方向可选" "en" "In-terminal search: case-sensitive, whole-word, either direction") }}</span></li>
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "会话日志：滚动缓冲写入文件" "en" "Session logging: rolling buffer written to a file") }}</span></li>
+        </ul>
+      </div>
+      <div class="tm-showcase-media">
+        {{ partial "termini/window.html" (dict "img" ($hero.Resize "1000x") "alt" "Multi-tab terminal sessions") }}
+      </div>
+    </div>
+
+    <div class="tm-showcase">
+      <div class="tm-showcase-copy">
+        <h3>{{ partial "termini/t.html" (dict "zh" "SFTP 就在手边" "en" "SFTP within reach") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "不用另开工具。抽屉式面板带面包屑路径，列出、上传、下载、重命名、新建目录与删除都在同一块地方完成。"
+          "en" "No second tool needed. The drawer lists, uploads, downloads, renames, creates and deletes — all from the same panel with breadcrumb navigation.") }}</p>
+        <ul class="tm-points">
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "复用已有的 SSH 连接，无需二次认证" "en" "Reuses the SSH connection you already have — no second sign-in") }}</span></li>
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "多文件上传 / 下载，支持从桌面直接拖入" "en" "Multi-file upload and download, plus drag-and-drop from the desktop") }}</span></li>
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "路径面包屑随时回退到上层目录" "en" "Breadcrumbs take you back up the tree at any time") }}</span></li>
+        </ul>
+      </div>
+      <div class="tm-showcase-media">
+        {{ partial "termini/window.html" (dict "img" ($sftp.Resize "1000x") "alt" "SFTP drawer") }}
+      </div>
+    </div>
+
+    <div class="tm-showcase">
+      <div class="tm-showcase-copy">
+        <h3>{{ partial "termini/t.html" (dict "zh" "转发与代理" "en" "Forwarding and proxying") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "本地转发把远端服务拉到本机端口，远程转发反过来把本地服务暴露出去，动态 SOCKS5 则把整台远端机器变成一个代理出口。"
+          "en" "Local forwarding pulls a remote service onto a local port, remote forwarding does the opposite, and a dynamic SOCKS5 proxy turns the whole remote machine into an exit.") }}</p>
+        <ul class="tm-points">
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "三种模式：本地 / 远程 / 动态 SOCKS5" "en" "Three modes: local, remote and dynamic SOCKS5") }}</span></li>
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "规则可分组、配色、单独开关" "en" "Rules can be grouped, colour-coded and toggled individually") }}</span></li>
+          <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "SOCKS5 服务端与转发均自行实现" "en" "The SOCKS5 server and the forwarding are implemented from scratch") }}</span></li>
+        </ul>
+      </div>
+      <div class="tm-showcase-media">
+        {{ partial "termini/window.html" (dict "img" ($forward.Resize "1000x") "alt" "Port forwarding") }}
+      </div>
+    </div>
+
+    <!-- 小卡片 -->
+    <div class="tm-grid">
+      <div class="tm-card">
+        <div class="tm-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></svg></div>
+        <h3>{{ partial "termini/t.html" (dict "zh" "三种认证方式" "en" "Three ways to authenticate") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "密码、私钥与 SSH agent，需要时还可以把 agent 转发给远端主机。"
+          "en" "Password, private key or SSH agent — with optional agent forwarding for the remote host.") }}</p>
       </div>
 
-      <figure class="tm-shot">
-        <img src="{{ ($hero.Resize "1240x").RelPermalink }}" alt="Termini" width="1240" height="775" loading="eager">
+      <div class="tm-card">
+        <div class="tm-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect x="4" y="11" width="16" height="10" rx="2"/></svg></div>
+        <h3>{{ partial "termini/t.html" (dict "zh" "串口与 ZMODEM" "en" "Serial ports & ZMODEM") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "波特率、数据位、校验位与流控都可配置，ZMODEM 传输直接跑在串口链路上。"
+          "en" "Baud rate, data bits, parity and flow control are configurable, and ZMODEM transfers run right over the serial link.") }}</p>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-5-6-5"/><path d="M12 19h8"/></svg></div>
+        <h3>{{ partial "termini/t.html" (dict "zh" "命令片段" "en" "Command snippets") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "把每天都要敲的命令存成带标签的片段，一键发送到当前会话。"
+          "en" "Save the commands you type every day as labelled snippets and run them into the active session in one click.") }}</p>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <h3>{{ partial "termini/t.html" (dict "zh" "快速搜索面板" "en" "Quick search palette") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "一个模糊搜索框，同时找连接、串口、片段与转发规则。"
+          "en" "One fuzzy palette searches connections, serial ports, snippets and tunnels at once.") }}</p>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <h3>{{ partial "termini/t.html" (dict "zh" "凭据加密保存" "en" "Encrypted credentials") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "密码、私钥与口令通过操作系统密钥库加密保存，整个连接库一键导出为 JSON。"
+          "en" "Passwords, private keys and passphrases are encrypted with the operating system keystore, and the whole library exports to JSON in one click.") }}</p>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v12H3z"/><path d="M3 11h18"/></svg></div>
+        <h3>{{ partial "termini/t.html" (dict "zh" "分组与配色" "en" "Groups and colours") }}</h3>
+        <p>{{ partial "termini/t.html" (dict
+          "zh" "连接按分组归类、用颜色区分，右键即可编辑、复制或删除；标签页放不下时显示滚动指示。"
+          "en" "Connections are grouped and colour-coded, with right-click edit, duplicate and delete; tab overflow shows scroll indicators.") }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 界面截图 ================= -->
+  <section class="tm-wrap tm-section" id="screens">
+    <div class="tm-section-head center">
+      <span class="tm-kicker">{{ partial "termini/t.html" (dict "zh" "界面" "en" "Screens") }}</span>
+      <h2>{{ partial "termini/t.html" (dict "zh" "深色、浅色，随你切换" "en" "Dark or light, your call") }}</h2>
+      <p>{{ partial "termini/t.html" (dict
+        "zh" "字体、字号、光标样式与滚动缓冲都能调；界面语言在中文与英文之间随时切换。"
+        "en" "Font, size, cursor style and scrollback are all adjustable, and the interface switches between Chinese and English at any time.") }}</p>
+    </div>
+
+    <div class="tm-gallery">
+      <figure>
+        {{ partial "termini/window.html" (dict "img" ($palette.Resize "900x") "alt" "Quick search") }}
+        <figcaption>{{ partial "termini/t.html" (dict
+          "zh" "快速搜索：连接、片段与转发规则共用一个面板。"
+          "en" "Quick search: connections, snippets and tunnels in a single palette.") }}</figcaption>
       </figure>
-      <p class="tm-shot-caption">
-        {{ partial "termini/t.html" (dict
-          "zh" "多标签会话、分组管理的连接，以及内置的 SFTP 抽屉。"
-          "en" "Multi-tab sessions, grouped connections and an integrated SFTP drawer.") }}
-      </p>
-    </section>
 
-    <!-- ================= 功能 ================= -->
-    <section class="tm-section" id="features">
-      <h2 class="tm-h2">
-        {{ partial "termini/t.html" (dict "zh" "一个窗口，装下你打开的所有东西" "en" "One window for everything you open") }}
-      </h2>
-      <p class="tm-lede">
-        {{ partial "termini/t.html" (dict
-          "zh" "连接、终端、文件传输和端口转发并排放在同一个界面里，而不是散落在好几个工具中。"
-          "en" "Connections, terminals, file transfer and port forwarding sit next to each other instead of in separate tools.") }}
-      </p>
+      <figure>
+        {{ partial "termini/window.html" (dict "img" ($form.Resize "900x") "alt" "New connection") }}
+        <figcaption>{{ partial "termini/t.html" (dict
+          "zh" "新建连接：密码、私钥或 SSH agent。"
+          "en" "New connection: password, private key or SSH agent.") }}</figcaption>
+      </figure>
 
-      <div class="tm-grid">
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "三种认证方式" "en" "Three ways to authenticate") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "密码、私钥与 SSH agent，需要时还可以把 agent 转发给远端主机。"
-            "en" "Password, private key or SSH agent — with optional agent forwarding for the remote host.") }}</p>
-        </div>
+      <figure>
+        {{ partial "termini/window.html" (dict "img" ($snippets.Resize "900x") "alt" "Command snippets") }}
+        <figcaption>{{ partial "termini/t.html" (dict
+          "zh" "命令片段，可分组、可加标签。"
+          "en" "Command snippets, grouped and labelled.") }}</figcaption>
+      </figure>
 
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v12H3z"/><path d="M3 11h18"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "多标签会话" "en" "Multi-tab sessions") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "每个会话一个标签，标签放不下时显示滚动指示，悬停即可展开。"
-            "en" "Every session gets its own tab, with scroll indicators when they overflow and hover-to-expand.") }}</p>
-        </div>
+      <figure>
+        {{ partial "termini/window.html" (dict "img" ($serial.Resize "900x") "alt" "Serial connections") }}
+        <figcaption>{{ partial "termini/t.html" (dict
+          "zh" "串口连接：设备路径与波特率一目了然。"
+          "en" "Serial connections: device path and baud rate at a glance.") }}</figcaption>
+      </figure>
 
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "SFTP 抽屉" "en" "SFTP drawer") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "面包屑路径导航，列出、上传、下载、重命名、新建目录与删除；复用已有的 SSH 连接，无需二次认证。"
-            "en" "Breadcrumb navigation, list, upload, download, rename, mkdir and delete — over the connection you already have, so no second sign-in.") }}</p>
-        </div>
+      <figure>
+        {{ partial "termini/window.html" (dict "img" ($settings.Resize "900x") "alt" "Settings") }}
+        <figcaption>{{ partial "termini/t.html" (dict
+          "zh" "设置面板：主题、字体、光标、滚动与终端行为。"
+          "en" "Settings: theme, font, cursor, scrollback and terminal behaviour.") }}</figcaption>
+      </figure>
 
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h12l-3-3"/><path d="M20 16H8l3 3"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "端口转发与 SOCKS5" "en" "Port forwarding & SOCKS5") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "本地转发、远程转发，以及自己实现的动态 SOCKS5 代理。"
-            "en" "Local forwarding, remote forwarding, and a dynamic SOCKS5 proxy implemented from scratch.") }}</p>
-        </div>
+      <figure>
+        {{ partial "termini/window.html" (dict "img" ($newmenu.Resize "900x") "alt" "New menu") }}
+        <figcaption>{{ partial "termini/t.html" (dict
+          "zh" "一个入口新建终端、连接、串口、片段与端口转发。"
+          "en" "One menu for terminals, connections, serial ports, snippets and tunnels.") }}</figcaption>
+      </figure>
+    </div>
+  </section>
 
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect x="4" y="11" width="16" height="10" rx="2"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "串口与 ZMODEM" "en" "Serial ports & ZMODEM") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "波特率、数据位、校验位与流控都可配置，ZMODEM 传输直接跑在串口链路上。"
-            "en" "Baud rate, data bits, parity and flow control are configurable, and ZMODEM transfers run right over the serial link.") }}</p>
-        </div>
-
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-5-6-5"/><path d="M12 19h8"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "命令片段" "en" "Command snippets") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "把每天都要敲的命令存成带标签的片段，一键发送到当前会话。"
-            "en" "Save the commands you type every day as labelled snippets and run them into the active session in one click.") }}</p>
-        </div>
-
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "快速搜索面板" "en" "Quick search palette") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "一个模糊搜索框，同时找连接、串口、片段与转发规则。"
-            "en" "One fuzzy palette searches connections, serial ports, snippets and tunnels at once.") }}</p>
-        </div>
-
-        <div class="tm-card">
-          <div class="tm-card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-          </div>
-          <h3>{{ partial "termini/t.html" (dict "zh" "凭据加密保存" "en" "Encrypted credentials") }}</h3>
-          <p>{{ partial "termini/t.html" (dict
-            "zh" "密码、私钥与口令通过操作系统密钥库加密保存，整个连接库一键导出为 JSON。"
-            "en" "Passwords, private keys and passphrases are encrypted with the operating system keystore, and the whole library exports to JSON in one click.") }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 界面截图 ================= -->
-    <section class="tm-section">
-      <h2 class="tm-h2">{{ partial "termini/t.html" (dict "zh" "界面一览" "en" "A look inside") }}</h2>
-      <p class="tm-lede">
-        {{ partial "termini/t.html" (dict
-          "zh" "深色与浅色主题，基于 xterm.js 的 WebGL 加速渲染。"
-          "en" "Dark and light themes, with xterm.js rendering accelerated by WebGL.") }}
-      </p>
-
-      <div class="tm-shots">
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($sftp.Resize "900x").RelPermalink }}" alt="SFTP drawer" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "SFTP 抽屉：面包屑导航，上传、下载、新建目录与重命名。"
-            "en" "SFTP drawer: breadcrumb navigation, upload, download, mkdir and rename.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($palette.Resize "900x").RelPermalink }}" alt="Quick search" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "快速搜索：连接、片段与转发规则共用一个面板。"
-            "en" "Quick search: connections, snippets and tunnels in a single palette.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($forward.Resize "900x").RelPermalink }}" alt="Port forwarding" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "端口转发：本地、远程与动态 SOCKS5。"
-            "en" "Port forwarding: local, remote and dynamic SOCKS5.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($form.Resize "900x").RelPermalink }}" alt="New connection" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "新建连接：密码、私钥或 SSH agent。"
-            "en" "New connection: password, private key or SSH agent.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($snippets.Resize "900x").RelPermalink }}" alt="Command snippets" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "命令片段，可分组、可加标签。"
-            "en" "Command snippets, grouped and labelled.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($light.Resize "900x").RelPermalink }}" alt="Light theme" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "浅色主题，字体、字号与光标样式都可调整。"
-            "en" "Light theme, with the font, size and cursor style you prefer.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($serial.Resize "900x").RelPermalink }}" alt="Serial connections" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "串口连接：设备路径与波特率一目了然。"
-            "en" "Serial connections: device path and baud rate at a glance.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($settings.Resize "900x").RelPermalink }}" alt="Settings" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "设置面板：主题、字体、光标、滚动与终端行为。"
-            "en" "Settings: theme, font, cursor, scrollback and terminal behaviour.") }}</figcaption>
-        </figure>
-
-        <figure>
-          <div class="tm-shot">
-            <img src="{{ ($newmenu.Resize "900x").RelPermalink }}" alt="New menu" width="900" height="563" loading="lazy">
-          </div>
-          <figcaption>{{ partial "termini/t.html" (dict
-            "zh" "一个入口新建终端、连接、串口、片段与端口转发。"
-            "en" "One menu for terminals, connections, serial ports, snippets and tunnels.") }}</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ================= 数据与隐私 ================= -->
-    <section class="tm-section">
-      <h2 class="tm-h2">{{ partial "termini/t.html" (dict "zh" "数据留在你本机" "en" "Your data stays on your machine") }}</h2>
-      <div class="tm-callout">
+  <!-- ================= 隐私 ================= -->
+  <section class="tm-wrap tm-section" id="privacy">
+    <div class="tm-privacy">
+      <div>
+        <span class="tm-kicker">{{ partial "termini/t.html" (dict "zh" "隐私" "en" "Privacy") }}</span>
+        <h2>{{ partial "termini/t.html" (dict "zh" "数据留在你本机" "en" "Your data stays on your machine") }}</h2>
         <p>{{ partial "termini/t.html" (dict
           "zh" "连接、分组、片段、转发规则与设置全部存放在本机的 SQLite 数据库里；密码、私钥与口令经操作系统密钥库加密保存。除了你主动连接的主机之外，Termini 不与任何服务器通信。"
           "en" "Connections, groups, snippets, tunnels and settings all live in a local SQLite database; passwords, private keys and passphrases are encrypted through the operating system keystore. Apart from the hosts you connect to yourself, Termini talks to nothing else.") }}</p>
         <p>{{ partial "termini/t.html" (dict
-          "zh" "没有遥测，没有统计分析，也没有云端账号。可选的 GitHub 登录完全由你主动发起，令牌不会离开这台设备。"
-          "en" "No telemetry, no analytics, no cloud account. The optional GitHub sign-in is user-initiated and the token never leaves the device.") }}</p>
+          "zh" "可选的 GitHub 登录完全由你主动发起，令牌不会离开这台设备。"
+          "en" "The optional GitHub sign-in is user-initiated and the token never leaves the device.") }}</p>
       </div>
-    </section>
-
-    <!-- ================= 结尾 CTA ================= -->
-    <section class="tm-final">
-      <h2 class="tm-h2">{{ partial "termini/t.html" (dict "zh" "先试起来" "en" "Give it a try") }}</h2>
-      <p class="tm-lede" style="margin-inline:auto;">
-        {{ partial "termini/t.html" (dict
-          "zh" "微软商店版本可免费使用。Pro 是应用内单独购买的订阅，随时可以在商店里取消。"
-          "en" "The Microsoft Store build is free to use. Pro is a separate subscription you can buy inside the app, and cancel there at any time.") }}
-      </p>
-      <div class="tm-cta">
-        <a class="tm-btn tm-btn-primary" href="{{ $store }}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          {{ partial "termini/t.html" (dict "zh" "从 Microsoft Store 获取" "en" "Get it on Microsoft Store") }}
-        </a>
+      <div class="tm-privacy-mark">
+        <div>
+          <b>{{ partial "termini/t.html" (dict "zh" "遥测 / 统计" "en" "Telemetry / analytics") }}</b>
+          <span>{{ partial "termini/t.html" (dict "zh" "无" "en" "None") }}</span>
+        </div>
+        <div>
+          <b>{{ partial "termini/t.html" (dict "zh" "云端账号" "en" "Cloud account") }}</b>
+          <span>{{ partial "termini/t.html" (dict "zh" "不需要" "en" "Not required") }}</span>
+        </div>
+        <div>
+          <b>{{ partial "termini/t.html" (dict "zh" "数据存放" "en" "Data storage") }}</b>
+          <span>{{ partial "termini/t.html" (dict "zh" "本机 SQLite" "en" "Local SQLite") }}</span>
+        </div>
+        <div>
+          <b>{{ partial "termini/t.html" (dict "zh" "对外通信" "en" "Outbound traffic") }}</b>
+          <span>{{ partial "termini/t.html" (dict "zh" "仅你连接的主机" "en" "Only the hosts you connect to") }}</span>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </div>
+  <!-- ================= 结尾 CTA ================= -->
+  <section class="tm-wrap">
+    <div class="tm-final">
+      <h2>{{ partial "termini/t.html" (dict "zh" "先试起来" "en" "Give it a try") }}</h2>
+      <p>{{ partial "termini/t.html" (dict
+        "zh" "微软商店版本可免费使用。Pro 是应用内单独购买的订阅，随时可以在商店里取消。"
+        "en" "The Microsoft Store build is free to use. Pro is a separate subscription you can buy inside the app, and cancel there at any time.") }}</p>
+      <a class="tm-btn tm-btn-primary" href="{{ $store }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        {{ partial "termini/t.html" (dict "zh" "从 Microsoft Store 获取" "en" "Get it on Microsoft Store") }}
+      </a>
+    </div>
+  </section>
 
-  {{ $css := resources.Get "css/termini.css" | resources.Minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-  {{ $js := resources.Get "js/termini-lang.js" | resources.Minify | fingerprint }}
-  <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+  <!-- ================= 页脚 ================= -->
+  <footer class="tm-footer">
+    <div class="tm-wrap tm-footer-inner">
+      <span>© 2026 ifindv · Termini</span>
+      <div class="tm-footer-links">
+        <a href="{{ $store }}" target="_blank" rel="noopener">{{ partial "termini/t.html" (dict "zh" "Microsoft Store" "en" "Microsoft Store") }}</a>
+        <a href="https://ifindv.github.io/">{{ partial "termini/t.html" (dict "zh" "作者博客" "en" "Author's blog") }}</a>
+      </div>
+    </div>
+  </footer>
 {{ end }}
