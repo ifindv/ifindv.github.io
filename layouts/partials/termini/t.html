@@ -1,0 +1,5 @@
+{{- /*
+  双语文本：中文与英文各渲染一个 span，可见性由 CSS 按 <html data-lang> 决定。
+  用法：{{ partial "termini/t.html" (dict "zh" "中文" "en" "English") }}
+*/ -}}
+<span class="tm-l tm-l-zh">{{ .zh }}</span><span class="tm-l tm-l-en">{{ .en }}</span>

@@ -1,0 +1,432 @@
+/* ============================================================
+   Termini landing page — /termini/
+   自定义样式：主题 CSS 是预编译的，Tailwind 类不一定齐全，
+   所以这一页的样式全部手写，用主题的 CSS 变量跟随明暗主题。
+   ============================================================ */
+
+.tm-page {
+  --tm-gap: 1.5rem;
+  --tm-radius: 0.9rem;
+  color: rgb(var(--color-neutral-900));
+}
+
+.dark .tm-page {
+  color: rgb(var(--color-neutral-200));
+}
+
+/* ---------- 语言切换 ---------- */
+
+.tm-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--color-neutral-300));
+  background: rgb(var(--color-neutral-100));
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.dark .tm-lang {
+  border-color: rgb(var(--color-neutral-700));
+  background: rgb(var(--color-neutral-900));
+}
+
+.tm-lang button {
+  border: 0;
+  cursor: pointer;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(var(--color-neutral-600));
+  font: inherit;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.dark .tm-lang button {
+  color: rgb(var(--color-neutral-400));
+}
+
+.tm-lang button:hover {
+  color: rgb(var(--color-neutral-900));
+}
+
+.dark .tm-lang button:hover {
+  color: rgb(var(--color-neutral-100));
+}
+
+.tm-lang button.is-active {
+  background: rgb(var(--color-primary-500));
+  color: #fff;
+}
+
+.tm-lang button:focus-visible {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 2px;
+}
+
+/* ---------- Hero ---------- */
+
+.tm-hero {
+  position: relative;
+  padding: 3rem 0 1rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.tm-hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: 60rem;
+  height: 60rem;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgb(var(--color-primary-500) / 0.14), transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tm-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tm-topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.25rem;
+}
+
+.tm-logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  box-shadow: 0 12px 34px -10px rgb(var(--color-primary-500) / 0.55);
+  margin: 0 auto 1.25rem;
+  display: block;
+}
+
+.tm-title {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.tm-sub {
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  font-weight: 500;
+  color: rgb(var(--color-neutral-600));
+  margin: 0 auto 0.6rem;
+  max-width: 42rem;
+}
+
+.dark .tm-sub {
+  color: rgb(var(--color-neutral-300));
+}
+
+.tm-note {
+  font-size: 0.9rem;
+  color: rgb(var(--color-neutral-500));
+  margin: 0 auto 1.75rem;
+  max-width: 40rem;
+}
+
+.dark .tm-note {
+  color: rgb(var(--color-neutral-400));
+}
+
+.tm-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.65rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.tm-btn:hover {
+  transform: translateY(-1px);
+}
+
+.tm-btn-primary {
+  background: rgb(var(--color-primary-500));
+  color: #fff;
+  box-shadow: 0 10px 24px -12px rgb(var(--color-primary-500) / 0.9);
+}
+
+.tm-btn-primary:hover {
+  background: rgb(var(--color-primary-600));
+  box-shadow: 0 14px 30px -12px rgb(var(--color-primary-500) / 0.9);
+}
+
+.tm-btn-ghost {
+  border-color: rgb(var(--color-neutral-300));
+  color: rgb(var(--color-neutral-700));
+  background: transparent;
+}
+
+.dark .tm-btn-ghost {
+  border-color: rgb(var(--color-neutral-700));
+  color: rgb(var(--color-neutral-200));
+}
+
+.tm-btn-ghost:hover {
+  border-color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-primary-500));
+}
+
+.tm-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: rgb(var(--color-neutral-500));
+  margin-bottom: 2.5rem;
+}
+
+.dark .tm-meta {
+  color: rgb(var(--color-neutral-400));
+}
+
+.tm-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ---------- 截图外框 ---------- */
+
+.tm-shot {
+  margin: 0 auto;
+  max-width: 62rem;
+  border-radius: var(--tm-radius);
+  overflow: hidden;
+  border: 1px solid rgb(var(--color-neutral-300));
+  background: #0b1220;
+  box-shadow: 0 30px 70px -30px rgb(0 0 0 / 0.55);
+}
+
+.dark .tm-shot {
+  border-color: rgb(var(--color-neutral-700));
+  box-shadow: 0 30px 70px -25px rgb(0 0 0 / 0.8);
+}
+
+.tm-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tm-shot-caption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgb(var(--color-neutral-500));
+  margin-top: 0.75rem;
+}
+
+.dark .tm-shot-caption {
+  color: rgb(var(--color-neutral-400));
+}
+
+/* ---------- 通用区块 ---------- */
+
+.tm-section {
+  margin: 4.5rem 0 0;
+}
+
+.tm-h2 {
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem;
+}
+
+.tm-lede {
+  color: rgb(var(--color-neutral-600));
+  max-width: 46rem;
+  margin: 0 0 2rem;
+}
+
+.dark .tm-lede {
+  color: rgb(var(--color-neutral-300));
+}
+
+/* ---------- 功能卡片 ---------- */
+
+.tm-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.tm-card {
+  border: 1px solid rgb(var(--color-neutral-200));
+  border-radius: var(--tm-radius);
+  padding: 1.4rem;
+  background: rgb(var(--color-neutral-50));
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.dark .tm-card {
+  border-color: rgb(var(--color-neutral-700));
+  background: rgb(var(--color-neutral-800) / 0.55);
+}
+
+.tm-card:hover {
+  border-color: rgb(var(--color-primary-500));
+  transform: translateY(-2px);
+}
+
+.tm-card-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.7rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.9rem;
+  background: rgb(var(--color-primary-500) / 0.14);
+  color: rgb(var(--color-primary-500));
+}
+
+.tm-card h3 {
+  font-size: 1.02rem;
+  font-weight: 650;
+  margin: 0 0 0.4rem;
+}
+
+.tm-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgb(var(--color-neutral-600));
+}
+
+.dark .tm-card p {
+  color: rgb(var(--color-neutral-300));
+}
+
+.tm-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
+  background: rgb(var(--color-secondary-500) / 0.16);
+  color: rgb(var(--color-secondary-600));
+}
+
+.dark .tm-tag {
+  color: rgb(var(--color-secondary-400));
+}
+
+/* ---------- 截图网格 ---------- */
+
+.tm-shots {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+}
+
+.tm-shots figure {
+  margin: 0;
+}
+
+.tm-shots figcaption {
+  font-size: 0.85rem;
+  color: rgb(var(--color-neutral-500));
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+.dark .tm-shots figcaption {
+  color: rgb(var(--color-neutral-400));
+}
+
+/* ---------- 隐私 / 数据 ---------- */
+
+.tm-callout {
+  border: 1px solid rgb(var(--color-neutral-200));
+  border-left: 4px solid rgb(var(--color-primary-500));
+  border-radius: var(--tm-radius);
+  padding: 1.5rem 1.75rem;
+  background: rgb(var(--color-neutral-50));
+}
+
+.dark .tm-callout {
+  border-color: rgb(var(--color-neutral-700));
+  border-left-color: rgb(var(--color-primary-500));
+  background: rgb(var(--color-neutral-800) / 0.55);
+}
+
+.tm-callout p {
+  margin: 0 0 0.6rem;
+  line-height: 1.75;
+}
+
+.tm-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 结尾 CTA ---------- */
+
+.tm-final {
+  margin: 4.5rem 0 1rem;
+  border-radius: calc(var(--tm-radius) * 1.4);
+  padding: 3rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgb(var(--color-primary-500) / 0.14), rgb(var(--color-secondary-500) / 0.12));
+  border: 1px solid rgb(var(--color-primary-500) / 0.25);
+}
+
+.tm-final .tm-cta {
+  margin-bottom: 0;
+}
+
+/* ---------- 语言显隐 ---------- */
+
+/* 每个文案渲染两个 span，<html data-lang> 决定显示哪一个。
+   没有 JS 时 <noscript> 里的样式会隐藏英文，只留中文。 */
+
+html[data-lang="en"] .tm-l-zh {
+  display: none;
+}
+
+html[data-lang="zh"] .tm-l-en {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .tm-hero {
+    padding-top: 1.5rem;
+  }
+
+  .tm-logo {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+  }
+
+  .tm-final {
+    padding: 2rem 1.25rem;
+  }
+}
