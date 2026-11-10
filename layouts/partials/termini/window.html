@@ -1,7 +1,10 @@
-{{- /* 截图外框：圆角 + 描边 + 投影。截图本身就是应用窗口内容，不再套一层假标题栏。 */ -}}
+{{- /* 截图外框：圆角 + 描边 + 投影。截图本身就是应用窗口内容，不再套一层假标题栏。
+       写死宽高属性，避免图片加载时的布局抖动（截图统一 1440×900）。 */ -}}
 {{- $img := .img -}}
 {{- $alt := .alt -}}
 {{- $loading := .loading | default "lazy" -}}
+{{- $w := .w | default 900 -}}
+{{- $h := int (math.Round (mul (float $w) 0.625)) -}}
 <div class="tm-shot">
-  <img src="{{ $img.RelPermalink }}" alt="{{ $alt }}" loading="{{ $loading }}">
+  <img src="{{ $img.RelPermalink }}" alt="{{ $alt }}" width="{{ $w }}" height="{{ $h }}" loading="{{ $loading }}">
 </div>

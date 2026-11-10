@@ -20,7 +20,7 @@
   <nav class="tm-nav" id="tm-nav">
     <div class="tm-wrap tm-nav-inner">
       <a class="tm-brand" href="/termini/">
-        <img src="{{ $icon.RelPermalink }}" alt="Termini">
+        <img src="{{ $icon.RelPermalink }}" alt="Termini" width="28" height="28">
         <span>Termini</span>
       </a>
 
@@ -76,7 +76,7 @@
       <span>🌐 {{ partial "termini/t.html" (dict "zh" "中英双语界面" "en" "English and Chinese UI") }}</span>
     </div>
 
-    {{ partial "termini/window.html" (dict "img" ($hero.Resize "1200x") "alt" "Termini" "label" "Termini" "loading" "eager") }}
+    {{ partial "termini/window.html" (dict "img" ($hero.Resize "1200x") "alt" "Termini" "loading" "eager" "w" 1200) }}
   </header>
 
   <!-- ================= 事实条 ================= -->
@@ -125,7 +125,7 @@
         </ul>
       </div>
       <div class="tm-showcase-media">
-        {{ partial "termini/window.html" (dict "img" ($hero.Resize "1000x") "alt" "Multi-tab terminal sessions") }}
+        {{ partial "termini/window.html" (dict "img" ($hero.Resize "1000x") "alt" "Multi-tab terminal sessions" "w" 1000) }}
       </div>
     </div>
 
@@ -142,7 +142,7 @@
         </ul>
       </div>
       <div class="tm-showcase-media">
-        {{ partial "termini/window.html" (dict "img" ($sftp.Resize "1000x") "alt" "SFTP drawer") }}
+        {{ partial "termini/window.html" (dict "img" ($sftp.Resize "1000x") "alt" "SFTP drawer" "w" 1000) }}
       </div>
     </div>
 
@@ -159,7 +159,7 @@
         </ul>
       </div>
       <div class="tm-showcase-media">
-        {{ partial "termini/window.html" (dict "img" ($forward.Resize "1000x") "alt" "Port forwarding") }}
+        {{ partial "termini/window.html" (dict "img" ($forward.Resize "1000x") "alt" "Port forwarding" "w" 1000) }}
       </div>
     </div>
 
@@ -227,42 +227,42 @@
 
     <div class="tm-gallery">
       <figure>
-        {{ partial "termini/window.html" (dict "img" ($palette.Resize "900x") "alt" "Quick search") }}
+        {{ partial "termini/window.html" (dict "img" ($palette.Resize "900x") "alt" "Quick search" "w" 900) }}
         <figcaption>{{ partial "termini/t.html" (dict
           "zh" "快速搜索：连接、片段与转发规则共用一个面板。"
           "en" "Quick search: connections, snippets and tunnels in a single palette.") }}</figcaption>
       </figure>
 
       <figure>
-        {{ partial "termini/window.html" (dict "img" ($form.Resize "900x") "alt" "New connection") }}
+        {{ partial "termini/window.html" (dict "img" ($form.Resize "900x") "alt" "New connection" "w" 900) }}
         <figcaption>{{ partial "termini/t.html" (dict
           "zh" "新建连接：密码、私钥或 SSH agent。"
           "en" "New connection: password, private key or SSH agent.") }}</figcaption>
       </figure>
 
       <figure>
-        {{ partial "termini/window.html" (dict "img" ($snippets.Resize "900x") "alt" "Command snippets") }}
+        {{ partial "termini/window.html" (dict "img" ($snippets.Resize "900x") "alt" "Command snippets" "w" 900) }}
         <figcaption>{{ partial "termini/t.html" (dict
           "zh" "命令片段，可分组、可加标签。"
           "en" "Command snippets, grouped and labelled.") }}</figcaption>
       </figure>
 
       <figure>
-        {{ partial "termini/window.html" (dict "img" ($serial.Resize "900x") "alt" "Serial connections") }}
+        {{ partial "termini/window.html" (dict "img" ($serial.Resize "900x") "alt" "Serial connections" "w" 900) }}
         <figcaption>{{ partial "termini/t.html" (dict
           "zh" "串口连接：设备路径与波特率一目了然。"
           "en" "Serial connections: device path and baud rate at a glance.") }}</figcaption>
       </figure>
 
       <figure>
-        {{ partial "termini/window.html" (dict "img" ($settings.Resize "900x") "alt" "Settings") }}
+        {{ partial "termini/window.html" (dict "img" ($settings.Resize "900x") "alt" "Settings" "w" 900) }}
         <figcaption>{{ partial "termini/t.html" (dict
           "zh" "设置面板：主题、字体、光标、滚动与终端行为。"
           "en" "Settings: theme, font, cursor, scrollback and terminal behaviour.") }}</figcaption>
       </figure>
 
       <figure>
-        {{ partial "termini/window.html" (dict "img" ($newmenu.Resize "900x") "alt" "New menu") }}
+        {{ partial "termini/window.html" (dict "img" ($newmenu.Resize "900x") "alt" "New menu" "w" 900) }}
         <figcaption>{{ partial "termini/t.html" (dict
           "zh" "一个入口新建终端、连接、串口、片段与端口转发。"
           "en" "One menu for terminals, connections, serial ports, snippets and tunnels.") }}</figcaption>
