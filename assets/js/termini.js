@@ -1,12 +1,13 @@
 /* ============================================================
-   Termini 落地页 —— 语言切换 / 主题切换 / 导航吸顶描边
-   语言与主题都在 <html> 上用 data-* 表达，样式表据此显隐。
+   Termini 落地页 —— 语言 / 主题切换 + 滚动浮现 + 阅读进度
+   语言与主题都写在 <html> 的 data-* 上，样式表据此显隐。
    ============================================================ */
 
 (function () {
   'use strict';
 
   var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function store(key, value) {
     try {
@@ -38,6 +39,64 @@
     store('termini-theme', theme);
   }
 
+  /* ---------------- 滚动浮现 ---------------- */
+
+  function initReveal() {
+    var items = document.querySelectorAll('.reveal');
+    if (!items.length) return;
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+    );
+
+    for (var j = 0; j < items.length; j++) observer.observe(items[j]);
+  }
+
+  /* ---------------- 导航吸顶 + 阅读进度 ---------------- */
+
+  function initScroll() {
+    var nav = document.getElementById('tm-nav');
+    var bar = document.getElementById('tm-progress');
+    if (!nav) return;
+
+    var ticking = false;
+
+    function update() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      nav.classList.toggle('is-stuck', y > 8);
+      if (bar) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (max > 0 ? Math.min(1, y / max) * 100 : 0) + '%';
+      }
+      ticking = false;
+    }
+
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', update);
+    update();
+  }
+
   /* ---------------- 事件绑定 ---------------- */
 
   document.addEventListener('click', function (e) {
@@ -53,19 +112,10 @@
     }
   });
 
-  /* ---------------- 导航吸顶描边 ---------------- */
-
-  var nav = document.getElementById('tm-nav');
-  if (nav) {
-    var onScroll = function () {
-      nav.classList.toggle('is-stuck', window.scrollY > 8);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
   /* ---------------- 初始化 ---------------- */
 
   setLang(root.getAttribute('data-lang'));
   setTheme(root.getAttribute('data-theme'));
+  initReveal();
+  initScroll();
 })();

@@ -4,7 +4,7 @@
 */ -}}
 {{- $store := "https://apps.microsoft.com/store/detail/9MZ5VWT9L6J6?cid=DevShareMCLPCS" -}}
 {{- $icon := resources.Get "img/termini/icon.png" -}}
-{{- $og := (resources.Get "img/termini/hero.png").Resize "1200x" -}}
+{{- $og := (resources.Get "img/termini/main-light.png").Resize "1200x" -}}
 {{- $desc := .Params.description -}}
 <!doctype html>
 <html lang="zh-CN" data-theme="dark">
@@ -36,10 +36,10 @@
       var r = document.documentElement;
       try {
         r.setAttribute('data-lang', localStorage.getItem('termini-lang') || 'zh');
-        r.setAttribute('data-theme', localStorage.getItem('termini-theme') || 'dark');
+        r.setAttribute('data-theme', localStorage.getItem('termini-theme') || 'light');
       } catch (e) {
         r.setAttribute('data-lang', 'zh');
-        r.setAttribute('data-theme', 'dark');
+        r.setAttribute('data-theme', 'light');
       }
     })();
   </script>
@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 </head>
 <body>
-  <div class="tm-noise" aria-hidden="true"></div>
+  <div class="tm-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   {{ block "main" . }}{{ end }}
   {{ $js := resources.Get "js/termini.js" | resources.Minify | fingerprint }}
   <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
