@@ -860,7 +860,8 @@ html[data-theme="dark"] .tm-btn-primary:hover {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
   margin-bottom: 0.4rem;
 }
 
