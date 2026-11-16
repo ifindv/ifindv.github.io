@@ -830,10 +830,13 @@ html[data-theme="dark"] .tm-btn-primary:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  align-items: start;
+  /* stretch 而不是 start：两张卡等高，按钮一起贴底 */
+  align-items: stretch;
 }
 
 .tm-plan {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--tm-border);
   border-radius: var(--tm-r);
   padding: 1.75rem;
@@ -865,6 +868,22 @@ html[data-theme="dark"] .tm-btn-primary:hover {
   font-size: 1.15rem;
 }
 
+/* Pro 卡片标题旁的试用标签 */
+.tm-plan-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.45rem;
+  padding: 0.14rem 0.62rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--tm-accent);
+  border: 1px solid color-mix(in srgb, var(--tm-accent) 35%, transparent);
+  border-radius: 999px;
+  background: var(--tm-accent-soft);
+  white-space: nowrap;
+}
+
 .tm-plan-price {
   font-size: 0.9rem;
   color: var(--tm-text-faint);
@@ -889,6 +908,9 @@ html[data-theme="dark"] .tm-btn-primary:hover {
   margin: 0 0 1.5rem;
   display: grid;
   gap: 0.6rem;
+  /* 占满剩余高度，条目多的一卡不会把按钮顶得更高 */
+  flex: 1 0 auto;
+  align-content: start;
 }
 
 .tm-plan li {
@@ -1066,6 +1088,16 @@ html[data-theme="dark"] .tm-btn-primary:hover {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: auto;
+}
+
+/* 四个包名的平台：排成两列两行，比自动换行整齐 */
+.tm-dl-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.tm-dl-links-grid .tm-btn {
+  width: 100%;
 }
 
 /* ---------------- 结尾 CTA ---------------- */

@@ -273,7 +273,10 @@
 
       <div class="tm-plan is-pro reveal" style="--d: 100ms">
         <div class="tm-plan-head">
-          <h3>{{ partial "termini/t.html" (dict "zh" "Pro 订阅" "en" "Pro subscription") }}</h3>
+          <h3>
+            {{ partial "termini/t.html" (dict "zh" "Pro 订阅" "en" "Pro subscription") }}
+            <span class="tm-plan-tag">{{ partial "termini/t.html" (dict "zh" "2 周免费试用" "en" "2-week free trial") }}</span>
+          </h3>
           <span class="tm-plan-price"><b>$1.69</b> {{ partial "termini/t.html" (dict "zh" "/ 月起" "en" "/ month") }}</span>
         </div>
         <p class="tm-plan-sub">{{ partial "termini/t.html" (dict "zh" "在应用内通过微软商店购买，随时可取消" "en" "Bought inside the app via Microsoft Store — cancel any time") }}</p>
@@ -349,15 +352,12 @@
           <span class="tm-dl-tag">x86-64</span>
         </div>
         <p class="tm-dl-note">{{ partial "termini/t.html" (dict
-          "zh" "商店版支持应用内购买 Pro 订阅；便携版 exe 不安装任何东西，下载即用。"
-          "en" "The Store build can buy the Pro subscription inside the app; the portable .exe installs nothing — download and run.") }}
+          "zh" "在微软商店获取，免费版永久可用；Pro 订阅在应用内购买。"
+          "en" "Get it from the Microsoft Store — the core is free to use, and Pro is bought inside the app.") }}
         </p>
         <div class="tm-dl-links">
           <a class="tm-btn tm-btn-primary tm-btn-sm" href="{{ $store }}" target="_blank" rel="noopener">
             {{ partial "termini/t.html" (dict "zh" "从 Microsoft Store 获取" "en" "Microsoft Store") }}
-          </a>
-          <a class="tm-btn tm-btn-ghost tm-btn-sm" href="{{ $dl.windows_portable }}" download>
-            {{ partial "termini/t.html" (dict "zh" "便携版 .exe" "en" "Portable .exe") }}
           </a>
         </div>
       </div>
@@ -390,11 +390,11 @@
           "zh" "deb 用于 Debian、Ubuntu，rpm 用于 Fedora、RHEL 与 openSUSE。"
           "en" "deb for Debian and Ubuntu, rpm for Fedora, RHEL and openSUSE.") }}
         </p>
-        <div class="tm-dl-links">
+        <div class="tm-dl-links tm-dl-links-grid">
           <a class="tm-btn tm-btn-primary tm-btn-sm" href="{{ $dl.linux_x64_deb }}" download>
             {{ partial "termini/t.html" (dict "zh" "x86-64 .deb" "en" "x86-64 .deb") }}
           </a>
-          <a class="tm-btn tm-btn-ghost tm-btn-sm" href="{{ $dl.linux_x64_rpm }}" download>
+          <a class="tm-btn tm-btn-primary tm-btn-sm" href="{{ $dl.linux_x64_rpm }}" download>
             {{ partial "termini/t.html" (dict "zh" "x86-64 .rpm" "en" "x86-64 .rpm") }}
           </a>
           <a class="tm-btn tm-btn-ghost tm-btn-sm" href="{{ $dl.linux_arm64_deb }}" download>
