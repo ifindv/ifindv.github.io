@@ -1,0 +1,16 @@
+# Termini 宣传页的版本号与下载地址。
+#
+# version 跟着 package.json 走：每次发版改这里，页面上的下载链接就指向对应
+# 的发布包，不用动模板。
+version: "1.0.8"
+
+# 下载地址。当前是 GitHub Releases 的占位地址 —— 发布页建好之后即可直接使用；
+# 要换托管位置也只需要改这个文件，模板不动。
+downloads:
+  windows_portable: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-win.exe"
+  macos_intel: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-mac.dmg"
+  macos_arm64: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-mac-arm64.dmg"
+  linux_x64_deb: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-linux-x64.deb"
+  linux_x64_rpm: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-linux-x64.rpm"
+  linux_arm64_deb: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-linux-arm64.deb"
+  linux_arm64_rpm: "https://github.com/ifindv/termini/releases/download/v1.0.8/Termini-1.0.8-linux-arm64.rpm"
