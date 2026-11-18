@@ -25,7 +25,7 @@ location: "中国"
 # icon 指向 assets/icons/<icon>.svg；主题自带的图标名也可以直接用
 # （github / x-twitter / youtube / instagram / telegram / email ...）
 #
-# ⚠️ 标了「待填」的 handle / url 是占位值，上线前记得替换成真实账号。
+# 社交账号。icon 指向 assets/icons/<icon>.svg；主题自带的图标名也可以直接用
 links:
   - name: "GitHub"
     icon: "github"
@@ -34,33 +34,28 @@ links:
 
   - name: "X (Twitter)"
     icon: "x-twitter"
-    handle: "@your_handle" # 待填
-    url: "https://x.com/your_handle" # 待填
+    handle: "@ifindv9369"
+    url: "https://x.com/ifindv9369"
 
   - name: "YouTube"
     icon: "youtube"
-    handle: "@your_handle" # 待填
-    url: "https://youtube.com/@your_handle" # 待填
-
-  - name: "Instagram"
-    icon: "instagram"
-    handle: "@your_handle" # 待填
-    url: "https://instagram.com/your_handle" # 待填
-
-  - name: "Telegram"
-    icon: "telegram"
-    handle: "@your_handle" # 待填
-    url: "https://t.me/your_handle" # 待填
+    handle: "@ifindv"
+    url: "https://www.youtube.com/@ifindv"
 
   - name: "Bilibili"
     icon: "bilibili"
-    handle: "@your_handle" # 待填
-    url: "https://space.bilibili.com/your_id" # 待填
+    handle: "UID 62264685"
+    url: "https://space.bilibili.com/62264685"
+
+  - name: "Instagram"
+    icon: "instagram"
+    handle: "@ifindv9369"
+    url: "https://www.instagram.com/ifindv9369/"
 
   - name: "Email"
     icon: "email"
-    handle: "your.email@example.com" # 待填
-    url: "your.email@example.com" # 待填
+    handle: "ifindv@qq.com"
+    url: "ifindv@qq.com"
 
 # ===== 个人项目 =====
 #
