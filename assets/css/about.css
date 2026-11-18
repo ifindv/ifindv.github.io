@@ -1,0 +1,481 @@
+/* ============================================================
+   关于页面 —— 资料卡 / 社交链接 / 项目 / 博客统计
+   作用域限定在 .ab 内，跟主题的 Tailwind 工具类互不干扰。
+   ============================================================ */
+
+.ab {
+  max-width: 52rem;
+  margin-inline: auto;
+  padding-block: 1rem 4rem;
+}
+
+/* ---------- 页面标题 ---------- */
+
+.ab-head {
+  margin-bottom: 1.75rem;
+}
+
+.ab-title {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: rgba(var(--color-neutral-900), 1);
+}
+
+.dark .ab-title {
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+.ab-subtitle {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.dark .ab-subtitle {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+/* ---------- 资料卡 ---------- */
+
+.ab-profile {
+  padding: 1.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.8);
+  background:
+    radial-gradient(130% 120% at 0% 0%, rgba(var(--color-primary-500), 0.1), transparent 55%),
+    rgba(var(--color-neutral-100), 0.55);
+}
+
+.dark .ab-profile {
+  border-color: rgba(var(--color-neutral-700), 0.9);
+  background:
+    radial-gradient(130% 120% at 0% 0%, rgba(var(--color-primary-500), 0.18), transparent 55%),
+    rgba(var(--color-neutral-800), 0.45);
+}
+
+.ab-profile-head {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ab-avatar {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 2px solid rgba(var(--color-neutral-300), 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.dark .ab-avatar {
+  border-color: rgba(var(--color-neutral-600), 1);
+}
+
+.ab-profile-text {
+  min-width: 0;
+}
+
+.ab-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: rgba(var(--color-neutral-900), 1);
+}
+
+.dark .ab-name {
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+.ab-headline {
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.dark .ab-headline {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.ab-bio {
+  margin-top: 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(var(--color-neutral-700), 1);
+}
+
+.dark .ab-bio {
+  color: rgba(var(--color-neutral-300), 1);
+}
+
+.ab-bio > :first-child {
+  margin-top: 0;
+}
+
+.ab-bio > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 小徽章 ---------- */
+
+.ab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.ab-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.9);
+  background: rgba(var(--color-neutral-50), 0.7);
+  color: rgba(var(--color-neutral-600), 1);
+}
+
+.dark .ab-chip {
+  border-color: rgba(var(--color-neutral-700), 0.9);
+  background: rgba(var(--color-neutral-800), 0.6);
+  color: rgba(var(--color-neutral-300), 1);
+}
+
+.ab-chip .icon svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.ab-chip-link {
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.ab-chip-link:hover {
+  border-color: rgba(var(--color-primary-500), 0.6);
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-chip-link:hover {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: rgb(var(--color-primary-500));
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-500), 0.18);
+}
+
+/* ---------- 区块 ---------- */
+
+.ab-section {
+  margin-top: 2.75rem;
+}
+
+.ab-section-title {
+  margin-bottom: 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.dark .ab-section-title {
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+/* ---------- 社交链接 ---------- */
+
+.ab-links {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+}
+
+.ab-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.8);
+  background: rgba(var(--color-neutral-100), 0.45);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.dark .ab-link {
+  border-color: rgba(var(--color-neutral-700), 0.85);
+  background: rgba(var(--color-neutral-800), 0.4);
+}
+
+.ab-link:hover {
+  border-color: rgba(var(--color-primary-500), 0.55);
+  background: rgba(var(--color-primary-500), 0.07);
+  transform: translateY(-1px);
+}
+
+.ab-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 0.55rem;
+  font-size: 1.05rem;
+  background: rgba(var(--color-neutral-200), 0.85);
+  color: rgba(var(--color-neutral-700), 1);
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.dark .ab-link-icon {
+  background: rgba(var(--color-neutral-700), 0.55);
+  color: rgba(var(--color-neutral-200), 1);
+}
+
+.ab-link:hover .ab-link-icon {
+  background: rgba(var(--color-primary-500), 0.16);
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-link:hover .ab-link-icon {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-link-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.ab-link-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.ab-link-handle {
+  font-size: 0.78rem;
+  color: rgba(var(--color-neutral-500), 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ab-link-arrow {
+  margin-left: auto;
+  padding-left: 0.4rem;
+  font-size: 0.9rem;
+  color: rgba(var(--color-neutral-400), 1);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.ab-link:hover .ab-link-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ---------- 项目 ---------- */
+
+.ab-projects {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+}
+
+.ab-project {
+  display: flex;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.8);
+  background: rgba(var(--color-neutral-100), 0.45);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.dark .ab-project {
+  border-color: rgba(var(--color-neutral-700), 0.85);
+  background: rgba(var(--color-neutral-800), 0.4);
+}
+
+.ab-project:hover {
+  border-color: rgba(var(--color-primary-500), 0.55);
+  background: rgba(var(--color-primary-500), 0.06);
+  transform: translateY(-2px);
+}
+
+.ab-project-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 0.6rem;
+  object-fit: cover;
+}
+
+.ab-project-body {
+  min-width: 0;
+}
+
+.ab-project-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ab-project-name {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: rgba(var(--color-neutral-900), 1);
+}
+
+.dark .ab-project-name {
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+.ab-badge {
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(var(--color-primary-500), 0.12);
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-badge {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-project-desc {
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(var(--color-neutral-600), 1);
+}
+
+.dark .ab-project-desc {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.ab-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.ab-tag {
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.35rem;
+  font-size: 0.72rem;
+  background: rgba(var(--color-neutral-200), 0.75);
+  color: rgba(var(--color-neutral-600), 1);
+}
+
+.dark .ab-tag {
+  background: rgba(var(--color-neutral-700), 0.5);
+  color: rgba(var(--color-neutral-300), 1);
+}
+
+/* ---------- 统计 ---------- */
+
+.ab-stats {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+}
+
+.ab-stat {
+  padding: 0.9rem 0.6rem;
+  text-align: center;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.7);
+  background: rgba(var(--color-neutral-100), 0.4);
+}
+
+.dark .ab-stat {
+  border-color: rgba(var(--color-neutral-700), 0.8);
+  background: rgba(var(--color-neutral-800), 0.35);
+}
+
+.ab-stat-num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-stat-num {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-stat-label {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+/* ---------- 手写正文 ---------- */
+
+/* 正文跟上面的卡片区分开：一条细线 + 留白，标出这是"写"的部分 */
+.ab-prose {
+  margin-top: 2.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(var(--color-neutral-300), 0.7);
+}
+
+.dark .ab-prose {
+  border-top-color: rgba(var(--color-neutral-700), 0.8);
+}
+
+.ab-prose h2 {
+  font-size: 1.25rem;
+}
+
+.ab-prose h3 {
+  font-size: 1.05rem;
+}
+
+/* ---------- 窄屏 ---------- */
+
+@media (max-width: 480px) {
+  .ab-profile {
+    padding: 1.25rem;
+  }
+
+  .ab-profile-head {
+    gap: 1rem;
+  }
+
+  .ab-avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .ab-name {
+    font-size: 1.25rem;
+  }
+}

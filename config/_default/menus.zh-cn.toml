@@ -31,3 +31,11 @@
   title = "旅行 · Trips"
   pre = "globe"
   weight = 32
+
+[[main]]
+  identifier = "about"
+  url = "/about/"
+  name = ""
+  title = "关于 · About"
+  pre = "user"
+  weight = 33

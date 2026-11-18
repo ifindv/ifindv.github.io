@@ -1,0 +1,146 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "list" }}
+  {{ $p := hugo.Data.profile }}
+  {{ if not $p }}
+    {{ errorf "缺少 data/profile.yaml，关于页面无法渲染" }}
+  {{ end }}
+
+  <article class="ab">
+    <header class="ab-head">
+      <h1 class="ab-title">{{ .Title }}</h1>
+      {{ with .Params.description }}<p class="ab-subtitle">{{ . }}</p>{{ end }}
+    </header>
+
+    {{/* ================= 资料卡 ================= */}}
+    <section class="ab-profile">
+      <div class="ab-profile-head">
+        {{ with $p.avatar }}
+          {{ $img := resources.Get . }}
+          {{ if $img }}
+            <img
+              class="ab-avatar"
+              src="{{ $img.RelPermalink }}"
+              width="96"
+              height="96"
+              alt="{{ $p.name }}"
+              decoding="async">
+          {{ end }}
+        {{ end }}
+        <div class="ab-profile-text">
+          <h2 class="ab-name">{{ $p.name }}</h2>
+          {{ with $p.headline }}<p class="ab-headline">{{ . }}</p>{{ end }}
+        </div>
+      </div>
+      {{ with $p.bio }}<div class="ab-bio">{{ . | markdownify }}</div>{{ end }}
+      <div class="ab-chips">
+        {{ with $p.location }}
+          <span class="ab-chip">
+            {{ partial "icon.html" "location-dot" }}
+            {{ . }}
+          </span>
+        {{ end }}
+        {{ with $p.status }}
+          <a class="ab-chip ab-chip-link" href="{{ .href }}">
+            <span class="ab-dot"></span>{{ .text }}
+          </a>
+        {{ end }}
+      </div>
+    </section>
+
+    {{/* ================= 社交账号 ================= */}}
+    {{ with $p.links }}
+      <section class="ab-section">
+        <h2 class="ab-section-title">在别处找我</h2>
+        <div class="ab-links">
+          {{ range . }}
+            {{ $isEmail := eq .icon "email" }}
+            <a
+              class="ab-link{{ if $isEmail }} email-link{{ end }}"
+              href="{{ if $isEmail }}#{{ else }}{{ .url | safeURL }}{{ end }}"
+              {{ if $isEmail }}data-email="{{ .url | base64Encode }}"{{ end }}
+              target="_blank"
+              rel="noopener noreferrer me"
+              title="{{ .name }}{{ with .handle }} · {{ . }}{{ end }}">
+              <span class="ab-link-icon">{{ partial "icon.html" .icon }}</span>
+              <span class="ab-link-text">
+                <span class="ab-link-name">{{ .name }}</span>
+                {{ with .handle }}<span class="ab-link-handle">{{ . }}</span>{{ end }}
+              </span>
+              <span class="ab-link-arrow" aria-hidden="true">→</span>
+            </a>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+
+    {{/* ================= 项目 ================= */}}
+    {{ with $p.projects }}
+      <section class="ab-section">
+        <h2 class="ab-section-title">做的东西</h2>
+        <div class="ab-projects">
+          {{ range . }}
+            <a
+              class="ab-project"
+              href="{{ .url }}"
+              {{ if .external }}target="_blank" rel="noopener noreferrer"{{ end }}>
+              {{ with .icon }}
+                {{ $img := resources.Get . }}
+                {{ if $img }}
+                  <img
+                    class="ab-project-icon"
+                    src="{{ $img.RelPermalink }}"
+                    width="44"
+                    height="44"
+                    alt=""
+                    loading="lazy"
+                    decoding="async">
+                {{ end }}
+              {{ end }}
+              <div class="ab-project-body">
+                <div class="ab-project-head">
+                  <h3 class="ab-project-name">{{ .name }}</h3>
+                  {{ with .status }}<span class="ab-badge">{{ . }}</span>{{ end }}
+                </div>
+                {{ with .description }}<p class="ab-project-desc">{{ . }}</p>{{ end }}
+                {{ with .tags }}
+                  <div class="ab-tags">
+                    {{ range . }}<span class="ab-tag">{{ . }}</span>{{ end }}
+                  </div>
+                {{ end }}
+              </div>
+            </a>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+
+    {{/* ================= 博客统计 ================= */}}
+    {{ with $p.stats }}
+      <section class="ab-section">
+        <h2 class="ab-section-title">这个博客</h2>
+        <div class="ab-stats">
+          {{ range . }}
+            <div class="ab-stat">
+              <span class="ab-stat-num">{{ len (where site.RegularPages "Section" .key) }}</span>
+              <span class="ab-stat-label">{{ .label }}</span>
+            </div>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+
+    {{/* ================= 手写正文 ================= */}}
+    {{ with .Content }}
+      <section class="ab-section ab-prose prose dark:prose-invert">
+        {{ . }}
+      </section>
+    {{ end }}
+  </article>
+
+  {{/* 页面专属样式，跟 favor 那套一样在本页注入 */}}
+  {{ $css := resources.Get "css/about.css" }}
+  {{ if $css }}
+    {{ $css = $css | resources.Minify | resources.Fingerprint "sha512" }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+  {{ end }}
+{{ end }}

@@ -1,0 +1,89 @@
+# 关于页面的数据源。
+#
+# 改这个文件就能更新关于页面（/about/），不用动模板。
+# 页面模板：layouts/about/list.html
+
+# ===== 基本资料 =====
+name: "ifindv"
+
+# 头像。填 assets/ 下的相对路径（如 img/avatar.jpg），会走 Hugo 资源管线
+avatar: "img/avatar.jpg"
+
+# 一句话身份，放在名字下面
+headline: "开发者 · 技术写作者"
+
+# 自我介绍，支持 Markdown
+bio: >
+  写代码、折腾工具、顺手记点笔记。
+  这里主要放技术文章、项目进展和一些不太成熟的想法。
+
+# 所在地，可留空
+location: "中国"
+
+# ===== 社交账号 =====
+#
+# icon 指向 assets/icons/<icon>.svg；主题自带的图标名也可以直接用
+# （github / x-twitter / youtube / instagram / telegram / email ...）
+#
+# ⚠️ 标了「待填」的 handle / url 是占位值，上线前记得替换成真实账号。
+links:
+  - name: "GitHub"
+    icon: "github"
+    handle: "@ifindv"
+    url: "https://github.com/ifindv"
+
+  - name: "X (Twitter)"
+    icon: "x-twitter"
+    handle: "@your_handle" # 待填
+    url: "https://x.com/your_handle" # 待填
+
+  - name: "YouTube"
+    icon: "youtube"
+    handle: "@your_handle" # 待填
+    url: "https://youtube.com/@your_handle" # 待填
+
+  - name: "Instagram"
+    icon: "instagram"
+    handle: "@your_handle" # 待填
+    url: "https://instagram.com/your_handle" # 待填
+
+  - name: "Telegram"
+    icon: "telegram"
+    handle: "@your_handle" # 待填
+    url: "https://t.me/your_handle" # 待填
+
+  - name: "Bilibili"
+    icon: "bilibili"
+    handle: "@your_handle" # 待填
+    url: "https://space.bilibili.com/your_id" # 待填
+
+  - name: "Email"
+    icon: "email"
+    handle: "your.email@example.com" # 待填
+    url: "your.email@example.com" # 待填
+
+# ===== 个人项目 =====
+#
+# icon 填 assets/ 下的相对路径；status 是卡片右上角的小徽章；
+# tags 是技术栈标签；external 为 true 时链接指向站外而不是站内页面。
+projects:
+  - name: "Termini"
+    description: "面向 SSH 与本地终端的桌面客户端。多标签会话、SFTP 文件传输、端口转发与 SOCKS5、串口与 ZMODEM、命令片段。数据全部留在本机，无遥测。"
+    url: "/termini/"
+    icon: "img/termini/icon.png"
+    status: "持续更新"
+    tags: ["Rust", "Tauri", "SSH", "SFTP"]
+
+# ===== 博客统计 =====
+#
+# 数字由模板按内容分区实时统计，key 对应 content/ 下的目录名。
+# 想加自定义统计项就在下面追加一行。
+stats:
+  - label: "篇文章"
+    key: "posts"
+  - label: "本书"
+    key: "books"
+  - label: "部影"
+    key: "movies"
+  - label: "次旅行"
+    key: "trips"
