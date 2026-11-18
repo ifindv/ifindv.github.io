@@ -69,6 +69,7 @@ params:
   hotlinkFeatureImage: true
 
   article:
+    showComments: true
     showDate: true
     showAuthor: false
     showHero: true

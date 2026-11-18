@@ -1,0 +1,40 @@
+# Giscus 评论系统配置
+#
+# repoId / categoryId 由 scripts/setup-giscus.sh 自动填入
+# （需先开启仓库 Discussions 并在 https://giscus.app 安装 giscus App）
+#
+# 手动配置也可以：打开 https://giscus.app 配置好后会生成一段 <script> 片段，
+# 把其中的 data-repo-id / data-category-id / data-category 抄到这里即可。
+
+# 仓库，格式 owner/name
+repo: "ifindv/ifindv.github.io"
+
+# 仓库 GraphQL node id，脚本自动填充
+repoId: "R_kgDOSFXNrw"
+
+# 讨论分类名，需与 GitHub Discussions 里的分类名一致
+category: "General"
+
+# 分类 GraphQL node id，脚本自动填充
+categoryId: "DIC_kwDOSFXNr84DLY0M"
+
+# 评论与页面的映射方式：pathname 按 URL 路径匹配（推荐）
+mapping: "pathname"
+
+# 严格标题匹配，避免 GitHub 模糊搜索匹配到别的讨论
+strict: "0"
+
+# 启用表情回应
+reactionsEnabled: "1"
+
+# 向父页面发送评论元数据
+emitMetadata: "0"
+
+# 输入框位置：top / bottom
+inputPosition: "bottom"
+
+# 界面语言，giscus 支持 zh-CN / en 等
+lang: "en"
+
+# 懒加载 iframe
+loading: "lazy"

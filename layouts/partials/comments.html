@@ -1,0 +1,21 @@
+{{- $g := hugo.Data.giscus -}}
+{{- if and $g $g.repo $g.repoId $g.categoryId -}}
+  {{- $cfg := dict
+    "data-repo" $g.repo
+    "data-repo-id" $g.repoId
+    "data-category" $g.category
+    "data-category-id" $g.categoryId
+    "data-mapping" ($g.mapping | default "pathname")
+    "data-strict" ($g.strict | default "0")
+    "data-reactions-enabled" ($g.reactionsEnabled | default "1")
+    "data-emit-metadata" ($g.emitMetadata | default "0")
+    "data-input-position" ($g.inputPosition | default "top")
+    "data-lang" ($g.lang | default "zh-CN")
+    "data-loading" ($g.loading | default "lazy") -}}
+  <div id="giscus"></div>
+  <script type="application/json" id="giscus-config">{{ $cfg | jsonify (dict "indent" "") | safeJS }}</script>
+  {{ $js := resources.Get "js/giscus.js" | resources.Minify | resources.Fingerprint "sha256" }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- else -}}
+  {{- warnf "[Giscus] data/giscus.yaml 缺少 repoId 或 categoryId，评论未启用。运行 scripts/setup-giscus.sh 生成配置。" -}}
+{{- end -}}
