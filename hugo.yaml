@@ -47,6 +47,16 @@ params:
 
   colorScheme: "blowfish"
 
+  # Umami Cloud（免费档：10 万 events/月，6 个月留存）
+  # websiteid 在 https://cloud.umami.is 添加站点后获取
+  umamiAnalytics:
+    websiteid: "96dc4fa1-29dd-4a84-afbb-2a0ab7765002"
+    # 脚本域名，默认走官方 cloud.umami.is；自建时改成自己的域名
+    domain: "cloud.umami.is"
+    scriptName: "script.js"
+    # 尊重访客浏览器的 Do Not Track
+    doNotTrack: true
+
   header:
     layout: "fixed"
 

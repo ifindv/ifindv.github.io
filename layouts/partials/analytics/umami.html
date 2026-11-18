@@ -1,0 +1,21 @@
+{{- /*
+  覆盖 Blowfish 自带的 analytics/umami.html。
+
+  与主题版的差异：
+  1. 加 hugo.IsProduction 判断 —— hugo server 的本地预览访问不再混进线上统计
+  2. 默认脚本域名走 cloud.umami.is，省掉 analytics.umami.is 的一次 301 跳转
+  3. doNotTrack 默认开启，尊重访客浏览器的 Do Not Track
+*/ -}}
+{{- $umami := site.Params.umamiAnalytics | default dict -}}
+{{- $id := $umami.websiteid | default "" -}}
+{{- if and $id hugo.IsProduction -}}
+  {{- $domain := $umami.domain | default "cloud.umami.is" -}}
+  {{- $script := $umami.scriptName | default "script.js" -}}
+  <script
+    data-id="umami-script"
+    async
+    src="https://{{ $domain }}/{{ $script }}"
+    data-website-id="{{ $id }}"
+    {{ with $umami.dataDomains }}data-domains="{{ . }}"{{ end }}
+    data-do-not-track="{{ $umami.doNotTrack | default true }}"></script>
+{{- end -}}
