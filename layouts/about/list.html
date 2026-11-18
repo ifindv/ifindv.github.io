@@ -129,6 +129,15 @@
       </section>
     {{ end }}
 
+    {{/* ================= 站点数据 ================= */}}
+    {{ $u := hugo.Data.umami }}
+    {{ if and $u $u.shareSlug $u.websiteId }}
+      <section class="ab-section">
+        <h2 class="ab-section-title">站点数据</h2>
+        {{ partial "umami-stats.html" $u }}
+      </section>
+    {{ end }}
+
     {{/* ================= 手写正文 ================= */}}
     {{ with .Content }}
       <section class="ab-section ab-prose prose dark:prose-invert">

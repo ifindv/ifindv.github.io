@@ -1,0 +1,278 @@
+/* ============================================================
+   关于页面 —— 站内统计面板
+   与 about.css 共用同一套配色变量，亮暗模式自动跟随。
+   ============================================================ */
+
+.ab-statbox {
+  padding: 1.25rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.8);
+  background: rgba(var(--color-neutral-100), 0.45);
+}
+
+.dark .ab-statbox {
+  border-color: rgba(var(--color-neutral-700), 0.85);
+  background: rgba(var(--color-neutral-800), 0.4);
+}
+
+/* ---------- 顶部：状态 + 时间范围 ---------- */
+
+.ab-statbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.ab-statbox-state {
+  font-size: 0.78rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.ab-statbox-state.is-error {
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-statbox-state.is-error {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-range {
+  display: inline-flex;
+  gap: 0.15rem;
+  padding: 0.15rem;
+  border-radius: 0.5rem;
+  background: rgba(var(--color-neutral-200), 0.7);
+}
+
+.dark .ab-range {
+  background: rgba(var(--color-neutral-700), 0.55);
+}
+
+.ab-range-btn {
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.35rem;
+  font-size: 0.78rem;
+  color: rgba(var(--color-neutral-600), 1);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.dark .ab-range-btn {
+  color: rgba(var(--color-neutral-300), 1);
+}
+
+.ab-range-btn:hover {
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-range-btn:hover {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-range-btn.is-active {
+  background: rgba(var(--color-neutral-50), 0.95);
+  color: rgba(var(--color-neutral-900), 1);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.dark .ab-range-btn.is-active {
+  background: rgba(var(--color-neutral-600), 0.9);
+  color: rgba(var(--color-neutral-50), 1);
+}
+
+/* ---------- 关键指标 ---------- */
+
+.ab-kpis {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  margin-bottom: 1.25rem;
+}
+
+.ab-kpi {
+  padding: 0.85rem 0.6rem;
+  text-align: center;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.6);
+  background: rgba(var(--color-neutral-50), 0.5);
+}
+
+.dark .ab-kpi {
+  border-color: rgba(var(--color-neutral-700), 0.7);
+  background: rgba(var(--color-neutral-800), 0.45);
+}
+
+.ab-kpi-num {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: rgb(var(--color-primary-600));
+}
+
+.dark .ab-kpi-num {
+  color: rgb(var(--color-primary-400));
+}
+
+.ab-kpi-label {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+/* ---------- 柱状图 ---------- */
+
+.ab-chart {
+  margin-bottom: 1.25rem;
+}
+
+.ab-chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ab-chart-base {
+  stroke: rgba(var(--color-neutral-300), 0.9);
+  stroke-width: 1;
+}
+
+.dark .ab-chart-base {
+  stroke: rgba(var(--color-neutral-700), 0.9);
+}
+
+.ab-chart-bar {
+  fill: rgba(var(--color-primary-500), 0.55);
+  transition: fill 0.15s ease;
+}
+
+.ab-chart-bar:hover {
+  fill: rgb(var(--color-primary-500));
+}
+
+.ab-chart-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3rem;
+  font-size: 0.72rem;
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.ab-chart-empty {
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+/* ---------- 两个榜单 ---------- */
+
+.ab-statbox-lists {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.ab-statbox-list-title {
+  margin-bottom: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.dark .ab-statbox-list-title {
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.ab-statbox-list-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ab-statbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.83rem;
+}
+
+.ab-statbox-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(var(--color-neutral-700), 1);
+}
+
+.dark .ab-statbox-name {
+  color: rgba(var(--color-neutral-300), 1);
+}
+
+.ab-statbox-track {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: rgba(var(--color-neutral-200), 0.8);
+  overflow: hidden;
+}
+
+.dark .ab-statbox-track {
+  background: rgba(var(--color-neutral-700), 0.7);
+}
+
+.ab-statbox-track > i {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+  background: rgba(var(--color-primary-500), 0.7);
+}
+
+.ab-statbox-num {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.ab-statbox-empty {
+  font-size: 0.83rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+/* ---------- 脚注 ---------- */
+
+.ab-statbox-foot {
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(var(--color-neutral-300), 0.6);
+  font-size: 0.75rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+.dark .ab-statbox-foot {
+  border-top-color: rgba(var(--color-neutral-700), 0.7);
+}
+
+.ab-statbox-foot a {
+  color: rgb(var(--color-primary-600));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dark .ab-statbox-foot a {
+  color: rgb(var(--color-primary-400));
+}

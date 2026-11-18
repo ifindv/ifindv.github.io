@@ -1,0 +1,50 @@
+{{- /*
+  站内统计面板。数据由 assets/js/umami-stats.js 异步填充，
+  这里的结构只是骨架和挂载点。
+*/ -}}
+{{- $u := . -}}
+<div
+  class="ab-statbox"
+  id="umami-stats"
+  data-slug="{{ $u.shareSlug }}"
+  data-website-id="{{ $u.websiteId }}"
+  data-api="{{ $u.apiBase }}">
+  <div class="ab-statbox-bar">
+    <span class="ab-statbox-state" data-role="state">正在加载统计数据…</span>
+    <div class="ab-range" data-role="ranges">
+      <button type="button" class="ab-range-btn is-active" data-days="7">7 天</button>
+      <button type="button" class="ab-range-btn" data-days="30">30 天</button>
+      <button type="button" class="ab-range-btn" data-days="90">90 天</button>
+    </div>
+  </div>
+
+  <div class="ab-kpis" data-role="kpis"></div>
+
+  <div class="ab-chart" data-role="chart"></div>
+
+  <div class="ab-statbox-lists">
+    <div class="ab-statbox-list">
+      <h3 class="ab-statbox-list-title">热门页面</h3>
+      <ol class="ab-statbox-list-body" data-role="paths"></ol>
+    </div>
+    <div class="ab-statbox-list">
+      <h3 class="ab-statbox-list-title">访问来源</h3>
+      <ol class="ab-statbox-list-body" data-role="referrers"></ol>
+    </div>
+  </div>
+
+  <p class="ab-statbox-foot">
+    数据来自 <a href="https://umami.is" target="_blank" rel="noopener noreferrer">Umami</a>，不存 Cookie、不做用户指纹。
+  </p>
+</div>
+
+{{- $js := resources.Get "js/umami-stats.js" -}}
+{{- if $js -}}
+  {{- $js = $js | resources.Minify | resources.Fingerprint "sha512" -}}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- end -}}
+{{- $css := resources.Get "css/umami-stats.css" -}}
+{{- if $css -}}
+  {{- $css = $css | resources.Minify | resources.Fingerprint "sha512" -}}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+{{- end -}}

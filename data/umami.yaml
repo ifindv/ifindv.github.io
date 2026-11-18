@@ -1,0 +1,19 @@
+# 站内统计面板（关于页面用）的配置。
+#
+# 数据来自 Umami Cloud 的公开分享接口：
+#   1. GET  {apiBase}/share/{shareSlug}          → 换到只读的分享 token
+#   2. GET  {apiBase}/websites/{websiteId}/...    → 带分享 token 查统计数据
+#
+# 关于分享 token：它只允许读取被分享的那份统计数据，任何拿到 shareSlug 的人
+# 都能查——和把分享链接直接贴出来是同一个暴露面，所以放在前端是安全的。
+#
+# ⚠️ 绝对不要把 Umami 账号的 API Key 写进来。那个是账号级凭据，
+#    进了前端源码就等于公开了。
+
+apiBase: "https://gateway-us.umami.is/api"
+
+# Umami 网站设置 → Share 里生成的公开分享链接，取其中的 slug 部分
+shareSlug: "sK2OjRLkfphBqIoI"
+
+# 对应的网站 ID
+websiteId: "96dc4fa1-29dd-4a84-afbb-2a0ab7765002"
