@@ -1,10 +1,11 @@
 /* ============================================================
-   关于页面 —— 资料卡 / 社交链接 / 项目 / 博客统计
+   关于页面 —— 频道 / 项目 / 站点数据 / 访客统计 / 评论区
    作用域限定在 .ab 内，跟主题的 Tailwind 工具类互不干扰。
    ============================================================ */
 
 .ab {
-  max-width: 52rem;
+  /* 跟主题正文容器对齐：body 是 max-w-7xl + lg:px-32，内容区刚好 64rem */
+  max-width: 100%;
   margin-inline: auto;
   padding-block: 1rem 4rem;
 }
@@ -12,13 +13,20 @@
 /* ---------- 页面标题 ---------- */
 
 .ab-head {
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(var(--color-neutral-300), 0.7);
+}
+
+.dark .ab-head {
+  border-bottom-color: rgba(var(--color-neutral-700), 0.8);
 }
 
 .ab-title {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   color: rgba(var(--color-neutral-900), 1);
 }
 
@@ -27,150 +35,13 @@
 }
 
 .ab-subtitle {
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
   font-size: 0.95rem;
   color: rgba(var(--color-neutral-500), 1);
 }
 
 .dark .ab-subtitle {
   color: rgba(var(--color-neutral-400), 1);
-}
-
-/* ---------- 资料卡 ---------- */
-
-.ab-profile {
-  padding: 1.75rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.8);
-  background:
-    radial-gradient(130% 120% at 0% 0%, rgba(var(--color-primary-500), 0.1), transparent 55%),
-    rgba(var(--color-neutral-100), 0.55);
-}
-
-.dark .ab-profile {
-  border-color: rgba(var(--color-neutral-700), 0.9);
-  background:
-    radial-gradient(130% 120% at 0% 0%, rgba(var(--color-primary-500), 0.18), transparent 55%),
-    rgba(var(--color-neutral-800), 0.45);
-}
-
-.ab-profile-head {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.ab-avatar {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-  border-radius: 9999px;
-  object-fit: cover;
-  border: 2px solid rgba(var(--color-neutral-300), 1);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-}
-
-.dark .ab-avatar {
-  border-color: rgba(var(--color-neutral-600), 1);
-}
-
-.ab-profile-text {
-  min-width: 0;
-}
-
-.ab-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: rgba(var(--color-neutral-900), 1);
-}
-
-.dark .ab-name {
-  color: rgba(var(--color-neutral-100), 1);
-}
-
-.ab-headline {
-  margin-top: 0.2rem;
-  font-size: 0.95rem;
-  color: rgba(var(--color-neutral-500), 1);
-}
-
-.dark .ab-headline {
-  color: rgba(var(--color-neutral-400), 1);
-}
-
-.ab-bio {
-  margin-top: 1.1rem;
-  font-size: 0.95rem;
-  line-height: 1.75;
-  color: rgba(var(--color-neutral-700), 1);
-}
-
-.dark .ab-bio {
-  color: rgba(var(--color-neutral-300), 1);
-}
-
-.ab-bio > :first-child {
-  margin-top: 0;
-}
-
-.ab-bio > :last-child {
-  margin-bottom: 0;
-}
-
-/* ---------- 小徽章 ---------- */
-
-.ab-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-}
-
-.ab-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.7rem;
-  border-radius: 9999px;
-  font-size: 0.8rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.9);
-  background: rgba(var(--color-neutral-50), 0.7);
-  color: rgba(var(--color-neutral-600), 1);
-}
-
-.dark .ab-chip {
-  border-color: rgba(var(--color-neutral-700), 0.9);
-  background: rgba(var(--color-neutral-800), 0.6);
-  color: rgba(var(--color-neutral-300), 1);
-}
-
-.ab-chip .icon svg {
-  width: 0.9rem;
-  height: 0.9rem;
-}
-
-.ab-chip-link {
-  transition:
-    border-color 0.18s ease,
-    color 0.18s ease;
-}
-
-.ab-chip-link:hover {
-  border-color: rgba(var(--color-primary-500), 0.6);
-  color: rgb(var(--color-primary-600));
-}
-
-.dark .ab-chip-link:hover {
-  color: rgb(var(--color-primary-400));
-}
-
-.ab-dot {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 9999px;
-  background: rgb(var(--color-primary-500));
-  box-shadow: 0 0 0 3px rgba(var(--color-primary-500), 0.18);
 }
 
 /* ---------- 区块 ---------- */
@@ -180,79 +51,99 @@
 }
 
 .ab-section-title {
-  margin-bottom: 0.9rem;
-  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(var(--color-neutral-400), 1);
-}
-
-.dark .ab-section-title {
+  letter-spacing: 0.12em;
   color: rgba(var(--color-neutral-500), 1);
 }
 
-/* ---------- 社交链接 ---------- */
+.dark .ab-section-title {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+/* 标题前的小方块：给纯文字的分区标题一个视觉锚点 */
+.ab-section-title::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  flex-shrink: 0;
+  border-radius: 0.1rem;
+  background: rgb(var(--color-primary-500));
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-500), 0.16);
+}
+
+/* ---------- 我的频道 ---------- */
 
 .ab-links {
   display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
 }
 
 .ab-link {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 0.9rem;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.8);
-  background: rgba(var(--color-neutral-100), 0.45);
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.85);
+  background:
+    radial-gradient(130% 150% at 0% 0%, rgba(var(--color-primary-500), 0.07), transparent 62%),
+    rgba(var(--color-neutral-100), 0.5);
   transition:
     border-color 0.18s ease,
-    background-color 0.18s ease,
-    transform 0.18s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .dark .ab-link {
   border-color: rgba(var(--color-neutral-700), 0.85);
-  background: rgba(var(--color-neutral-800), 0.4);
+  background:
+    radial-gradient(130% 150% at 0% 0%, rgba(var(--color-primary-500), 0.14), transparent 62%),
+    rgba(var(--color-neutral-800), 0.45);
 }
 
 .ab-link:hover {
   border-color: rgba(var(--color-primary-500), 0.55);
-  background: rgba(var(--color-primary-500), 0.07);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -14px rgba(var(--color-neutral-900), 0.55);
 }
 
+.dark .ab-link:hover {
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.85);
+}
+
+/* 图标底座：同一套主色渐变，图标本身是 currentColor，跟着底座走 */
 .ab-link-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   flex-shrink: 0;
-  border-radius: 0.55rem;
-  font-size: 1.05rem;
-  background: rgba(var(--color-neutral-200), 0.85);
-  color: rgba(var(--color-neutral-700), 1);
-  transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
+  border-radius: 0.7rem;
+  color: #fff;
+  background: linear-gradient(145deg, rgb(var(--color-primary-600)), rgb(var(--color-primary-700)));
+  box-shadow: 0 2px 8px -2px rgba(var(--color-primary-600), 0.55);
+  transition: transform 0.18s ease;
 }
 
 .dark .ab-link-icon {
-  background: rgba(var(--color-neutral-700), 0.55);
-  color: rgba(var(--color-neutral-200), 1);
+  background: linear-gradient(145deg, rgb(var(--color-primary-500)), rgb(var(--color-primary-600)));
 }
 
 .ab-link:hover .ab-link-icon {
-  background: rgba(var(--color-primary-500), 0.16);
-  color: rgb(var(--color-primary-600));
+  transform: scale(1.06);
 }
 
-.dark .ab-link:hover .ab-link-icon {
-  color: rgb(var(--color-primary-400));
+.ab-link-icon .icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
 }
 
 .ab-link-text {
@@ -263,8 +154,13 @@
 }
 
 .ab-link-name {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: rgba(var(--color-neutral-900), 1);
+}
+
+.dark .ab-link-name {
+  color: rgba(var(--color-neutral-100), 1);
 }
 
 .ab-link-handle {
@@ -292,48 +188,59 @@
   transform: translateX(0);
 }
 
-/* ---------- 项目 ---------- */
+/* ---------- 我的项目 ---------- */
 
 .ab-projects {
   display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
 .ab-project {
+  position: relative;
   display: flex;
-  gap: 1rem;
-  padding: 1.1rem 1.2rem;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.8);
-  background: rgba(var(--color-neutral-100), 0.45);
+  gap: 1.1rem;
+  padding: 1.3rem 1.4rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.85);
+  background:
+    radial-gradient(120% 160% at 100% 0%, rgba(var(--color-secondary-500), 0.09), transparent 60%),
+    rgba(var(--color-neutral-100), 0.5);
   transition:
     border-color 0.18s ease,
-    background-color 0.18s ease,
-    transform 0.18s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .dark .ab-project {
   border-color: rgba(var(--color-neutral-700), 0.85);
-  background: rgba(var(--color-neutral-800), 0.4);
+  background:
+    radial-gradient(120% 160% at 100% 0%, rgba(var(--color-secondary-500), 0.15), transparent 60%),
+    rgba(var(--color-neutral-800), 0.45);
 }
 
 .ab-project:hover {
-  border-color: rgba(var(--color-primary-500), 0.55);
-  background: rgba(var(--color-primary-500), 0.06);
+  border-color: rgba(var(--color-primary-500), 0.5);
   transform: translateY(-2px);
+  box-shadow: 0 12px 26px -16px rgba(var(--color-neutral-900), 0.55);
+}
+
+.dark .ab-project:hover {
+  box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.85);
 }
 
 .ab-project-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
-  border-radius: 0.6rem;
+  border-radius: 0.75rem;
   object-fit: cover;
+  box-shadow: 0 2px 10px -4px rgba(var(--color-neutral-900), 0.55);
 }
 
 .ab-project-body {
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .ab-project-head {
@@ -344,7 +251,7 @@
 }
 
 .ab-project-name {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.3;
   color: rgba(var(--color-neutral-900), 1);
@@ -355,7 +262,7 @@
 }
 
 .ab-badge {
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem 0.55rem;
   border-radius: 9999px;
   font-size: 0.7rem;
   font-weight: 600;
@@ -368,9 +275,10 @@
 }
 
 .ab-project-desc {
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
+  max-width: 44rem;
   font-size: 0.88rem;
-  line-height: 1.65;
+  line-height: 1.7;
   color: rgba(var(--color-neutral-600), 1);
 }
 
@@ -382,7 +290,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-top: 0.65rem;
+  margin-top: 0.75rem;
 }
 
 .ab-tag {
@@ -398,84 +306,116 @@
   color: rgba(var(--color-neutral-300), 1);
 }
 
-/* ---------- 统计 ---------- */
+/* ---------- 站点数据 ---------- */
 
 .ab-stats {
   display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
 }
 
 .ab-stat {
-  padding: 0.9rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1.15rem 0.75rem;
   text-align: center;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.7);
-  background: rgba(var(--color-neutral-100), 0.4);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.8);
+  background:
+    radial-gradient(120% 130% at 50% 0%, rgba(var(--color-primary-500), 0.08), transparent 62%),
+    rgba(var(--color-neutral-100), 0.45);
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .dark .ab-stat {
   border-color: rgba(var(--color-neutral-700), 0.8);
-  background: rgba(var(--color-neutral-800), 0.35);
+  background:
+    radial-gradient(120% 130% at 50% 0%, rgba(var(--color-primary-500), 0.16), transparent 62%),
+    rgba(var(--color-neutral-800), 0.4);
 }
 
-.ab-stat-num {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.1;
+.ab-stat:hover {
+  border-color: rgba(var(--color-primary-500), 0.45);
+  transform: translateY(-2px);
+}
+
+.ab-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.15rem;
+  border-radius: 0.55rem;
   color: rgb(var(--color-primary-600));
+  background: rgba(var(--color-primary-500), 0.12);
+}
+
+.dark .ab-stat-icon {
+  color: rgb(var(--color-primary-400));
+  background: rgba(var(--color-primary-500), 0.2);
+}
+
+.ab-stat-icon .icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* 数字走正文墨色，数据色留给图上的标记 */
+.ab-stat-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: rgba(var(--color-neutral-900), 1);
 }
 
 .dark .ab-stat-num {
-  color: rgb(var(--color-primary-400));
+  color: rgba(var(--color-neutral-100), 1);
 }
 
 .ab-stat-label {
-  display: block;
-  margin-top: 0.2rem;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: rgba(var(--color-neutral-500), 1);
 }
 
-/* ---------- 手写正文 ---------- */
+/* ---------- 评论区 ---------- */
 
-/* 正文跟上面的卡片区分开：一条细线 + 留白，标出这是"写"的部分 */
-.ab-prose {
-  margin-top: 2.75rem;
+.ab-comments {
+  margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(var(--color-neutral-300), 0.7);
 }
 
-.dark .ab-prose {
+.dark .ab-comments {
   border-top-color: rgba(var(--color-neutral-700), 0.8);
-}
-
-.ab-prose h2 {
-  font-size: 1.25rem;
-}
-
-.ab-prose h3 {
-  font-size: 1.05rem;
 }
 
 /* ---------- 窄屏 ---------- */
 
+@media (max-width: 640px) {
+  .ab-title {
+    font-size: 1.8rem;
+  }
+
+  .ab-links {
+    grid-template-columns: 1fr;
+  }
+
+  .ab-projects {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 480px) {
-  .ab-profile {
-    padding: 1.25rem;
+  .ab-stat {
+    padding: 1rem 0.5rem;
   }
 
-  .ab-profile-head {
-    gap: 1rem;
-  }
-
-  .ab-avatar {
-    width: 72px;
-    height: 72px;
-  }
-
-  .ab-name {
-    font-size: 1.25rem;
+  .ab-stat-num {
+    font-size: 1.4rem;
   }
 }

@@ -11,46 +11,10 @@
       {{ with .Params.description }}<p class="ab-subtitle">{{ . }}</p>{{ end }}
     </header>
 
-    {{/* ================= 资料卡 ================= */}}
-    <section class="ab-profile">
-      <div class="ab-profile-head">
-        {{ with $p.avatar }}
-          {{ $img := resources.Get . }}
-          {{ if $img }}
-            <img
-              class="ab-avatar"
-              src="{{ $img.RelPermalink }}"
-              width="96"
-              height="96"
-              alt="{{ $p.name }}"
-              decoding="async">
-          {{ end }}
-        {{ end }}
-        <div class="ab-profile-text">
-          <h2 class="ab-name">{{ $p.name }}</h2>
-          {{ with $p.headline }}<p class="ab-headline">{{ . }}</p>{{ end }}
-        </div>
-      </div>
-      {{ with $p.bio }}<div class="ab-bio">{{ . | markdownify }}</div>{{ end }}
-      <div class="ab-chips">
-        {{ with $p.location }}
-          <span class="ab-chip">
-            {{ partial "icon.html" "location-dot" }}
-            {{ . }}
-          </span>
-        {{ end }}
-        {{ with $p.status }}
-          <a class="ab-chip ab-chip-link" href="{{ .href }}">
-            <span class="ab-dot"></span>{{ .text }}
-          </a>
-        {{ end }}
-      </div>
-    </section>
-
-    {{/* ================= 社交账号 ================= */}}
+    {{/* ================= 我的频道 ================= */}}
     {{ with $p.links }}
       <section class="ab-section">
-        <h2 class="ab-section-title">在别处找我</h2>
+        <h2 class="ab-section-title">我的频道</h2>
         <div class="ab-links">
           {{ range . }}
             {{ $isEmail := eq .icon "email" }}
@@ -73,10 +37,10 @@
       </section>
     {{ end }}
 
-    {{/* ================= 项目 ================= */}}
+    {{/* ================= 我的项目 ================= */}}
     {{ with $p.projects }}
       <section class="ab-section">
-        <h2 class="ab-section-title">做的东西</h2>
+        <h2 class="ab-section-title">我的项目</h2>
         <div class="ab-projects">
           {{ range . }}
             <a
@@ -114,13 +78,16 @@
       </section>
     {{ end }}
 
-    {{/* ================= 博客统计 ================= */}}
+    {{/* ================= 站点数据 ================= */}}
     {{ with $p.stats }}
       <section class="ab-section">
-        <h2 class="ab-section-title">这个博客</h2>
+        <h2 class="ab-section-title">站点数据</h2>
         <div class="ab-stats">
           {{ range . }}
             <div class="ab-stat">
+              {{ with .icon }}
+                <span class="ab-stat-icon">{{ partial "icon.html" . }}</span>
+              {{ end }}
               <span class="ab-stat-num">{{ len (where site.RegularPages "Section" .key) }}</span>
               <span class="ab-stat-label">{{ .label }}</span>
             </div>
@@ -129,19 +96,21 @@
       </section>
     {{ end }}
 
-    {{/* ================= 站点数据 ================= */}}
+    {{/* ================= 访客统计 ================= */}}
     {{ $u := hugo.Data.umami }}
     {{ if and $u $u.shareSlug $u.websiteId }}
       <section class="ab-section">
-        <h2 class="ab-section-title">站点数据</h2>
+        <h2 class="ab-section-title">访客统计</h2>
         {{ partial "umami-stats.html" $u }}
       </section>
     {{ end }}
 
-    {{/* ================= 手写正文 ================= */}}
-    {{ with .Content }}
-      <section class="ab-section ab-prose prose dark:prose-invert">
-        {{ . }}
+    {{/* ================= 评论区 ================= */}}
+    {{ $g := hugo.Data.giscus }}
+    {{ if and $g $g.repo $g.repoId $g.categoryId }}
+      <section class="ab-section ab-comments">
+        <h2 class="ab-section-title">评论区</h2>
+        {{ partial "comments.html" . }}
       </section>
     {{ end }}
   </article>

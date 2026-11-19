@@ -1,18 +1,26 @@
 /* ============================================================
-   关于页面 —— 站内统计面板
+   关于页面 —— 访客统计面板
    与 about.css 共用同一套配色变量，亮暗模式自动跟随。
+
+   数据色只用主色的两档：亮色 600 (#2563eb)、暗色 500 (#3b82f6)，
+   两档对各自底色的对比度都过了 3:1，是分别挑过的，不是自动翻转。
    ============================================================ */
 
 .ab-statbox {
-  padding: 1.25rem;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.8);
-  background: rgba(var(--color-neutral-100), 0.45);
+  position: relative;
+  padding: 1.4rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.85);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(var(--color-primary-500), 0.06), transparent 55%),
+    rgba(var(--color-neutral-100), 0.5);
 }
 
 .dark .ab-statbox {
   border-color: rgba(var(--color-neutral-700), 0.85);
-  background: rgba(var(--color-neutral-800), 0.4);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(var(--color-primary-500), 0.12), transparent 55%),
+    rgba(var(--color-neutral-800), 0.45);
 }
 
 /* ---------- 顶部：状态 + 时间范围 ---------- */
@@ -23,7 +31,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.2rem;
 }
 
 .ab-statbox-state {
@@ -42,19 +50,21 @@
 .ab-range {
   display: inline-flex;
   gap: 0.15rem;
-  padding: 0.15rem;
-  border-radius: 0.5rem;
+  padding: 0.2rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.6);
   background: rgba(var(--color-neutral-200), 0.7);
 }
 
 .dark .ab-range {
+  border-color: rgba(var(--color-neutral-600), 0.5);
   background: rgba(var(--color-neutral-700), 0.55);
 }
 
 .ab-range-btn {
-  padding: 0.2rem 0.6rem;
-  border-radius: 0.35rem;
-  font-size: 0.78rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
   color: rgba(var(--color-neutral-600), 1);
   transition:
     background-color 0.15s ease,
@@ -89,83 +99,167 @@
 
 .ab-kpis {
   display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
-  margin-bottom: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 1.4rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.7);
+  background: rgba(var(--color-neutral-50), 0.6);
+  overflow: hidden;
 }
 
-.ab-kpi {
-  padding: 0.85rem 0.6rem;
-  text-align: center;
-  border-radius: 0.7rem;
-  border: 1px solid rgba(var(--color-neutral-300), 0.6);
-  background: rgba(var(--color-neutral-50), 0.5);
-}
-
-.dark .ab-kpi {
+.dark .ab-kpis {
   border-color: rgba(var(--color-neutral-700), 0.7);
   background: rgba(var(--color-neutral-800), 0.45);
 }
 
-.ab-kpi-num {
-  display: block;
-  font-size: 1.45rem;
-  font-weight: 800;
-  line-height: 1.1;
-  color: rgb(var(--color-primary-600));
+.ab-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem;
 }
 
-.dark .ab-kpi-num {
-  color: rgb(var(--color-primary-400));
+.ab-kpi + .ab-kpi {
+  border-left: 1px solid rgba(var(--color-neutral-300), 0.7);
+}
+
+.dark .ab-kpi + .ab-kpi {
+  border-left-color: rgba(var(--color-neutral-700), 0.7);
 }
 
 .ab-kpi-label {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: rgba(var(--color-neutral-500), 1);
+}
+
+/* 数字用正文墨色：数据色留给图上的标记 */
+.ab-kpi-num {
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: rgba(var(--color-neutral-900), 1);
+}
+
+.dark .ab-kpi-num {
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+/* 首屏占位：数据没到之前先摆个破折号 */
+.ab-kpi-num.is-pending {
+  color: rgba(var(--color-neutral-400), 1);
 }
 
 /* ---------- 柱状图 ---------- */
 
+.ab-chart-card {
+  margin-bottom: 1.4rem;
+  padding: 1.1rem 1.2rem 0.9rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(var(--color-neutral-300), 0.7);
+  background: rgba(var(--color-neutral-50), 0.55);
+}
+
+.dark .ab-chart-card {
+  border-color: rgba(var(--color-neutral-700), 0.7);
+  background: rgba(var(--color-neutral-800), 0.4);
+}
+
+.ab-chart-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.ab-chart-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(var(--color-neutral-700), 1);
+}
+
+.dark .ab-chart-title {
+  color: rgba(var(--color-neutral-200), 1);
+}
+
+.ab-chart-peak {
+  font-size: 0.78rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
 .ab-chart {
-  margin-bottom: 1.25rem;
+  position: relative;
 }
 
-.ab-chart-svg {
-  display: block;
-  width: 100%;
-  height: auto;
+.ab-chart-plot {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  /* 2px 底色缝把相邻的柱子分开，不给柱子描边 */
+  height: 8.5rem;
+  padding-top: 0.4rem;
+  border-bottom: 1px solid rgba(var(--color-neutral-300), 0.9);
 }
 
-.ab-chart-base {
-  stroke: rgba(var(--color-neutral-300), 0.9);
-  stroke-width: 1;
+.dark .ab-chart-plot {
+  border-bottom-color: rgba(var(--color-neutral-600), 0.9);
 }
 
-.dark .ab-chart-base {
-  stroke: rgba(var(--color-neutral-700), 0.9);
+.ab-chart-col {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
 }
 
 .ab-chart-bar {
-  fill: rgba(var(--color-primary-500), 0.55);
-  transition: fill 0.15s ease;
+  display: block;
+  width: 100%;
+  /* 柱子封顶 24px，剩下的留白 */
+  max-width: 24px;
+  height: var(--h, 0%);
+  /* 数据端 4px 圆角，基线端切平 */
+  border-radius: 4px 4px 0 0;
+  background: rgb(var(--color-primary-600));
+  transition: background-color 0.15s ease;
 }
 
-.ab-chart-bar:hover {
-  fill: rgb(var(--color-primary-500));
+.dark .ab-chart-bar {
+  background: rgb(var(--color-primary-500));
+}
+
+/* 没有访问的那天留一小段底色，表示这天有，只是没量 */
+.ab-chart-col.is-empty .ab-chart-bar {
+  height: 2px;
+  background: rgba(var(--color-neutral-300), 0.9);
+}
+
+.dark .ab-chart-col.is-empty .ab-chart-bar {
+  background: rgba(var(--color-neutral-600), 0.8);
+}
+
+.ab-chart-col:hover .ab-chart-bar {
+  background: rgb(var(--color-primary-500));
+}
+
+.dark .ab-chart-col:hover .ab-chart-bar {
+  background: rgb(var(--color-primary-400));
 }
 
 .ab-chart-axis {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.3rem;
+  margin-top: 0.45rem;
   font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
   color: rgba(var(--color-neutral-400), 1);
 }
 
 .ab-chart-empty {
-  padding: 1.5rem 0;
+  padding: 2.5rem 0;
   text-align: center;
   font-size: 0.85rem;
   color: rgba(var(--color-neutral-500), 1);
@@ -176,26 +270,26 @@
 .ab-statbox-lists {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin-bottom: 1.25rem;
 }
 
 .ab-statbox-list-title {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.7rem;
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(var(--color-neutral-400), 1);
+  letter-spacing: 0.06em;
+  color: rgba(var(--color-neutral-500), 1);
 }
 
 .dark .ab-statbox-list-title {
-  color: rgba(var(--color-neutral-500), 1);
+  color: rgba(var(--color-neutral-400), 1);
 }
 
 .ab-statbox-list-body {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -208,8 +302,17 @@
   font-size: 0.83rem;
 }
 
+.ab-statbox-rank {
+  flex: 0 0 auto;
+  width: 1.2rem;
+  text-align: right;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(var(--color-neutral-400), 1);
+}
+
 .ab-statbox-name {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -221,28 +324,35 @@
   color: rgba(var(--color-neutral-300), 1);
 }
 
+/* 未填充的轨道是同色系更浅的一档，状态在整条上都读得出来 */
 .ab-statbox-track {
-  flex: 1 1 auto;
-  min-width: 1.5rem;
-  height: 0.35rem;
+  flex: 0 0 9rem;
+  height: 0.4rem;
   border-radius: 9999px;
-  background: rgba(var(--color-neutral-200), 0.8);
+  background: rgba(var(--color-primary-500), 0.14);
   overflow: hidden;
 }
 
 .dark .ab-statbox-track {
-  background: rgba(var(--color-neutral-700), 0.7);
+  background: rgba(var(--color-primary-500), 0.22);
 }
 
 .ab-statbox-track > i {
   display: block;
   height: 100%;
   border-radius: 9999px;
-  background: rgba(var(--color-primary-500), 0.7);
+  background: rgb(var(--color-primary-600));
+}
+
+.dark .ab-statbox-track > i {
+  background: rgb(var(--color-primary-500));
 }
 
 .ab-statbox-num {
   flex: 0 0 auto;
+  min-width: 2.4rem;
+  margin-left: 0.5rem;
+  text-align: right;
   font-variant-numeric: tabular-nums;
   font-size: 0.8rem;
   color: rgba(var(--color-neutral-500), 1);
@@ -253,26 +363,177 @@
   color: rgba(var(--color-neutral-500), 1);
 }
 
-/* ---------- 脚注 ---------- */
+/* ---------- 表格视图 ---------- */
 
-.ab-statbox-foot {
-  margin-top: 1.25rem;
+.ab-tableview {
   padding-top: 0.9rem;
-  border-top: 1px solid rgba(var(--color-neutral-300), 0.6);
-  font-size: 0.75rem;
-  color: rgba(var(--color-neutral-500), 1);
+  border-top: 1px solid rgba(var(--color-neutral-300), 0.7);
 }
 
-.dark .ab-statbox-foot {
+.dark .ab-tableview {
   border-top-color: rgba(var(--color-neutral-700), 0.7);
 }
 
-.ab-statbox-foot a {
-  color: rgb(var(--color-primary-600));
-  text-decoration: underline;
-  text-underline-offset: 2px;
+.ab-tableview-summary {
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: rgba(var(--color-neutral-500), 1);
+  list-style: none;
 }
 
-.dark .ab-statbox-foot a {
-  color: rgb(var(--color-primary-400));
+.ab-tableview-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 自绘的小箭头：不依赖字体里有没有 ▸ 这个字形 */
+.ab-tableview-summary::before {
+  content: "";
+  display: inline-block;
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-right: 0.55rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+.ab-tableview[open] .ab-tableview-summary::before {
+  transform: rotate(45deg);
+}
+
+.ab-tableview-body {
+  max-height: 18rem;
+  margin-top: 0.75rem;
+  overflow: auto;
+}
+
+/* 主题里有一条全局的 table { display: block; overflow: auto }（防止长表格把
+   移动端版面撑破）。这里要的是真正的表格布局，得把它改回 table。 */
+.ab-table {
+  display: table;
+  width: 100%;
+  overflow: visible;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.ab-table th,
+.ab-table td {
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(var(--color-neutral-300), 0.6);
+}
+
+.dark .ab-table th,
+.dark .ab-table td {
+  border-bottom-color: rgba(var(--color-neutral-700), 0.6);
+}
+
+.ab-table th {
+  position: sticky;
+  top: 0;
+  font-weight: 600;
+  color: rgba(var(--color-neutral-500), 1);
+  background: rgba(var(--color-neutral-50), 0.95);
+}
+
+.dark .ab-table th {
+  background: rgba(var(--color-neutral-800), 0.95);
+}
+
+.ab-table .ab-table-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-tableview-empty {
+  font-size: 0.83rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+
+/* ---------- 悬浮提示 ---------- */
+
+.ab-tip {
+  position: absolute;
+  z-index: 20;
+  transform: translate(-50%, calc(-100% - 10px));
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.5rem;
+  background: rgba(var(--color-neutral-900), 0.94);
+  color: rgba(var(--color-neutral-50), 1);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.7);
+}
+
+.dark .ab-tip {
+  background: rgba(var(--color-neutral-700), 0.97);
+  border: 1px solid rgba(var(--color-neutral-600), 0.8);
+}
+
+.ab-tip[hidden] {
+  display: none;
+}
+
+/* 值在前、日期在后：读者已经知道看的是哪条，要的是那个数 */
+.ab-tip-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ab-tip-label {
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 重新取数时保留上一版画面 ---------- */
+
+.ab-statbox.is-loading .ab-kpis,
+.ab-statbox.is-loading .ab-chart-card,
+.ab-statbox.is-loading .ab-statbox-lists,
+.ab-statbox.is-loading .ab-tableview {
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+}
+
+/* ---------- 窄屏 ---------- */
+
+@media (max-width: 640px) {
+  .ab-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ab-kpi + .ab-kpi {
+    border-left: none;
+  }
+
+  .ab-kpi:nth-child(even) {
+    border-left: 1px solid rgba(var(--color-neutral-300), 0.7);
+  }
+
+  .ab-kpi:nth-child(n + 3) {
+    border-top: 1px solid rgba(var(--color-neutral-300), 0.7);
+  }
+
+  .dark .ab-kpi:nth-child(even) {
+    border-left-color: rgba(var(--color-neutral-700), 0.7);
+  }
+
+  .dark .ab-kpi:nth-child(n + 3) {
+    border-top-color: rgba(var(--color-neutral-700), 0.7);
+  }
+
+  .ab-chart-plot {
+    height: 6.5rem;
+  }
+
+  /* 窄屏上给名字留更多位置，进度条相应收窄 */
+  .ab-statbox-track {
+    flex: 0 1 5rem;
+  }
 }

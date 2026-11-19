@@ -3,29 +3,10 @@
 # 改这个文件就能更新关于页面（/about/），不用动模板。
 # 页面模板：layouts/about/list.html
 
-# ===== 基本资料 =====
-name: "ifindv"
-
-# 头像。填 assets/ 下的相对路径（如 img/avatar.jpg），会走 Hugo 资源管线
-avatar: "img/avatar.jpg"
-
-# 一句话身份，放在名字下面
-headline: "开发者 · 技术写作者"
-
-# 自我介绍，支持 Markdown
-bio: >
-  写代码、折腾工具、顺手记点笔记。
-  这里主要放技术文章、项目进展和一些不太成熟的想法。
-
-# 所在地，可留空
-location: "中国"
-
 # ===== 社交账号 =====
 #
 # icon 指向 assets/icons/<icon>.svg；主题自带的图标名也可以直接用
-# （github / x-twitter / youtube / instagram / telegram / email ...）
-#
-# 社交账号。icon 指向 assets/icons/<icon>.svg；主题自带的图标名也可以直接用
+# （github / x-twitter / youtube / instagram / email ...）
 links:
   - name: "GitHub"
     icon: "github"
@@ -69,16 +50,44 @@ projects:
     status: "持续更新"
     tags: ["Rust", "Tauri", "SSH", "SFTP"]
 
-# ===== 博客统计 =====
+# ===== 站点数据 =====
 #
 # 数字由模板按内容分区实时统计，key 对应 content/ 下的目录名。
-# 想加自定义统计项就在下面追加一行。
+# icon 是统计项前面的小图标，指向 assets/icons/<icon>.svg，
+# 也可以填主题自带的图标名。想加自定义统计项就在下面追加一行。
 stats:
   - label: "篇文章"
     key: "posts"
+    icon: "file-lines"
+
   - label: "本书"
     key: "books"
+    icon: "book-open"
+
   - label: "部影"
     key: "movies"
+    icon: "clapperboard"
+
   - label: "次旅行"
     key: "trips"
+    icon: "location-dot"
+
+# ===== 个人资料（暂未在页面上渲染）=====
+#
+# 顶部的资料卡已经从关于页面拿掉了，下面这份资料暂时没有出口，
+# 先留在这里；要加回资料卡的话，从 git 历史里取回模板片段即可。
+name: "ifindv"
+
+# 头像。填 assets/ 下的相对路径（如 img/avatar.jpg），会走 Hugo 资源管线
+avatar: "img/avatar.jpg"
+
+# 一句话身份，放在名字下面
+headline: "开发者 · 技术写作者"
+
+# 自我介绍，支持 Markdown
+bio: >
+  写代码、折腾工具、顺手记点笔记。
+  这里主要放技术文章、项目进展和一些不太成熟的想法。
+
+# 所在地，可留空
+location: "中国"

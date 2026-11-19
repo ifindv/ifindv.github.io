@@ -1,5 +1,5 @@
 {{- /*
-  站内统计面板。数据由 assets/js/umami-stats.js 异步填充，
+  站内访客统计面板。数据由 assets/js/umami-stats.js 异步填充，
   这里的结构只是骨架和挂载点。
 */ -}}
 {{- $u := . -}}
@@ -9,6 +9,7 @@
   data-slug="{{ $u.shareSlug }}"
   data-website-id="{{ $u.websiteId }}"
   data-api="{{ $u.apiBase }}">
+  {{/* 过滤器统一放在最上面的一行，作用范围是下面所有内容 */}}
   <div class="ab-statbox-bar">
     <span class="ab-statbox-state" data-role="state">正在加载统计数据…</span>
     <div class="ab-range" data-role="ranges">
@@ -18,24 +19,61 @@
     </div>
   </div>
 
-  <div class="ab-kpis" data-role="kpis"></div>
-
-  <div class="ab-chart" data-role="chart"></div>
-
-  <div class="ab-statbox-lists">
-    <div class="ab-statbox-list">
-      <h3 class="ab-statbox-list-title">热门页面</h3>
-      <ol class="ab-statbox-list-body" data-role="paths"></ol>
+  {{/* 关键指标：一行四个数字。首屏先放占位，数据到了再替换 */}}
+  <div class="ab-kpis" data-role="kpis">
+    <div class="ab-kpi">
+      <span class="ab-kpi-label">页面浏览</span>
+      <span class="ab-kpi-num is-pending">—</span>
     </div>
-    <div class="ab-statbox-list">
-      <h3 class="ab-statbox-list-title">访问来源</h3>
-      <ol class="ab-statbox-list-body" data-role="referrers"></ol>
+    <div class="ab-kpi">
+      <span class="ab-kpi-label">访客</span>
+      <span class="ab-kpi-num is-pending">—</span>
+    </div>
+    <div class="ab-kpi">
+      <span class="ab-kpi-label">会话</span>
+      <span class="ab-kpi-num is-pending">—</span>
+    </div>
+    <div class="ab-kpi">
+      <span class="ab-kpi-label">跳出率</span>
+      <span class="ab-kpi-num is-pending">—</span>
     </div>
   </div>
 
-  <p class="ab-statbox-foot">
-    数据来自 <a href="https://umami.is" target="_blank" rel="noopener noreferrer">Umami</a>，不存 Cookie、不做用户指纹。
-  </p>
+  {{/* 每日浏览量柱状图 */}}
+  <div class="ab-chart-card">
+    <div class="ab-chart-head">
+      <h3 class="ab-chart-title">每日页面浏览量</h3>
+      <span class="ab-chart-peak" data-role="peak"></span>
+    </div>
+    <div class="ab-chart" data-role="chart">
+      <p class="ab-chart-empty">正在加载统计数据…</p>
+    </div>
+  </div>
+
+  {{/* 两个榜单 */}}
+  <div class="ab-statbox-lists">
+    <div class="ab-statbox-list">
+      <h3 class="ab-statbox-list-title">热门页面</h3>
+      <ol class="ab-statbox-list-body" data-role="paths">
+        <li class="ab-statbox-empty">正在加载…</li>
+      </ol>
+    </div>
+    <div class="ab-statbox-list">
+      <h3 class="ab-statbox-list-title">访问来源</h3>
+      <ol class="ab-statbox-list-body" data-role="referrers">
+        <li class="ab-statbox-empty">正在加载…</li>
+      </ol>
+    </div>
+  </div>
+
+  {{/* 表格视图：图里能看到的每个数字，这里都能查到 */}}
+  <details class="ab-tableview">
+    <summary class="ab-tableview-summary">查看数据表</summary>
+    <div class="ab-tableview-body" data-role="table"></div>
+  </details>
+
+  {{/* 悬浮提示 */}}
+  <div class="ab-tip" data-role="tip" role="status" hidden></div>
 </div>
 
 {{- $js := resources.Get "js/umami-stats.js" -}}
