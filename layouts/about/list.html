@@ -7,7 +7,8 @@
 
   <article class="ab">
     <header class="ab-head">
-      <h1 class="ab-title">{{ .Title }}</h1>
+      {{/* 标题跟导航栏重复了，视觉上不显示，但保留给读屏和 SEO */}}
+      <h1 class="sr-only">{{ .Title }}</h1>
       {{ with .Params.description }}<p class="ab-subtitle">{{ . }}</p>{{ end }}
     </header>
 

@@ -13,8 +13,8 @@
 /* ---------- 页面标题 ---------- */
 
 .ab-head {
-  margin-bottom: 2.25rem;
-  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid rgba(var(--color-neutral-300), 0.7);
 }
 
@@ -22,20 +22,7 @@
   border-bottom-color: rgba(var(--color-neutral-700), 0.8);
 }
 
-.ab-title {
-  font-size: 2.25rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  color: rgba(var(--color-neutral-900), 1);
-}
-
-.dark .ab-title {
-  color: rgba(var(--color-neutral-100), 1);
-}
-
 .ab-subtitle {
-  margin-top: 0.4rem;
   font-size: 0.95rem;
   color: rgba(var(--color-neutral-500), 1);
 }
@@ -397,10 +384,6 @@
 /* ---------- 窄屏 ---------- */
 
 @media (max-width: 640px) {
-  .ab-title {
-    font-size: 1.8rem;
-  }
-
   .ab-links {
     grid-template-columns: 1fr;
   }
