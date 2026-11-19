@@ -240,8 +240,8 @@
       <span class="tm-kicker">{{ partial "termini/t.html" (dict "zh" "定价" "en" "Pricing") }}</span>
       <h2>{{ partial "termini/t.html" (dict "zh" "基础功能永久免费，Pro 由你自己决定" "en" "The core is free forever — Pro is your call") }}</h2>
       <p>{{ partial "termini/t.html" (dict
-        "zh" "不需要账号，不看广告，不绑定套餐。Pro 是应用内的可选订阅，由微软商店统一处理付款、试用与续订。"
-        "en" "No account, no ads, no forced bundle. Pro is an optional in-app subscription — billing, trials and renewals are handled by the Microsoft Store.") }}
+        "zh" "不需要账号，不看广告，不绑定套餐。Pro 是应用内的可选订阅，由微软商店统一处理付款与续订。"
+        "en" "No account, no ads, no forced bundle. Pro is an optional in-app subscription — billing and renewals are handled by the Microsoft Store.") }}
       </p>
     </div>
 
@@ -267,10 +267,7 @@
 
       <div class="tm-plan is-pro reveal" style="--d: 100ms">
         <div class="tm-plan-head">
-          <h3>
-            {{ partial "termini/t.html" (dict "zh" "Pro 订阅" "en" "Pro subscription") }}
-            <span class="tm-plan-tag">{{ partial "termini/t.html" (dict "zh" "月付 1 周免费试用" "en" "Monthly: 1-week free trial") }}</span>
-          </h3>
+          <h3>{{ partial "termini/t.html" (dict "zh" "Pro 订阅" "en" "Pro subscription") }}</h3>
           <span class="tm-plan-price"><b>$1.69</b> {{ partial "termini/t.html" (dict "zh" "/ 月起" "en" "/ month") }}</span>
         </div>
         <p class="tm-plan-sub">{{ partial "termini/t.html" (dict "zh" "在应用内通过微软商店购买，随时可取消" "en" "Bought inside the app via Microsoft Store — cancel any time") }}</p>
@@ -304,16 +301,16 @@
 
     <p class="tm-pricing-note reveal">
       {{ partial "termini/t.html" (dict
-        "zh" "以上为美元标价，实际价格以微软商店按地区与税费显示为准。试用（仅月付）、续订与退款都由商店处理，在商店里即可取消订阅。"
-        "en" "Prices are listed in US dollars; the Store shows the actual local price including tax. The trial (monthly plan only), renewals and refunds are handled by the Store, and the subscription can be cancelled there.") }}
+        "zh" "以上为美元标价，实际价格以微软商店按地区与税费显示为准。续订与退款都由商店处理，在商店里即可取消订阅。"
+        "en" "Prices are listed in US dollars; the Store shows the actual local price including tax. Renewals and refunds are handled by the Store, and the subscription can be cancelled there.") }}
     </p>
 
     <div class="tm-showcase reveal" style="margin-top: 3rem; border-top: 1px solid var(--tm-border);">
       <div class="tm-showcase-copy">
         <h3>{{ partial "termini/t.html" (dict "zh" "省心的付款与续订" "en" "Billing that stays out of the way") }}</h3>
         <p>{{ partial "termini/t.html" (dict
-          "zh" "订阅作为商店的附加组件售卖，付款、试用、续订都在商店内完成——不需要注册账号，也不会在应用里留下支付信息。"
-          "en" "The subscription is sold as a Store add-on: payment, trials and renewals all happen in the Store — no account to register, no payment details kept in the app.") }}
+          "zh" "订阅作为商店的附加组件售卖，付款与续订都在商店内完成——不需要注册账号，也不会在应用里留下支付信息。"
+          "en" "The subscription is sold as a Store add-on: payment and renewals both happen in the Store — no account to register, no payment details kept in the app.") }}
         </p>
         <ul class="tm-points">
           <li>{{ $check | safeHTML }}<span>{{ partial "termini/t.html" (dict "zh" "付款方式沿用商店里已有的方式" "en" "You pay the way you already pay in the Store") }}</span></li>
